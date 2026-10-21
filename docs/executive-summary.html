@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GEMSDOE76: audited fault-detection research, scientific prerequisites and explicit submission readiness.">
+<title>Submission instructions · GEMSDOE76</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html">GEMS<span>DOE76</span></a><nav aria-label="Main"><a href="index.html" >Overview</a><a href="executive-summary.html" aria-current="page" >How to submit</a><a href="research.html" >Research & review</a><a href="sources.html" >Sources</a></nav></header>
+<main id="main"><p class="eyebrow">EXECUTIVE SUMMARY</p><h1>How to make a competition submission</h1>
+<section class="notice"><h2>STOP: there is currently no file to upload.</h2><p>Do not submit the reference TIFFs, the JSON run card, or this webpage. No generated prediction has passed the required gates. This page is a future procedure, not approval.</p><a class="button secondary" href="downloads/run-card.json" download>Download the current negative decision</a></section>
+<h2>Before a file can be released</h2><ol class="steps">
+<li><strong>Establish inputs and lane.</strong> Resolve the parallel-run method assignment, place hash-pinned shared feature caches, authenticate sample/catalogue and data eligibility, and refresh the complete scoped raster registry.</li>
+<li><strong>Validate science.</strong> Run feature-alone leakage canaries, buffered whole-segment spatial hide-and-recover, and a frozen current-best comparator. Every catalogue feature must use visible faults only. Pool DTI components and report version, withheld positives and 95% confidence intervals.</li>
+<li><strong>Prove distinctness in the accessible scope.</strong> Check the surface before placement and the final dots. Stop if rank correlation exceeds 0.90 or forward dot overlap within 3 pixels exceeds 70% against any prior. Missing priors are not a clearance.</li>
+<li><strong>Package once, without silent repairs.</strong> Use the shared writer for single-band float32 GeoTIFF and, optionally, a ZIP containing only that TIFF. Predictions must already be finite and in [0,1]. Zero the exterior explicitly; mask visible catalogue pixels exactly. Verify CRS, shape and transform against the authenticated format.</li>
+<li><strong>Separate selection from generation.</strong> Require a documented holdout improvement against the current best and selector approval. Check current contest rules and the remaining weekly cap on the organizer’s submission page. No slot is authorized here.</li></ol>
+<h2>Only after a genuinely approved file is published</h2><ol class="steps">
+<li>Download the file explicitly marked as the approved prediction, not a reference or diagnostic. Compare its SHA256 against its adjacent receipt.</li>
+<li>Sign in to the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">official competition</a>, review eligibility/rules, then open its New submission form. Follow the current organizer instructions if they differ from this retained brief.</li>
+<li>Choose the approved single-band <code>.tif</code>, or its one-TIFF <code>.zip</code>, as “File to submit”. Do not upload a document.</li>
+<li>Copy the artifact’s unique submission name and its note of at most 140 characters from its receipt. There is no candidate name or note intended for upload in this negative run.</li>
+<li>Submit only after the selector approves the slot. Save the submission-page receipt and organizer result. Only then label a score ORGANIZER-CONFIRMED.</li></ol>
+<h2>Prevent the reported range error</h2><p>The offending file was not available, so its exact cause is unknown. We reject NaN, infinity, negative values, values above one and incompatible nodata rather than silently clipping them. We validate the serialized file—not just the array in memory.</p>
+<pre><code>.venv/bin/python scripts/validate_candidate.py /path/to/candidate.tif</code></pre>
+<p>A successful local validator is not organizer acceptance. The current bridged reference grid is EPSG:32611, 3730 × 3292, affine (100, 0, 243350, 0, −100, 4508550); these are technical measurements, not score evidence, and still need official-origin authentication.</p>
+<h2>Review the receipts</h2><p><a href="downloads/preflight.json">Preflight</a> · <a href="downloads/recovered-byte-manifest.json">Pinned sources and hashes</a> · <a href="research.html">Full review and limitations</a></p></main><footer><strong>Evidence before confidence.</strong> No organizer-confirmed result or weekly-slot approval.
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE76">Repository</a> · <a href="downloads/run-card.json">JSON run card</a></footer></body></html>

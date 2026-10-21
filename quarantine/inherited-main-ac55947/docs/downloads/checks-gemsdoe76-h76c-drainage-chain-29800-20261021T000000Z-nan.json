@@ -1,0 +1,44 @@
+{
+  "path": "docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.tif",
+  "sha256": "13e28cc11628231a3f5d90a81fe08d61f4ee81e6324ab8e335989d952c0dfdcf",
+  "bytes": 283866,
+  "meta": {
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "dtype": "float32",
+    "nodata": NaN
+  },
+  "footprint_px": 5167373,
+  "emitted_positive_pixels": 29800,
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_finite_pixels": 5167373,
+  "in_footprint_min": 0.0,
+  "in_footprint_max": 1.0,
+  "full_grid_finite_pixels": 5167373,
+  "outside_nan": 7111787,
+  "outside_zero": 0,
+  "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_zero_nan": true,
+    "in_footprint_zero_inf": true,
+    "in_footprint_zero_sentinel": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_compliant": true,
+    "zero_on_catalogue_leakage": true,
+    "validator_range_0_1_guaranteed": true
+  },
+  "all_checks_passed": true
+}

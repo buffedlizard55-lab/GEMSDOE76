@@ -1,0 +1,173 @@
+{
+ "schema": 1,
+ "sources": [
+  {
+   "id": "competition",
+   "title": "DOE GEMS Prize - overview",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/",
+   "role": "competition home",
+   "status": "verified 2026-10-04"
+  },
+  {
+   "id": "problem",
+   "title": "Problem description, metric and submission format (verbatim source of metric.py)",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/",
+   "role": "metric + format",
+   "status": "verified 2026-10-04 (fetched twice; worked example TP=3.00 FP=1.89 FN=2.00 -> 0.60 reproduced in tests)"
+  },
+  {
+   "id": "about",
+   "title": "About / additional resources",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/",
+   "role": "rules and resources",
+   "status": "listed (not fetched)"
+  },
+  {
+   "id": "data",
+   "title": "Data download page (login-walled)",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/data/",
+   "role": "competition data",
+   "status": "login required; not accessed from this repository"
+  },
+  {
+   "id": "leaderboard",
+   "title": "Public leaderboard",
+   "url": "https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/",
+   "role": "live score feed",
+   "status": "verified 2026-10-04: #1 nchuzhoy 0.3262, #2 DARD 0.3195, #3 alexoktaba 0.3042"
+  },
+  {
+   "id": "rules_pdf",
+   "title": "GEMS rules PDF (NLR document 96647)",
+   "url": "https://docs.nlr.gov/docs/fy26osti/96647.pdf",
+   "role": "competition rules",
+   "status": "mirrored in the group's repos with sha256 50d854b1e0239fe6... (GEMSDOE28 docs/data/feed.json)"
+  },
+  {
+   "id": "reference_solution",
+   "title": "Official reference solution (U-Net, John Lipor, Portland State)",
+   "url": "https://github.com/drivendataorg/gems-prize-reference-solution",
+   "role": "baseline model",
+   "status": "cloned 2026-10-04; architecture and TverskyLoss(0.2, 0.8) read from the notebook"
+  },
+  {
+   "id": "geodawn",
+   "title": "GeoDAWN airborne magnetic and radiometric surveys, NW Great Basin",
+   "url": "https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and",
+   "role": "source of the magnetic/radiometric bands",
+   "status": "listed"
+  },
+  {
+   "id": "sciencebase_area",
+   "title": "GeoDAWN study-area item",
+   "url": "https://www.sciencebase.gov/catalog/item/657e1d85d34e23d3533209f7",
+   "role": "survey extent",
+   "status": "listed"
+  },
+  {
+   "id": "gbcge",
+   "title": "Great Basin Center for Geothermal Energy - INGENIOUS project",
+   "url": "https://gbcge.org/current-projects/ingenious/",
+   "role": "source of the INGENIOUS fault catalogue",
+   "status": "listed"
+  },
+  {
+   "id": "mcre_srl",
+   "title": "Koehler et al. 2021, Field response and surface rupture of the 2020 M6.5 Monte Cristo Range earthquake, SRL 92(2A) 823-829",
+   "url": "https://doi.org/10.1785/0220200371",
+   "role": "H60-1 evidence: 28 km rupture on largely unmapped parts of the Candelaria fault",
+   "status": "verified 2026-10-04 via USGS Publications Warehouse record 70217872"
+  },
+  {
+   "id": "mcre_bssa",
+   "title": "Liu et al. 2021, Seismic and geodetic analysis of the 2020 Mw 6.5 MCRE, BSSA 111(6)",
+   "url": "https://doi.org/10.1785/0120200327",
+   "role": "H60-1 evidence: the causative faults had not been previously identified",
+   "status": "verified 2026-10-04"
+  },
+  {
+   "id": "mcre_nbmg",
+   "title": "NBMG Monte Cristo Range earthquake data (surface rupture maps)",
+   "url": "http://www.nbmg.unr.edu/Geohazards/Earthquakes/MonteCristoRangeEQData.html",
+   "role": "H60-1 vector source",
+   "status": "listed; not reachable from this sandbox (unknown host) - CI fetch step required"
+  },
+  {
+   "id": "mcre_reloc",
+   "title": "Ruhl et al. relocated Monte Cristo seismicity catalogue",
+   "url": "https://zenodo.org/records/5302368",
+   "role": "H60-1 corroboration (aftershock lineaments)",
+   "status": "listed"
+  },
+  {
+   "id": "usgs_qfaults",
+   "title": "USGS Quaternary Fault and Fold Database",
+   "url": "https://www.usgs.gov/natural-hazards/earthquake-hazards/faults",
+   "role": "the catalogue the competition labels come from",
+   "status": "listed"
+  },
+  {
+   "id": "nbmg_ingenious_rest",
+   "title": "NBMG Qfaults-INGENIOUS ArcGIS REST service (1,179 features in footprint)",
+   "url": "https://web2.nbmg.unr.edu/arcgis/rest/services/Qfaults/Qfaults_INGENIOUS/MapServer/0",
+   "role": "H60-2 newer catalogue",
+   "status": "verified by the group 2026-10-03 (docs/data/vector_faults_status.json, sha256 4d6efc7bb365...)"
+  },
+  {
+   "id": "gdr1391",
+   "title": "GDR submission 1391 - Nevada geothermal data",
+   "url": "https://gdr.openei.org/submissions/1391",
+   "role": "springs, wells, fault traces",
+   "status": "listed"
+  },
+  {
+   "id": "3dep",
+   "title": "USGS 3DEP / The National Map elevation (1 m DEM links given by the competition)",
+   "url": "https://apps.nationalmap.gov/downloader/",
+   "role": "H60-5 DEM source",
+   "status": "link table mirrored in the group's GEMSDOE repo (data/dem_links.json, sha256 8804dbff8754...)"
+  },
+  {
+   "id": "comcat",
+   "title": "USGS ANSS Comprehensive Earthquake Catalog (ComCat)",
+   "url": "https://earthquake.usgs.gov/fdsnws/event/1/",
+   "role": "seismicity lineaments (future arm)",
+   "status": "listed; not reachable from this sandbox"
+  },
+  {
+   "id": "nbmg_ingenious_service",
+   "title": "NBMG QFaults (INGENIOUS 6-27-2023) ArcGIS REST layer",
+   "url": "https://web2.nbmg.unr.edu/arcgis/rest/services/Qfaults/QFaults_INGENIOUS/MapServer/0",
+   "role": "authoritative newer fault vectors; NOT reachable from this sandbox (egress), fetched by the sibling repositories' GitHub runners",
+   "status": "listed, not fetched here"
+  },
+  {
+   "id": "gdr_qfaults_v2_raster",
+   "title": "GDR QFaults v2 traces rasterised to the competition grid (owner mirror, sha256-pinned)",
+   "url": "https://github.com/buffedlizard55-lab/GEMSDOE30/blob/main/data/external/derived_gdr_qfaults_v2_100m_u8.tif",
+   "role": "catalogue-difference audit: 59,065 px, of which only 1 lies beyond 300 m of the given catalogue",
+   "status": "verified locally 2026-10-04"
+  },
+  {
+   "id": "usgs_sgmc_raster",
+   "title": "USGS SGMC faults rasterised to the competition grid (owner mirror, sha256-pinned)",
+   "url": "https://github.com/buffedlizard55-lab/GEMSDOE30/blob/main/data/external/derived_sgmc_faults_100m_u8.tif",
+   "role": "off-catalogue fault population: 61,664 px beyond 300 m of the given catalogue (median 15 px)",
+   "status": "verified locally 2026-10-04"
+  },
+  {
+   "id": "gemsdoe25_site",
+   "title": "Owner site for the dotted H19-5 artifact (source of the 0.2600 owner claim and the H28 truth-model parameters)",
+   "url": "https://buffedlizard55-lab.github.io/GEMSDOE25/",
+   "role": "owner report / prior; every number taken from it is labelled a claim",
+   "status": "read 2026-10-04, sha256 of its download re-verified here"
+  },
+  {
+   "id": "sibling_repos",
+   "title": "Sibling experiment repositories GEMSDOE19/24/25/27/28/29/30/31/33",
+   "url": "https://github.com/buffedlizard55-lab",
+   "role": "prior experiments, mirrors and evidence; used as priors, never as verification",
+   "status": "listed"
+  }
+ ]
+}

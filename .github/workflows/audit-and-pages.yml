@@ -1,0 +1,74 @@
+name: Audit and publish
+
+on:
+  push:
+    branches: [main, arena/83bf8eca-gemsdoe76]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 7 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.lock
+      - name: Refresh public repository metadata (not scores or raster clearance)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/snapshot_sources.py
+      - name: Regression tests (synthetic, not holdout experiments)
+        run: pytest -q
+      - name: Assert current scientific preflight is blocked
+        shell: bash
+        run: |
+          set +e
+          python scripts/preflight.py
+          code=$?
+          set -e
+          test "$code" -eq 2
+      - name: Build and check negative-status site
+        run: |
+          python scripts/build_site.py
+          python scripts/check_site.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audit-evidence
+          path: |
+            evidence/preflight.json
+            evidence/source_inventory.json
+            docs/downloads/
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          path: docs
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: audit
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy audit website
+        id: deployment
+        uses: actions/deploy-pages@v4
