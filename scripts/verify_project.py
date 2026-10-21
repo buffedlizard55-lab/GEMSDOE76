@@ -39,8 +39,10 @@ if __name__=='__main__':
                  'Pass 2: regression tests; corrected repository-name mapping, affine dependency warning and compatibility commands.',
                  'Pass 3: integrated updated main, independently rejected synthetic candidates, checked preserved bytes and reran full suite.'],
              'results':results,
-             'scientific_experiments_run':0,'weekly_slots_used':0,
-             'unique_submission_generated':False,'safe_to_submit':False,
+             'scientific_experiments_run_in_this_verification':0,
+             'prior_G76_experiments_documented':2,
+             'unique_tiff_generated_in_prior_G76_run':True,
+             'weekly_slots_used':0,'safe_to_submit':False,
              'full_scientific_request_satisfied':False,
              'remaining_blockers':'Lane assignment, pinned cache array bytes, complete scoped raster registry, official authentication, matched baseline/canary/holdout evidence.',
              'warning':'Passing this verification does not satisfy missing scientific prerequisites or authorize a weekly slot.'}
@@ -49,5 +51,5 @@ if __name__=='__main__':
     # Publish the receipt only after its commands have really run.
     extra=run([python,'scripts/build_site.py'])
     final=run([python,'scripts/check_site.py'])
-    print(json.dumps({k:receipt[k] for k in ('all_checks_passed','unique_submission_generated','safe_to_submit','full_scientific_request_satisfied')},indent=2))
+    print(json.dumps({k:receipt[k] for k in ('all_checks_passed','scientific_experiments_run_in_this_verification','prior_G76_experiments_documented','unique_tiff_generated_in_prior_G76_run','safe_to_submit','full_scientific_request_satisfied')},indent=2))
     raise SystemExit(0 if receipt['all_checks_passed'] and extra['passed'] and final['passed'] else 1)

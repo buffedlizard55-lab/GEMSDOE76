@@ -2,12 +2,11 @@
 
 ## Decision
 
-Negative / blocked. This session has not generated a prediction TIFF or spent a competition slot.
-The main scientific goal is still unmet. Read reports/review.md and the single JSON run card.
+Negative / blocked. An earlier Lane G76 run generated a unique prediction TIFF but failed holdout promotion: it is preserved as evidence only and marked DO NOT SUBMIT. No competition slot was spent; there is still no approved competition submission. Read reports/review.md, `evidence/run_card.json`, and `docs/lane-g76.html` before continuing.
 
 ## Inputs and lane
 
-- Branch: arena/83bf8eca-gemsdoe76 (fixed; do not switch).
+- Branch: arena/06379ff6-gemsdoe76 (fixed for this active Arena session; do not switch).
 - Template tools: 60GEMSDOE b99591eede63c6d45c8a896255b8cd34824fa00b, unmodified.
 - Pinned public bridge sample/catalogue recovered; official origin unauthenticated.
 - Cached feature receipts recovered, array bytes absent.

@@ -197,10 +197,14 @@ SHA-256 <code>{art_sha}</code> · {v['bytes']:,} bytes · single-band float32 ·
 EPSG:32611 · 3730×3292 · all {v['n_finite']:,} cells finite in [0,1] (0 NaN) · {v['emitted_positive_pixels']:,} dots ·
 0 dots on the mapped catalogue. Format-valid by construction (shared fail-closed writer) —
 <strong>format validity is not score evidence</strong>.</p>
-<p>Per this repository's fail-closed site policy, no raster is served from the website. The artifact is
-preserved in the repository at <code>evidence/lane-g76b/</code>
+<p>The artifact is preserved in the repository at <code>evidence/lane-g76b/</code>
 (<a href="https://github.com/buffedlizard55-lab/GEMSDOE76/tree/main/evidence/lane-g76b">GitHub</a>)
-with its one-TIFF ZIP and writer receipt beside it — review only, <strong>do not submit</strong>.</p></div>
+and, under the merged downloadable-labeled-negative-candidate policy, is also served from the site at
+<a href="downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif">docs/downloads/</a> with its
+one-TIFF ZIP, writer/validator receipt
+(<a href="downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.json">receipt</a>) and
+<a href="downloads/run-card-g76b.json">candidate run card</a> — easy to download for review,
+<strong>do not submit</strong>.</p></div>
 
 <h2>Answering this session's question: why 0.2778 leads, and can we beat it?</h2>
 <div class=card>
@@ -304,8 +308,10 @@ for whenever a future candidate passes its pre-registered gates.</p></header>
 (SHA-256 <code>{art_sha[:32]}…</code>). It is format-valid (CRS/shape/transform match, all values
 finite in [0,1]) and unique vs the registry, but it <strong>failed its pre-registered holdout gate
 decisively</strong> — HOLDOUT-DTI {fmt(s['candidate_dots']['dti'])} vs fair-H33 {fmt(s['fair_h33']['dti'])},
-below random {fmt(s['random_dots']['dti'])} — so submitting it would waste a weekly slot. It exists for
-audit only, in <code>evidence/lane-g76b/</code>, not as a site download.</p></div>
+below random {fmt(s['random_dots']['dti'])} — so submitting it would waste a weekly slot. It is
+published as labeled negative evidence (download OK, submit NOT OK): preserved in
+<code>evidence/lane-g76b/</code> and served from
+<a href="downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif">docs/downloads/</a>.</p></div>
 
 <h2>How a submission would be made (when a candidate ever passes)</h2>
 <div class=card><ol>

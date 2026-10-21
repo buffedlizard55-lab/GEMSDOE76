@@ -1,7 +1,7 @@
 # GEMSDOE76 — audited fault-detection research
 
-> **Submission status: BLOCKED / NOT SAFE TO SUBMIT.**
-> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). A parallel Lane-G76 session (below) did generate one unique, validated prediction TIFF — it **failed its pre-registered holdout gate and is preserved only as negative evidence; do not submit it**. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
+> **Submission status: NOT SAFE TO SUBMIT.**
+> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). Two sessions have each published one unique, format-valid prediction TIFF as **labeled negative evidence** (each **OK to download, NOT OK to submit**; the site states this explicitly): the geophys-gate lane's `docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif` (SHA-256 `9810829f…`, HOLDOUT-DTI 0.0120 [0.0102, 0.0140] vs fair-H33 benchmark 0.0927) and the G76B patch-context lane's `docs/downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif` (SHA-256 `c7564697…`, HOLDOUT-DTI 0.0187 [0.0109, 0.0279] vs fair-H33 0.0961 — below random; uniqueness gates passed). Both failed their pre-registered gates; submitting either would waste a weekly slot. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
 
 **Start every session by reading this README, the retained project request below, [the review](reports/review.md), [the handoff](HANDOFF.md), and `project.json`.** Maximize P(Win) through reproducible evidence, and Own the Outcome by reporting blockers rather than manufacturing a file or score.
 
@@ -15,7 +15,8 @@
 - [Critical inherited-input audit](reports/inherited-main-audit.md) — simulated catalogue/footprint exposed; earlier download advice withdrawn.
 - [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md) — now including the session-2 G76B addendum.
 - [Why 0.2778 leads](docs/research/why-02778.md) — measured lineage audit, score algebra, credible routes (§5) and the G76B addendum (§6).
-- [Run card](docs/downloads/run-card.json) — blocked-status card; unavailable measurements are null, never zero-filled.
+- [Run card](docs/downloads/run-card.json) — negative-candidate card; unavailable measurements are null, never zero-filled.
+- [Downloadable negative candidate TIFFs, clearly labeled DO NOT SUBMIT](docs/downloads/) — two unique, format-valid, holdout-negative artifacts: the geophys-gate lane's `gems76-geophys-cataloguefree-rank-gate1-20261021.tif` and the G76B lane's `gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif` (each with one-TIFF ZIP and writer/validator receipt).
 - [Source inventory](evidence/source_inventory.json) — all 78 corresponding public repositories checked; not a full scientific or raster audit.
 - [Recovered-byte manifest](evidence/upstream/recovery.json) — immutable source URLs and SHA256.
 - [Preflight](evidence/preflight.json) and [verification receipt](evidence/verification.json).
@@ -55,8 +56,10 @@ C76-pied 0.02868 vs h33_ref 0.09448 — also below random; canaries clean (max 0
 reproduce external receipts exactly (d28 0.09192 = GEMSDOE70's 0.0919); uniqueness gates pass
 (worst mutual 0.0916 over 101 local registry rasters, worst |ρ| 0.2034)**. Verdict **negative**:
 diagnosis is mass concentration (top-5 20 km blocks hold 28.6% of dots vs H33's max 638/block)
-plus unstable cross-quadrant transfer (per-fold fitted-prob AUC 0.508–0.665). Artifact preserved
-DO-NOT-SUBMIT at `evidence/lane-g76b/` (SHA-256 `c7564697…`); run card
+plus unstable cross-quadrant transfer (per-fold fitted-prob AUC 0.508–0.665). Artifact published as
+labeled negative evidence — **OK to download, NOT OK to submit** — at `docs/downloads/`
+(`gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif`, SHA-256 `c7564697…`, candidate card
+`docs/downloads/run-card-g76b.json`) and preserved in `evidence/lane-g76b/`; run card
 `evidence/g76b_run_card.json`; site pages `docs/lane-g76b.html`,
 `docs/lane-g76b-executive-summary.html`; review addendum in `reports/review.md`; new
 irregularities IR-76-10…14 in `docs/irregularities.md`. Both hand-crafted feature routes
