@@ -1,7 +1,7 @@
 # GEMSDOE76 — audited fault-detection research
 
-> **Submission status: BLOCKED / NOT SAFE TO SUBMIT.**
-> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). A parallel Lane-G76 session (below) did generate one unique, validated prediction TIFF — it **failed its pre-registered holdout gate and is preserved only as negative evidence; do not submit it**. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
+> **Submission status: NOT SAFE TO SUBMIT.**
+> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). This session ran Experiment 1 (catalogue-free geophysical rank surface, no lane assigned — self-assignment is forbidden) and published one unique, format-valid prediction TIFF as **labeled negative evidence**: `docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif` (SHA-256 `9810829f…`, holdout DTI 0.0120 [0.0102, 0.0140] vs fair-H33 benchmark 0.0927 — negative). It is **OK to download, NOT OK to submit**; the site states this explicitly. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
 
 **Start every session by reading this README, the retained project request below, [the review](reports/review.md), [the handoff](HANDOFF.md), and `project.json`.** Maximize P(Win) through reproducible evidence, and Own the Outcome by reporting blockers rather than manufacturing a file or score.
 
@@ -12,6 +12,7 @@
 - [Critical inherited-input audit](reports/inherited-main-audit.md) — simulated catalogue/footprint exposed; earlier download advice withdrawn.
 - [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md)
 - [Run card](docs/downloads/run-card.json) — one negative run; unavailable measurements are null, never zero-filled.
+- [Downloadable negative candidate TIFF](docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif) — unique, format-valid, holdout-negative; labeled DO NOT SUBMIT in filename and on the site. Accompanying one-TIFF ZIP and writer/validator receipt share the same stem.
 - [Source inventory](evidence/source_inventory.json) — all 78 corresponding public repositories checked; not a full scientific or raster audit.
 - [Recovered-byte manifest](evidence/upstream/recovery.json) — immutable source URLs and SHA256.
 - [Preflight](evidence/preflight.json) and [verification receipt](evidence/verification.json).

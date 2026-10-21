@@ -1,0 +1,16 @@
+{
+  "evidence_class": "EMISSION-DECISION",
+  "n_dots": 27246,
+  "on_catalogue_px": 0,
+  "outside_footprint_px": 0,
+  "holdout_dti_binary": {
+    "tp": 0.0,
+    "fp": 27246.0,
+    "fn": 0.0,
+    "n_truth": 0,
+    "n_emitted": 27246,
+    "dti": 0.0,
+    "coverage": 0.0
+  },
+  "surrogate_dti": 2.1279513977176805
+}

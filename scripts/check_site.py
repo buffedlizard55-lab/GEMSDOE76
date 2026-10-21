@@ -40,11 +40,26 @@ def check_site(root=ROOT/'docs'):
         if 'Do not submit' not in text and 'Do not submit' not in text.capitalize():
             errors.append(f'{name} lacks explicit no-submit status')
     card=json.loads((root/'downloads/run-card.json').read_text())
-    if card['verdict']!='negative' or card['safe_to_submit'] or card['raster_sha256'] is not None:
-        errors.append('Blocked site card contradicts current decision')
-    if len(card['note'])>140:errors.append('Note exceeds 140 characters')
-    if any(p.suffix.lower() in ('.tif','.tiff','.zip') for p in root.rglob('*')):
-        errors.append('Unexpected raster/archive on blocked site')
+    # A labeled negative candidate may be published (download/submit status explicit on the page).
+    # A promoted/safe_to_submit candidate requires selector approval and is rejected here.
+    if card.get('verdict') == 'promote' or card.get('safe_to_submit') is True:
+        errors.append('Blocked site card contradicts current decision: promoted candidate published')
+    if card.get('safe_to_submit') is True:
+        errors.append('safe_to_submit published without selector approval')
+    if len(card.get('note',''))>140:errors.append('Note exceeds 140 characters')
+    # Any raster/archive in docs/downloads must be listed in run-card.json (paths stored with "docs/" prefix).
+    allowed = set()
+    for key in ('raster', 'raster_zip'):
+        v = card.get(key)
+        if v:
+            allowed.add(v)
+            if v.startswith('docs/'):
+                allowed.add(v[len('docs/'):])
+    for p in root.rglob('*'):
+        if p.suffix.lower() in ('.tif', '.tiff', '.zip'):
+            rel = str(p.relative_to(root.resolve()))
+            if rel not in allowed:
+                errors.append(f'Unexpected raster/archive on blocked site: {rel}')
     return errors
 
 

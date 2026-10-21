@@ -38,7 +38,15 @@ def test_current_preflight_blocks_without_fake_raster():
     assert report['experiments_run']==0 and report['weekly_slots_used']==0
     assert report['reference_grid']['status']=='pass-bridge-relative'
     assert all(row['matches'] for row in report['pinned_files'])
-    assert not list((ROOT/'docs/downloads').glob('*.tif'))
+    # A labeled negative candidate may be published so its download/submit
+    # status is obvious; nothing promoted or safe_to_submit may be published.
+    tifs = list((ROOT/'docs/downloads').glob('*.tif'))
+    card = json.loads((ROOT/'docs/downloads/run-card.json').read_text())
+    listed = {card.get('raster'), card.get('raster_zip')} - {None}
+    for tif in tifs:
+        assert str(tif.relative_to(ROOT)) in listed, str(tif)
+    assert card.get('verdict') != 'promote'
+    assert card.get('safe_to_submit') is not True
 
 
 def test_modified_pin_is_detected(tmp_path):
