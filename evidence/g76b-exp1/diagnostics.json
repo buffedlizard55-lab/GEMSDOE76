@@ -1,0 +1,14 @@
+{
+  "evidence_class": "DIAGNOSTIC-MEASUREMENT",
+  "candidate_dots": 28607,
+  "median_d_cat_px": 12.041594578792296,
+  "frac_dots_dcat_le_6px": 0.28419617576117734,
+  "frac_dots_dcat_gt_32px": 0.1739084839374978,
+  "h33_median_d_cat_px_reference": 19.6,
+  "blocks_20km_occupied_candidate": 104,
+  "blocks_20km_occupied_h33": 158,
+  "max_dots_per_block_candidate": 2249,
+  "max_dots_per_block_h33": 638,
+  "top5_block_share_candidate": 0.286433390428916,
+  "conclusion": "Concentration failure mode: the HGB head puts 28.6% of its dots in five 20 km blocks (H33: max 638/block, 158 blocks occupied). Concentrated-but-misplaced mass pays full FP against the recall-weighted DTI, matching the G76 post-mortem prediction. Per-quadrant fitted-prob canaries (0.658/0.508/0.654/0.637) show weak, unstable cross-quadrant transfer rather than inversion or leakage."
+}

@@ -1,7 +1,7 @@
 # GEMSDOE76 — audited fault-detection research
 
 > **Submission status: NOT SAFE TO SUBMIT.**
-> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). This session ran Experiment 1 (catalogue-free geophysical rank surface, no lane assigned — self-assignment is forbidden) and published one unique, format-valid prediction TIFF as **labeled negative evidence**: `docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif` (SHA-256 `9810829f…`, holdout DTI 0.0120 [0.0102, 0.0140] vs fair-H33 benchmark 0.0927 — negative). It is **OK to download, NOT OK to submit**; the site states this explicitly. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
+> No submission-ready TIFF exists in this repository and no weekly slot was used. Inherited synthetic candidates have been withdrawn; see [the critical audit](reports/inherited-main-audit.md). Two sessions have each published one unique, format-valid prediction TIFF as **labeled negative evidence** (each **OK to download, NOT OK to submit**; the site states this explicitly): the geophys-gate lane's `docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif` (SHA-256 `9810829f…`, HOLDOUT-DTI 0.0120 [0.0102, 0.0140] vs fair-H33 benchmark 0.0927) and the G76B patch-context lane's `docs/downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif` (SHA-256 `c7564697…`, HOLDOUT-DTI 0.0187 [0.0109, 0.0279] vs fair-H33 0.0961 — below random; uniqueness gates passed). Both failed their pre-registered gates; submitting either would waste a weekly slot. The public bridge TIFFs under `data/reference/` are inputs, not submissions. Do not upload them.
 
 **Start every session by reading this README, the retained project request below, [the review](reports/review.md), [the handoff](HANDOFF.md), and `project.json`.** Maximize P(Win) through reproducible evidence, and Own the Outcome by reporting blockers rather than manufacturing a file or score.
 
@@ -9,10 +9,14 @@
 
 - [Website](https://buffedlizard55-lab.github.io/GEMSDOE76/) — explicit submission-readiness status; Pages deployment depends on repository Pages configuration and successful workflow.
 - [Executive summary / submission instructions](docs/executive-summary.html)
+- [Lane G76B page (session 2)](docs/lane-g76b.html) and [its executive summary](docs/lane-g76b-executive-summary.html) — patch-context corroboration lane, verdict negative, artifact status obvious.
+- [Lane G76B run card](docs/lane-g76b-run-card.json) (`evidence/g76b_run_card.json`) — protocol rule-5 JSON.
+- [Lane G76 page (prior session)](docs/lane-g76.html) — piedmont scarp-dipole lane, negative.
 - [Critical inherited-input audit](reports/inherited-main-audit.md) — simulated catalogue/footprint exposed; earlier download advice withdrawn.
-- [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md)
-- [Run card](docs/downloads/run-card.json) — one negative run; unavailable measurements are null, never zero-filled.
-- [Downloadable negative candidate TIFF](docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif) — unique, format-valid, holdout-negative; labeled DO NOT SUBMIT in filename and on the site. Accompanying one-TIFF ZIP and writer/validator receipt share the same stem.
+- [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md) — now including the session-2 G76B addendum.
+- [Why 0.2778 leads](docs/research/why-02778.md) — measured lineage audit, score algebra, credible routes (§5) and the G76B addendum (§6).
+- [Run card](docs/downloads/run-card.json) — negative-candidate card; unavailable measurements are null, never zero-filled.
+- [Downloadable negative candidate TIFFs, clearly labeled DO NOT SUBMIT](docs/downloads/) — two unique, format-valid, holdout-negative artifacts: the geophys-gate lane's `gems76-geophys-cataloguefree-rank-gate1-20261021.tif` and the G76B lane's `gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif` (each with one-TIFF ZIP and writer/validator receipt).
 - [Source inventory](evidence/source_inventory.json) — all 78 corresponding public repositories checked; not a full scientific or raster audit.
 - [Recovered-byte manifest](evidence/upstream/recovery.json) — immutable source URLs and SHA256.
 - [Preflight](evidence/preflight.json) and [verification receipt](evidence/verification.json).
@@ -34,6 +38,35 @@ USER-REPORTED live scores (Spearman 0.16 / 0.33 / 0.52; `evidence/instrument_aud
 and documented why the 0.2778 incumbent leads (`docs/research/why-02778.md`) plus nine
 irregularities (`docs/irregularities.md`). These results do not change the blocked status
 above: **nothing in this repository is safe to submit.**
+
+## Lane G76B addendum (session 2, 2026-10-21) — second measured negative
+
+This session asked the prompt's standing question directly — *can a new unique lane beat the
+0.2778 USER-REPORTED incumbent?* — and answered it with a pre-registered experiment
+(`docs/preregistration-g76b.md`, five ranked hypotheses written before implementation).
+**Lane G76B "patch-context corroboration"**: four catalogue-free physics response families
+(LiDAR scarp dipole; magnetic edge with cross-scale `∇rtp`×`∇TMI_up150` agreement;
+de-regionalized gravity edge; radiometric `K/(Th+10)` alteration edge), each with directional
+persistence and 5×5 support density plus 21 px strain-belt regional context, feeding a
+fold-honest `HistGradientBoostingClassifier` (training pool excludes the tested quadrant);
+shared greedy 300 m max-cover emission; B=2 px collar; shared fail-closed writer.
+Result — **HOLDOUT-DTI (gems57-pooled-hide-v2, seed 20, n=11,321): candidate 0.01870
+[0.01089, 0.02788] vs fair-H33 0.09611 [0.08340, 0.10930] vs random 0.03407 — below random;
+C76-pied 0.02868 vs h33_ref 0.09448 — also below random; canaries clean (max 0.592); controls
+reproduce external receipts exactly (d28 0.09192 = GEMSDOE70's 0.0919); uniqueness gates pass
+(worst mutual 0.0916 over 101 local registry rasters, worst |ρ| 0.2034)**. Verdict **negative**:
+diagnosis is mass concentration (top-5 20 km blocks hold 28.6% of dots vs H33's max 638/block)
+plus unstable cross-quadrant transfer (per-fold fitted-prob AUC 0.508–0.665). Artifact published as
+labeled negative evidence — **OK to download, NOT OK to submit** — at `docs/downloads/`
+(`gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif`, SHA-256 `c7564697…`, candidate card
+`docs/downloads/run-card-g76b.json`) and preserved in `evidence/lane-g76b/`; run card
+`evidence/g76b_run_card.json`; site pages `docs/lane-g76b.html`,
+`docs/lane-g76b-executive-summary.html`; review addendum in `reports/review.md`; new
+irregularities IR-76-10…14 in `docs/irregularities.md`. Both hand-crafted feature routes
+(per-pixel and patch-context) are now measured negatives here; the credible routes above
+0.2778 remain a full-scale patch CNN/U-Net (organizer reference architecture, never run by any
+family lane), better selector calibration, or genuinely new data. **Status unchanged: blocked /
+nothing safe to submit / 0 weekly slots used.**
 
 ## Reproduce locally (CPU)
 

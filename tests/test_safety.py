@@ -35,18 +35,22 @@ def test_current_preflight_blocks_without_fake_raster():
     report=audit()
     assert report['status']=='blocked'
     assert not report['safe_to_submit'] and not report['downloadable_submission']
-    assert report['experiments_run']==0 and report['weekly_slots_used']==0
+    assert report['experiments_run']==3 and report['weekly_slots_used']==0  # two G76 + one G76B negative sessions
     assert report['reference_grid']['status']=='pass-bridge-relative'
     assert all(row['matches'] for row in report['pinned_files'])
     # A labeled negative candidate may be published so its download/submit
     # status is obvious; nothing promoted or safe_to_submit may be published.
     tifs = list((ROOT/'docs/downloads').glob('*.tif'))
-    card = json.loads((ROOT/'docs/downloads/run-card.json').read_text())
-    listed = {card.get('raster'), card.get('raster_zip')} - {None}
+    cards = [json.loads((ROOT/'docs/downloads/run-card.json').read_text())]
+    for extra in sorted((ROOT/'docs/downloads').glob('run-card-*.json')):
+        cards.append(json.loads(extra.read_text()))
+    listed = set()
+    for c in cards:
+        listed |= {c.get('raster'), c.get('raster_zip')} - {None}
+        assert c.get('verdict') != 'promote'
+        assert c.get('safe_to_submit') is not True
     for tif in tifs:
         assert str(tif.relative_to(ROOT)) in listed, str(tif)
-    assert card.get('verdict') != 'promote'
-    assert card.get('safe_to_submit') is not True
 
 
 def test_modified_pin_is_detected(tmp_path):
@@ -205,8 +209,12 @@ def test_site_serves_labeled_negative_candidate_with_explicit_status():
     assert 'No experiment executed.' not in overview
 
     # Nothing promoted or safe_to_submit may be published; every raster/archive
-    # in docs must be the labeled negative candidate listed in the run card.
+    # in docs must be a labeled negative candidate listed in a run card.
     listed = {run.get('raster'), run.get('raster_zip')} - {None}
+    for extra in sorted((ROOT/'docs/downloads').glob('run-card-*.json')):
+        c = json.loads(extra.read_text())
+        assert c.get('verdict') != 'promote' and c.get('safe_to_submit') is not True
+        listed |= {c.get('raster'), c.get('raster_zip')} - {None}
     for p in (ROOT/'docs').rglob('*'):
         if p.suffix.lower() in ('.tif', '.tiff', '.zip'):
             assert str(p.relative_to(ROOT)) in listed, str(p)

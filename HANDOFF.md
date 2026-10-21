@@ -69,3 +69,21 @@ only docs/, which contains no prediction TIFFs or archived claims.
 - New irregularities IR-76-01…09 in `docs/irregularities.md` (incl. empty incumbent ZIP,
   greedy-allocator early-stop defect reported for upstream template fix — vendor/ untouched).
 - Status unchanged: **blocked / nothing safe to submit / 0 weekly slots used.**
+
+---
+
+## Addendum 2026-10-21 (later session, branch arena/7d0205bb-gemsdoe76) — Lane G76B, second negative
+
+- Session 2 pre-registered and ran **Lane G76B "patch-context corroboration"** (README addendum
+  and `reports/review.md` session-2 addendum): HOLDOUT-DTI 0.01870 [0.01089, 0.02788] vs
+  fair-H33 0.09611 and random 0.03407 — below random on Instrument A *and* C76-pied. Verdict
+  negative; DO-NOT-SUBMIT artifact in `evidence/lane-g76b/` (SHA-256 c7564697…); run card
+  `evidence/g76b_run_card.json`; site pages `docs/lane-g76b.html` / `docs/lane-g76b-executive-summary.html`.
+- Data placement re-solved where GitHub is reachable: 13/13 pinned files restored
+  (`scripts/restore_data.py`), 76 scored registry rasters hash-verified
+  (`scripts/fetch_registry.py`), GEMSDOE70/77 artifacts held locally for uniqueness audits.
+- Reproduction cross-checks this session: d28_reference 0.09192 matches GEMSDOE70-P8's receipt
+  0.0919 on the same evaluator; B′ p8_ref 0.12891 ≈ G70's 0.1311.
+- New irregularities IR-76-10…14 (`docs/irregularities.md`), incl. the disclosed static-collar
+  handicap on Instrument A (IR-76-12) and registry-coverage limits (IR-76-14).
+- Status unchanged: **blocked / nothing safe to submit / 0 weekly slots used.**

@@ -31,7 +31,15 @@ def audit(root=ROOT):
         blockers.append('No current complete scoped raster inventory; repository metadata is not a uniqueness clearance.')
     else:
         blockers.append('Registry manifest placed but not yet audited against surface and final dots.')
-    blockers.append('No locally reproduced current-best baseline, feature-alone canaries, or candidate holdout comparison.')
+    baseline_ev=[root/'evidence/instrument_audit.json',
+                 root/'evidence/exp1/holdout_A.json',
+                 root/'evidence/exp2/holdout_A.json',
+                 root/'evidence/g76b-exp1/holdout_A.json',
+                 root/'evidence/g76b-exp1/canaries.json']
+    if all(p.is_file() for p in baseline_ev):
+        blockers.append('Holdout baselines, canaries and candidate comparisons exist (G76/G76B negative sessions; d28 control reproduces the external receipt exactly) but no candidate has passed its pre-registered promotion gate.')
+    else:
+        blockers.append('No locally reproduced current-best baseline, feature-alone canaries, or candidate holdout comparison.')
     sample=root/'data/reference/example_submission.tif'
     catalogue=root/'data/reference/existing_faults.tif'
     grid_check={'status':'not-run'}
@@ -48,9 +56,11 @@ def audit(root=ROOT):
                         'official_origin_authenticated':False}
     else:
         blockers.append('Reference bridge files are missing.')
+    n_exp=sum(1 for m in ['evidence/exp1/manifest.json','evidence/exp2/manifest.json',
+                          'evidence/g76b-exp1/manifest.json'] if (root/m).is_file())
     return {'generated_utc':dt.datetime.now(dt.timezone.utc).isoformat(),
             'status':'blocked', 'downloadable_submission':False,'safe_to_submit':False,
-            'experiments_run':0,'weekly_slots_used':0,
+            'experiments_run':n_exp,'weekly_slots_used':0,
             'blockers':blockers,'pinned_files':pins,'template_cache':cache,
             'reference_grid':grid_check,
             'external_access':'Only GitHub and package registries reachable; DrivenData, USGS, NLR, GDR and Dropbox unavailable here.'}

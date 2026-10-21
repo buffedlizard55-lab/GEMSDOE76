@@ -42,6 +42,13 @@ def page(title, body, active=""):
 <a href=\"https://github.com/buffedlizard55-lab/GEMSDOE76\">Repository</a> · <a href=\"downloads/run-card.json\">JSON run card</a></footer></body></html>'''
 
 
+# Primary negative candidate (geophys-gate lane) plus any additional labeled
+# negative candidates published by later lanes. Each entry is (stem, card file).
+EXTRA_NEGATIVE_CANDIDATES = [
+    ("gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT", "run-card-g76b.json"),
+]
+
+
 def _candidate_state():
     """Return (state, card); state in {None, 'negative', 'promote'}."""
     card_path = DOWNLOADS / "run-card.json"
@@ -54,10 +61,30 @@ def _candidate_state():
     return "negative", card
 
 
+def _extra_negative_candidates():
+    """Additional labeled negative candidates with card+tif present (never promoted)."""
+    out = []
+    for stem, card_name in EXTRA_NEGATIVE_CANDIDATES:
+        card_path = DOWNLOADS / card_name
+        tif = DOWNLOADS / f"{stem}.tif"
+        if not card_path.is_file() or not tif.is_file():
+            continue
+        card = read_json(card_path)
+        if card.get("verdict") == "promote" or card.get("safe_to_submit") is True:
+            raise ValueError(f"Refusing extra candidate in promote state: {stem}")
+        out.append(card)
+    return out
+
+
 def _check_no_unlisted_rasters():
-    """Fail closed: any raster/archive in docs/downloads must be listed in run-card.json."""
-    card = read_json(DOWNLOADS / "run-card.json") if (DOWNLOADS / "run-card.json").is_file() else {}
-    allowed = {a for a in (card.get("raster"), card.get("raster_zip")) if a}
+    """Fail closed: any raster/archive in docs/downloads must be listed in a run card."""
+    cards = []
+    for name in ["run-card.json"] + [c for _, c in EXTRA_NEGATIVE_CANDIDATES]:
+        if (DOWNLOADS / name).is_file():
+            cards.append(read_json(DOWNLOADS / name))
+    allowed = set()
+    for card in cards:
+        allowed |= {a for a in (card.get("raster"), card.get("raster_zip")) if a}
     for p in DOWNLOADS.rglob("*"):
         if p.suffix.lower() in (".tif", ".tiff", ".zip"):
             rel = str(p.relative_to(ROOT))
@@ -89,7 +116,7 @@ def run_card(preflight):
         "note": "Negative preflight: lane, cached arrays, current raster registry and matched holdout evidence missing. Do not submit.",
         "verdict": "negative", "safe_to_submit": False, "downloadable_submission": False,
         "downloadable_is_approved": False,
-        "experiments_run": 0, "weekly_slots_used": 0, "selector_approved": False,
+        "experiments_run": preflight["experiments_run"], "weekly_slots_used": 0, "selector_approved": False,
         "inherited_candidates": "withdrawn: simulated inputs; original evidence preserved in quarantine",
         "blockers": preflight["blockers"]}
 
@@ -171,13 +198,36 @@ def build():
                 shutil.copyfile(exp_dir / name, DOWNLOADS / name)
 
     esc = _esc
+    extras = _extra_negative_candidates()
+    _extra_blocks = ""
+    if state == "negative":
+        for xcard in extras:
+            xreceipt = None
+            xrec_path = DOWNLOADS / f"{xcard['submission_name']}.json"
+            if xrec_path.is_file():
+                xreceipt = read_json(xrec_path)
+            _xh = xcard["holdout"]
+            _extra_blocks += (_download_block(xcard, xreceipt)
+                              + f'<p><strong>HOLDOUT-DTI</strong> (evaluator {esc(_xh["evaluator_version"])}, '
+                                f'{_xh["withheld_positive_pixels"]:,} withheld positives): '
+                                f'<strong>{_xh["dti"]:.4f}</strong> 95% CI '
+                                f'[{_xh["ci95"][0]:.4f}, {_xh["ci95"][1]:.4f}] vs fair-H33 control '
+                                f'{_xh.get("fair_h33_control_dti", 0.0961):.4f} and random '
+                                f'{_xh.get("random_dots_control_dti", 0.0341):.4f} — below random. '
+                                'Uniqueness gates passed (worst mutual overlap '
+                                f'{xcard["uniqueness"]["worst_mutual_overlap"]:.3f} &le; 0.70, worst |rho| '
+                                f'{xcard["uniqueness"]["worst_abs_surface_rho"]:.3f} &le; 0.90).</p>'
+                              + '<p class="fine">Lane page: <a href="lane-g76b.html">'
+                                'G76B patch-context corroboration — full receipts, hypotheses and diagnosis</a>.</p>')
     if state == "negative":
         h = card["holdout"]
         overview = f'''
 <section class="hero"><p class="eyebrow">GEOLOGICAL FAULT DETECTION · AUDIT-FIRST RESEARCH</p>
-<h1>A submission file exists. It is <strong>not OK to submit</strong>.</h1>
-<p class="lede">A unique, format-valid prediction TIFF has been generated and validated, but its holdout result is
-negative. This page states the download/submit status explicitly.</p></section>
+<h1>Prediction files exist. None is OK to submit.</h1>
+<p class="lede">{len(extras) + 1 if state == "negative" else 1} unique, format-valid prediction TIFFs have been
+generated and validated by separate lanes; every one has a negative holdout result. It is
+<strong>not OK to submit</strong> any of them. This page states the download/submit status of each
+explicitly.</p></section>
 <section class="notice" aria-labelledby="status"><p class="eyebrow">CURRENT DECISION · DO NOT SUBMIT</p>
 <h2 id="status">Status: {esc(card['verdict'].upper())} — negative holdout evidence</h2>
 <p><strong>Do not submit</strong> this raster to the competition; it uses no weekly slot.
@@ -186,7 +236,7 @@ Holdout DTI <strong>{h['dti']:.4f} 95% CI [{h['ci95'][0]:.4f}, {h['ci95'][1]:.4f
 (evaluator {esc(h['evaluator_version'])}, alpha 0.2 / beta 0.8, 300 m triangular kernel,
 {h['withheld_positive_pixels']} withheld positives) is below the fair-H33 benchmark 0.0927 (user-reported context,
 no organizer receipt) and below random dots (0.0458).</p>
-{_download_block(card, receipt)}
+{_download_block(card, receipt)}{_extra_blocks}
 <p class="fine">Every number on this page is HOLDOUT-DTI or explicitly labeled USER-REPORTED. No projection is
 written as a score. ORGANIZER-CONFIRMED requires an authenticated submission-page receipt; none exists.</p></section>
 <section><h2>What would flip this to OK TO SUBMIT</h2>
@@ -220,6 +270,15 @@ forward dot overlap within 3 px &le; 70% vs every prior).</li>
 
     (DOCS / 'index.html').write_text(page('Submission readiness', overview, 'index.html'))
 
+    extra_exec = ""
+    for xcard in extras:
+        extra_exec += ('<p><strong>Additional negative candidate (also DO NOT SUBMIT):</strong> '
+                       '<a href="downloads/' + xcard['submission_name'] + '.tif" download>'
+                       + xcard['submission_name'] + '.tif</a> &middot; SHA-256 <code>'
+                       + xcard['raster_sha256'] + '</code> &middot; HOLDOUT-DTI '
+                       + f"{xcard['holdout']['dti']:.4f} [{xcard['holdout']['ci95'][0]:.4f}, "
+                       + f"{xcard['holdout']['ci95'][1]:.4f}]"
+                       + ' &middot; <a href="lane-g76b.html">lane page</a></p>')
     if state == "negative":
         exec_note = (esc(card['note']) + f"  SHA-256 {esc(card['raster_sha256'])}.")[:140]
         executive = f'''<p class="eyebrow">EXECUTIVE SUMMARY</p><h1>How to make a competition submission</h1>
@@ -233,6 +292,7 @@ uploading it to the competition would waste a weekly slot on a known-negative ca
  · <strong>One-TIFF ZIP:</strong> <a href="downloads/{card['submission_name']}.zip" download>download</a>
  · <strong>Note ({card['note_chars']}/140 chars):</strong> {exec_note}
  · <strong>Verdict:</strong> {card['verdict']}</p>
+{extra_exec}
 <p class="fine">This prevents the historical portal error "Predicted values must be in range [0, 1]": the raster is
 all-finite, serialized without clipping, and validated on disk before release. Local validation is not organizer acceptance.</p></section>
 <h2>Release sequence (once a candidate passes all gates)</h2>
