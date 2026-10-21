@@ -1,0 +1,579 @@
+{
+  "n_withheld_positives_tested": 11321,
+  "n_off_fault_negatives_tested": 45284,
+  "threshold_symmetric_auc": 0.9,
+  "max_symmetric_auc": 0.77222,
+  "top_feature": "vis_ray_collinear_short",
+  "n_features_tested": 63,
+  "n_violations": 0,
+  "all_passed": true,
+  "features_ranked": [
+    {
+      "feature_index": 54,
+      "feature": "vis_ray_collinear_short",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.77222,
+      "symmetric_auc": 0.77222,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 58,
+      "feature": "vis_strike_corridor",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.77122,
+      "symmetric_auc": 0.77122,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 55,
+      "feature": "vis_ray_collinear_long",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.76564,
+      "symmetric_auc": 0.76564,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 59,
+      "feature": "vis_dist_capped",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.25509,
+      "symmetric_auc": 0.74491,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 57,
+      "feature": "vis_relay_bridge",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.72806,
+      "symmetric_auc": 0.72806,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 56,
+      "feature": "vis_wingcrack_splay",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.72516,
+      "symmetric_auc": 0.72516,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 61,
+      "feature": "vis_completeness_deficit",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.31403,
+      "symmetric_auc": 0.68597,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 60,
+      "feature": "vis_host_len_transfer",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.6846,
+      "symmetric_auc": 0.6846,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 9,
+      "feature": "t10_aspect_planar",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.59381,
+      "symmetric_auc": 0.59381,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 1,
+      "feature": "lid_dipole",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.58925,
+      "symmetric_auc": 0.58925,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 8,
+      "feature": "t10_piedmont_break",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.58432,
+      "symmetric_auc": 0.58432,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 0,
+      "feature": "lid_piedmont_step",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.58186,
+      "symmetric_auc": 0.58186,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 11,
+      "feature": "t10_worm_1500m",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.58152,
+      "symmetric_auc": 0.58152,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 19,
+      "feature": "det_slope_worm_1500m",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.57593,
+      "symmetric_auc": 0.57593,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 17,
+      "feature": "det_elev_hp9",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.42771,
+      "symmetric_auc": 0.57229,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 12,
+      "feature": "t10_relief_norm",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.5682,
+      "symmetric_auc": 0.5682,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 7,
+      "feature": "open1m_dipole_lrm",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.56765,
+      "symmetric_auc": 0.56765,
+      "finite_fraction": 0.01692,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 2,
+      "feature": "lid_tect_vs_fluv",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.56712,
+      "symmetric_auc": 0.56712,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 3,
+      "feature": "lid_antislope",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.56541,
+      "symmetric_auc": 0.56541,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 6,
+      "feature": "lid_worm_1100m",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.55515,
+      "symmetric_auc": 0.55515,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 46,
+      "feature": "dbase_grad_norm",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.53943,
+      "symmetric_auc": 0.53943,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 4,
+      "feature": "lid_step_anom11",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.5358,
+      "symmetric_auc": 0.5358,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 16,
+      "feature": "lahontan_shoreline_idx",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.46423,
+      "symmetric_auc": 0.53577,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 14,
+      "feature": "chi_ksn_anom",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.46846,
+      "symmetric_auc": 0.53154,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 34,
+      "feature": "sb_heatflow_resid",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.47109,
+      "symmetric_auc": 0.52891,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 49,
+      "feature": "grav_hp8",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.52849,
+      "symmetric_auc": 0.52849,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 27,
+      "feature": "rad_sinter_leach_edge",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.5282,
+      "symmetric_auc": 0.5282,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 10,
+      "feature": "t10_slope_local_anom",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.52655,
+      "symmetric_auc": 0.52655,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 15,
+      "feature": "chi_interfluve_scarp",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.52529,
+      "symmetric_auc": 0.52529,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 44,
+      "feature": "crossgrad_parallel",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.52466,
+      "symmetric_auc": 0.52466,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 62,
+      "feature": "vis_stress_tendency",
+      "group": "fold_visible_mechanics",
+      "roc_auc": 0.47602,
+      "symmetric_auc": 0.52398,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 35,
+      "feature": "sb_heatflow_x_edge",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.4775,
+      "symmetric_auc": 0.5225,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 45,
+      "feature": "crossgrad_ortho",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.52236,
+      "symmetric_auc": 0.52236,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 13,
+      "feature": "chi_knick_raised",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.48058,
+      "symmetric_auc": 0.51942,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 37,
+      "feature": "geotherm_multiline_idx",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.4817,
+      "symmetric_auc": 0.5183,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 47,
+      "feature": "dbase_curv_horst",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.48189,
+      "symmetric_auc": 0.51811,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 23,
+      "feature": "mt_cond_raw",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.48547,
+      "symmetric_auc": 0.51453,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 30,
+      "feature": "rad_u_th_grad",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.51416,
+      "symmetric_auc": 0.51416,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 40,
+      "feature": "verduzco_mag_tilt_edge",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.51329,
+      "symmetric_auc": 0.51329,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 53,
+      "feature": "seismic_micro_line",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.51267,
+      "symmetric_auc": 0.51267,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 32,
+      "feature": "gdr_vent_aniso_far",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.48774,
+      "symmetric_auc": 0.51226,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 48,
+      "feature": "dbase_log",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.51221,
+      "symmetric_auc": 0.51221,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 28,
+      "feature": "rad_worm_tc_1500m",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.48808,
+      "symmetric_auc": 0.51192,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 51,
+      "feature": "mag_hg_log",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.51142,
+      "symmetric_auc": 0.51142,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 21,
+      "feature": "mt_cond_grad_hp",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.51127,
+      "symmetric_auc": 0.51127,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 5,
+      "feature": "lid_coh100",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.48949,
+      "symmetric_auc": 0.51051,
+      "finite_fraction": 0.79136,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 52,
+      "feature": "strain_transtension",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.51025,
+      "symmetric_auc": 0.51025,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 38,
+      "feature": "verduzco_grav_tilt_edge",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.50826,
+      "symmetric_auc": 0.50826,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 50,
+      "feature": "grav_slope_raw",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.49196,
+      "symmetric_auc": 0.50804,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 24,
+      "feature": "hydro_demag_trough",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.50687,
+      "symmetric_auc": 0.50687,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 43,
+      "feature": "worm_mag_1500m",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.50636,
+      "symmetric_auc": 0.50636,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 25,
+      "feature": "hydro_shallow_demag_u150",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.49475,
+      "symmetric_auc": 0.50525,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 33,
+      "feature": "gdr_vent_x_subsurf_edge",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.50368,
+      "symmetric_auc": 0.50368,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 41,
+      "feature": "verduzco_mag_worm_2000m",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.50354,
+      "symmetric_auc": 0.50354,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 18,
+      "feature": "det_slope_local_ratio",
+      "group": "scarp_geomorph",
+      "roc_auc": 0.50277,
+      "symmetric_auc": 0.50277,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 42,
+      "feature": "worm_grav_1500m",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.49729,
+      "symmetric_auc": 0.50271,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 20,
+      "feature": "mt_clay_cap_feeder",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.4974,
+      "symmetric_auc": 0.5026,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 36,
+      "feature": "volc_vent_conduit",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.49758,
+      "symmetric_auc": 0.50242,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 31,
+      "feature": "gdr_vent_aniso_near",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.50232,
+      "symmetric_auc": 0.50232,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 39,
+      "feature": "verduzco_grav_worm_2000m",
+      "group": "subsurface_tilt_strain",
+      "roc_auc": 0.49964,
+      "symmetric_auc": 0.50036,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 26,
+      "feature": "rad_tc_grad_f32",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.50035,
+      "symmetric_auc": 0.50035,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 22,
+      "feature": "mt_cond_worm_1500m",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.49996,
+      "symmetric_auc": 0.50004,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    },
+    {
+      "feature_index": 29,
+      "feature": "rad_k_th_alteration",
+      "group": "geothermal_vent_mt_rad",
+      "roc_auc": 0.50004,
+      "symmetric_auc": 0.50004,
+      "finite_fraction": 1.0,
+      "status": "PASS"
+    }
+  ]
+}

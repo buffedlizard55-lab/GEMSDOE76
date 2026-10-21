@@ -1,0 +1,96 @@
+{
+  "exact_identity_h33_eq_d28_and_dcat_gt_2": true,
+  "bitwise_xor_pixels": 0,
+  "dots_removed_inside_2px_collar": 6436,
+  "tw_removed_inside_2px_collar": 47871.7,
+  "live_dti_gain_from_collar_alone": 0.0178,
+  "collinearity_pearson_r_invS_vs_invTW": 0.999063,
+  "implied_beta_FN_denominator_CG_zero_TP_collar": 48192.0,
+  "implied_public_chunk_fault_pixels_K_pub": 60240.1,
+  "required_precision_h_at_TW_380k": {
+    "to_beat_0_2778_H33": 0.1168,
+    "to_beat_0_3195_target": 0.1406,
+    "to_beat_0_3811_top3": 0.1792,
+    "to_match_0_4413_top1": 0.2229
+  },
+  "ladder_rows": [
+    {
+      "label": "H19.5 (19GEMSDOE)",
+      "sha256": "ef2ae808eb7179861b9f1ff753fd3ded625ace7b7c158e29cec45bbd8fa3cfaa",
+      "live_score_organizer_confirmed": 0.1922,
+      "n_dots": 121131,
+      "tw_kernel_mass": 461892.3,
+      "min_d_cat_px": 1.0,
+      "frac_le_2px": 0.14304,
+      "inv_score": 5.20291,
+      "inv_tw": 2.17e-06,
+      "implied_tp_mass": 31926.7,
+      "implied_precision_h": 0.06912
+    },
+    {
+      "label": "D1.5 (GEMSDOE24)",
+      "sha256": "3e0730e8d4f7db095dd80246a98cba3bc0fc9a28f436b91db27ca34df4d0d1ce",
+      "live_score_organizer_confirmed": 0.2477,
+      "n_dots": 60069,
+      "tw_kernel_mass": 394278.6,
+      "min_d_cat_px": 1.0,
+      "frac_le_2px": 0.14598,
+      "inv_score": 4.03714,
+      "inv_tw": 2.54e-06,
+      "implied_tp_mass": 39246.9,
+      "implied_precision_h": 0.09954
+    },
+    {
+      "label": "D2.8 (GEMSDOE25)",
+      "sha256": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+      "live_score_organizer_confirmed": 0.26,
+      "n_dots": 44090,
+      "tw_kernel_mass": 350759.8,
+      "min_d_cat_px": 1.0,
+      "frac_le_2px": 0.14597,
+      "inv_score": 3.84615,
+      "inv_tw": 2.85e-06,
+      "implied_tp_mass": 38850.3,
+      "implied_precision_h": 0.11076
+    },
+    {
+      "label": "H27-4 (GEMSDOE28)",
+      "sha256": "2fc94a38d77f74d4f4ed1a97a83e7bb71a1ceea090515ec641e6681cc47c44c8",
+      "live_score_organizer_confirmed": 0.2708,
+      "n_dots": 40199,
+      "tw_kernel_mass": 322565.0,
+      "min_d_cat_px": 1.414,
+      "frac_le_2px": 0.06331,
+      "inv_score": 3.69276,
+      "inv_tw": 3.1e-06,
+      "implied_tp_mass": 38961.0,
+      "implied_precision_h": 0.12079
+    },
+    {
+      "label": "G36 (GEMSDOE36)",
+      "sha256": "e15891020b9c57056ac7fa874a5e506fbd6ed9314a4ea8e73af0753887a3708a",
+      "live_score_organizer_confirmed": 0.275,
+      "n_dots": 38854,
+      "tw_kernel_mass": 311694.2,
+      "min_d_cat_px": 2.236,
+      "frac_le_2px": 0.0,
+      "inv_score": 3.63636,
+      "inv_tw": 3.21e-06,
+      "implied_tp_mass": 38969.2,
+      "implied_precision_h": 0.12502
+    },
+    {
+      "label": "H33 (GEMSDOE32)",
+      "sha256": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+      "live_score_organizer_confirmed": 0.2778,
+      "n_dots": 37654,
+      "tw_kernel_mass": 302888.1,
+      "min_d_cat_px": 2.236,
+      "frac_le_2px": 0.0,
+      "inv_score": 3.59971,
+      "inv_tw": 3.3e-06,
+      "implied_tp_mass": 38850.3,
+      "implied_precision_h": 0.12827
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+# Preregistration Protocol — Lane `H76` (`GEMSDOE76`)
+
+- **Repository / Branch**: `buffedlizard55-lab/GEMSDOE76` (`arena/a59416de-gemsdoe76`)
+- **Preregistration Timestamp**: `2026-10-21` (written and frozen prior to running any model training or holdout evaluation)
+- **Shared Evaluator Lock**: `gems57-pooled-hide-v2`
+  - `evaluate_holdout.py`: `ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a`
+  - `holdout.py`: `7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1`
+  - `metric.py`: `4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f`
+  - `spatial.py`: `fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8`
+
+---
+
+## 1. Explicit Resolution of Prompt Irregularity (`IR-76-001`)
+
+The parallel-run dispatch prompt states:
+> `1. YOUR LANE. You are the only run working on:`  
+> `[single method paragraph below]`
+
+Across sibling repositories (`GEMSDOE73`–`GEMSDOE78`), that placeholder line was left blank in the dispatch template while the scientific body of the prompt explicitly specifies:
+1. Investigating and surpassing `h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros` (`0.2778` `ORGANIZER-CONFIRMED`),
+2. Exploiting **geothermal vents / blind hydrothermal-structural upflow conduits** alongside multi-physics and micro-topographic evidence, and
+3. Proposing and ranking **3–5 novel, untried geological fault-discovery hypotheses** before implementing and testing within the hard budget of **at most 3 experiments (`<= 2 hours` wall clock)**.
+
+Rather than guessing silently, we flag `IR-76-001` openly and preregister **Lane `H76` — Multi-Physics Geothermal Vent Upflow, Verduzco Depth-Invariant Potential-Field Tilt & Self-Masked Fracture-Mechanics Submodular Synthesis (`gems76`)**, enforcing strict uniqueness (`|Spearman rho| <= 0.90` on pre-placement continuous surface AND `3-px overlap <= 0.70` on final binary dots) against **both** the canonical 62-raster `60GEMSDOE` registry and all 362 unique GeoTIFFs collected across the full `GEMSDOE` archive (`16`–`75`).
+
+---
+
+## 2. Empirical Data Irregularity Discovered Before Modeling (`IR-76-002`)
+
+Before writing feature transforms, we audited all 19 channels of `training_features.tif` (`sha256: 4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5`) directly against raw USGS GeoDAWN airborne rasters and official DrivenData documentation (`https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/`):
+
+1. **Band 6 (`tc`) Misidentification Across Prior Repositories**: Prior repositories (`GEMSDOE36`, `GEMSDOE66`, `GEMSDOE70`, `16GEMSDOE`) labeled Band 6 as *"magnetic tilt angle / total curvature"*. Direct empirical verification proves `B06` spans `[7.72, 29.10]` (`p01..p99`) and correlates at **`r = 0.997140`** with **USGS GeoDAWN Airborne Gamma-Ray Total Count Dose Rate (`TC`, nGy/h)**, matching DrivenData's official figure caption (`gems_tc_tmi.png: total radiometric counts (tc, left)`). Consequently:
+   - **No true magnetic or gravity tilt-angle derivative (`arctan(dF/dz / |grad_h F|)`) had ever been computed in any prior GEMSDOE pipeline**, and
+   - Seamless float32 gamma-ray `TC` had never been differentiated spatially (`|grad_h B06_tc|`) or tested for hydrothermal silica-sinter / travertine / argillic leaching troughs (`Hot springs >= 50°C` mean `TC = 16.869` vs footprint mean `18.463`).
+2. **Band 17 (`cond_surf`) Physical Polarity**: `B17` spans `1.168..4.489` (`log10` magnetotelluric electrical resistivity in `Ohm-m`), where **low values (`~1.17 = 15 Ohm-m`) mark conductive smectite hydrothermal alteration caps and saline fluid upflow zones**, whereas **high values (`~4.49 = 30,800 Ohm-m`) mark unaltered resistive crystalline basement** (inverting the positive sign erroneously assumed in `16GEMSDOE`).
+3. **Edge Sentinel (`-3.4028235e+38`) Guard**: Approximately `0.13%` (`~6,600` edge pixels) inside the finite `sample_submission.tif` footprint carry float32 sentinel `-3.4028235e+38` in `training_features.tif`, causing `float32` spatial filters to overflow to `-inf` unless sanitized (`arr > -1e20`) before filtering. Every `gems76` operator sanitizes `-3.4e38` sentinels explicitly prior to convolution.
+
+---
+
+## 3. Ranked Preregistered Candidate Hypotheses (`H76-1` through `H76-5`)
+
+| Rank | ID | Hypothesis Name | Specific Input Layers | Physical Transform & Geological Mechanism | Named Non-Fault Mimic & Suppression | Implementation Cost | Expected Impact |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| **1** | **`H76-1`** | **Blind Geothermal Upflow, Sign-Corrected MT Smectite Clay-Cap Margin & Verduzco Depth-Invariant Tilt Zero-Crossing** | `B09 tmi_vg`, `B03 tmi_hg`, `B11 grav_vg`, `B05 grav_slope`, `B17 cond_surf`, `B06 tc` (`float32` gamma-ray), `geodawn_rad/ext` (`K, eTh, eU, TMI_up150`), `GDR-1391` springs / geothermometers / 2m probes / sinter, `ScienceBase` borehole heat flow | **(a)** Verduzco–Miller–Singh tilt zero-crossing edges $\|\nabla_h \arctan(\partial_ cancel $1/z_{\text{burial}}^2$ attenuation over `300–1,500 m` blind basin faults (`+315%` basin-floor fault enrichment jump on gravity!). **(b)** Sign-corrected conductive smectite clay-cap feeder edge $\max(0, -(\text{B17}-\bar{\text{B17}}))\|\nabla_h\text{B17}\|$. **(c)** Strike-anisotropic (`4:1` along `N22°E`/`N35°W`) advection of thermal springs, cation/silica geothermometers, Coolbaugh `2m` probes & opaline sinter gated on local subsurface edges. | **Mimics**: Evaporitic playa brines (conductive `B17`), unfaulted pluton contacts (orthogonal $\nabla g \perp \nabla m$), shallow lateral outflow plumes. **Suppression**: Requires sharp lateral resistivity/potential gradient (`|\nabla B17|`), parallel Gallardo–Meju $\nabla g \parallel \nabla m$ coupling, and strike-gated edge coincidence. | Low–Medium (`CPU`, verified local layers) | **High** on blind basin & geothermal play-fairway faults missed by scarp mapping |
+| **2** | **`H76-2`** | **Relief-Deconfounded 1m/10m Micro-Scarp Dipole, Bedrock $\chi$/Knickpoint Step & Lake Lahontan Shoreline Filter with 12-Azimuth Axial Continuity** | `lidar_scarp_features_u8` (all 12 dequantized bands incl. B09 `relief`, B11 `strike`), `dem1m_openness_lrm`, `topo_10m_derived` (all 9 bands), `dem10_chi` (`knick_n`, `raised_n`, `ksn_max`, `log10_area`, `zmean_m`) | **(a)** Divides 1m/10m scarps by $\sqrt{\text{relief}+9}$ and fluvial channel incision `cross_max` + drainage area `log10_area` (`fixes GEMSDOE70 bug multiplying by cross_max`). **(b)** Uses bedrock active base-level knickpoints (`knick_n = 2.27x`, `raised_n = 3.18x` verified enrichment) instead of anti-enriched mountain slope (`0.95x`). **(c)** Filters Pleistocene Lake Lahontan highstand shorelines (`1,212 m, 1,298 m, 1,334 m`). **(d)** Integrates multi-scale 12-azimuth `0.8–2.6 km` axial line-minus-flank ridges. | **Mimics**: Erosional mountain canyon walls, incised alluvial fan channels/arroyos, Pleistocene Lake Lahontan wave-cut benches. **Suppression**: Fluvial `cross_max` + `log10_area` division, terrain-decile hard-negative matching, explicit Lahontan contour indicator. | Medium (`CPU`, `scipy.ndimage` axial bank) | **Very High** across both alluvial piedmonts and bedrock range fronts |
+| **3** | **`H76-3`** | **Self-Masked Connected-Component Fracture-Mechanics Continuation, Horsetail Wing-Crack Splay, En-Echelon Relay-Ramp Bridge & Completeness Deficit** | Strictly fold-visible faults (`vis = fold['visible']`), skeleton tip tangents $\hat{t}$, component length $L$, smooth regional stress field $(\theta_{\sigma_{\text{Hmax}}}, A_\phi)$ (`sigma = 25 km`) | **(a)** Narrow forward tangent ray (`±18°`, `0.22–4.2 km`) + Curewitz–Karson dilational horsetail wing-crack splays (`±25°..45°`) off `vis` tips. **(b)** En-echelon relay-ramp bridge field between overlapping separate fault strands (`#1 Great Basin geothermal setting`, Faulds et al., 2011). **(c)** Local tectonic-vs-mapped completeness deficit. **(d)** Trained via **5-fold self-masked component hide-and-recover inside each training fold** so `d_vis > 2.15 px` matches test geometry identically with zero leakage. | **Mimics**: Dying fault tips terminating into plastic evaporites or intact plutons. **Suppression**: Never places predictions on geometric rays alone — Stage-2 meta-learner requires positive corroboration from physical scarp, Verduzco tilt, or hydrothermal channels. | Low–Medium (`CPU`, KDTree + FFT convolution) | **Very High** on both `HOLDOUT-DTI` and unmapped expert fault continuations / step-overs |
+| **4** | **`H76-4`** | **Out-of-Fold Multi-Expert Meta-Stacking, Terrain-Prevalence Calibration & Exact Unblurred 300 m Submodular Max-Cover** | Stage-1 OOF domain experts (`E_scarp`, `E_geotherm`, `E_subsurf`), Stage-2 axial meta-stacker, exact `DTI(0.2, 0.8, R=300m)` kernel | **(a)** Calibrates posterior terrain balance (`%STEEP` aligned with empirical neotectonic fault prevalence `~32–38%` instead of `P8`'s `69.5%`). **(b)** Enforces `d_cat > 2.15 px` zero-credit exclusion collar proven by `GEMSDOE32` (`+0.0178` live DTI). **(c)** Solves monotone submodular max-cover directly on `1.0` binary dots under the exact 300 m triangular kernel without post-hoc Gaussian blur (`fixes 19GEMSDOE blur penalty`). | **Mimics**: Steep mountain ridge over-concentration and cluster double-counting inside overlapping `300 m` kernels. **Suppression**: Exact marginal kernel gain saturation (`gain_i = sum_p k(i,p) * w_p * (1 - cov_p)`). | Low (`Minoux lazy heap`, ~12 s/map) | **High** precision-recall (`alpha=0.2, beta=0.8`) gain |
+| **5** *(Deferred External)* | **`H76-5`** | **Sentinel-1 InSAR SBAS / ARIA Interseismic Creep & Hydrothermal Subsidence Phase Gradient** | NASA ASF DAAC ARIA Sentinel-1 `GUNW` interferograms (`https://search.asf.alaska.edu/`, public NASA Earthdata) | Short-wavelength (`90 m`) line-of-sight phase gradient across creeping range-front segments and compacting/inflating blind geothermal reservoirs (e.g., Brady, San Emidio, Dixie Valley). | **Obtainability check**: Official public NASA ASF endpoint verified, **not reachable inside network-sandboxed environment (`asf.alaska.edu` blocked)**; long-wavelength GPS strain (`B04, B07, B08`) is already used, and raw InSAR claims are strictly excluded from current results. | External download (`~40 GB` regional stack) | Documented future external upgrade (`+0.01–0.03` estimated) |
+
+---
+
+## 4. Strict 3-Experiment Budget & Preregistered Promotion Gates
+
+We lock **exactly 3 experiments (`Budget = 3 / 3`)** on the identical 4-quadrant hide-and-recover benchmark (`gems57-pooled-hide-v2`, `K = 11,321` withheld positives, 200 bootstrap replicates):
+
+1. **`E76-1` (`geotherm_tilt_deconf_oof_submod`)**: Pure multi-physics (`H76-1` + `H76-2` static physical sensors ONLY, **zero catalogue continuation features**, `54` physical channels), 4-fold spatial OOF ensemble + terrain-prevalence calibration + exact `300 m` submodular max-cover (`N = 37,654` binary `1.0` dots).
+2. **`E76-2` (`selfmasked_mech_single_hgb_submod`)**: Single-stage OOF gradient boosted ensemble combining static multi-physics (`H76-1` + `H76-2`) + self-masked connected-component fracture-mechanics continuation, horsetail splay, relay-ramp bridge & completeness deficit (`H76-3`, `62` features total) + exact `300 m` submodular max-cover (`N = 37,654` dots).
+3. **`E76-3` (`multiline_axial_stack_submod` — Preregistered Primary Candidate)**: Two-stage OOF architecture combining specialized physical domain experts (`E_scarp_deconf`, `E_geotherm_vent`, `E_subsurf_tilt`) + **12-azimuth multi-scale axial ridge refinement** + **Self-Masked Stage-2 Meta-Stacker (`H76-4`)** + multi-line physical corroboration bonus + terrain-prevalence calibration + exact `300 m` submodular max-cover at Tversky-optimal mass.
+
+### Mandatory Promotion Gates (All 5 Must Pass)
+- **Gate 1 — Leakage Canary**: Every single input feature (static and fold-visible) achieves `max(AUC, 1 - AUC) <= 0.90` on withheld holdout positives.
+- **Gate 2 — Registry Uniqueness**: Pre-placement continuous surface has `|Spearman rho| <= 0.90` AND final binary dot set has `mutual_overlap <= 0.70` (plus `literal_forward_overlap <= 0.70` against every non-degenerate binary candidate) across both the 62-raster canonical registry and the 362-raster archive.
+- **Gate 3 — GeoTIFF & Portal Range Validator**: Exact `EPSG:32611`, `(3730, 3292)`, `Affine(100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0)`, `float32`, **zero `NaN`**, **zero `Inf`**, **every pixel strictly in `[0.0, 1.0]`**, `0` outside footprint, `0` on known mapped faults.
+- **Gate 4 — Holdout Superiority (`HOLDOUT-DTI`)**: Statistically significant positive paired improvement (`95%` bootstrap CI strictly `> 0`) over `H33` (both static `0.00370` and fold-fair `0.09042`), `D28` (`0.09192`), `GEMSDOE70-P8` (`0.11129`), and `random_control`.
+- **Gate 5 — Terrain Calibration Consistency**: Steep-terrain fraction `%STEEP` lies in `[0.25, 0.45]` (matching true neotectonic fault prevalence `0.3175` rather than mountain-confounded `0.695`).

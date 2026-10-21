@@ -1,0 +1,114 @@
+{
+  "official_rasters": {
+    "training_features.tif": {
+      "bytes": 418912844,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+    },
+    "existing_faults.tif": {
+      "bytes": 425830,
+      "sha256": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"
+    },
+    "sample_submission.tif": {
+      "bytes": 1599597,
+      "sha256": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc"
+    }
+  },
+  "external_layers": {
+    "2m_temperature_probe_INGENIOUS_regional_data.zip": {
+      "bytes": 1080530,
+      "sha256": "1301f70d230058e616ea5d34d1c7a32fabf7d49198172f376c59c89bd652eca3"
+    },
+    "audit_gate2_gemsdoe48_h52_lidar_scarp___20261007.json": {
+      "bytes": 5306,
+      "sha256": "96afc2b47860ff0ac0e46367c13e2075e8aaa079fd30f04f3b093c24796bc9a9"
+    },
+    "dem10_chi_100m.manifest.json": {
+      "bytes": 60085,
+      "sha256": "187a961ef5da45278c84b25d16296a5f3458da37abff45046d31ed58b9f5af86"
+    },
+    "dem10_chi_100m_i16.tif": {
+      "bytes": 12777098,
+      "sha256": "8897ba9c30ef1cd7ad5f23c16c6dfd7bb070e7e757f36fd9486eb45edfd973a5"
+    },
+    "dem10_chi_100m_sig_i32.tif": {
+      "bytes": 2804587,
+      "sha256": "0ba7816bc082b8a71ebcb26596b5e330abb63231be94abad4e447eb316ffb95c"
+    },
+    "dem10_chi_100m_u8.tif": {
+      "bytes": 2061484,
+      "sha256": "e8830ba6f0bb99f525266b1b3a483b0722d25cd4758c2bbccc6e7f54eb6b1b6a"
+    },
+    "dem1m_high_prior_openness_lrm.npz": {
+      "bytes": 610575,
+      "sha256": "62f27929747ad3c35be4dd3e0257b0bde7d7bea8566474956e1711269ad451fe"
+    },
+    "derived_sgmc_faults_100m.tif": {
+      "bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0"
+    },
+    "derived_sgmc_faults_100m_u8.tif": {
+      "bytes": 198602,
+      "sha256": "643cbe992ef4ba37588fb469163ed8291e3ceb23d6c1f78a3cfaa462430c2da0"
+    },
+    "gdr_qfaults_traces.csv": {
+      "bytes": 126177,
+      "sha256": "9702f2e5c382a4f472ae834d22b94990983b059677a37adfafd51c50f75e643c"
+    },
+    "gdr_volcanic_vents_in_footprint.csv": {
+      "bytes": 672,
+      "sha256": "f91bafbaccaaf2754e71d60434fc0f9eb2c7b880c6e714883f4974542ff6a0bf"
+    },
+    "gdr_wellspring_in_footprint.csv": {
+      "bytes": 2146771,
+      "sha256": "122718e65bdf55aab0ee12ad20d80062f0deb1de957225a61ad880dd5dc196ea"
+    },
+    "geodawn_extensions_u8.tif": {
+      "bytes": 27132925,
+      "sha256": "a35a9c6d2a14786f4dab85481ee59769213072f5dab5b2535ea82ae4d9bb7d9b"
+    },
+    "geodawn_rad_u8.tif": {
+      "bytes": 26612970,
+      "sha256": "c22420f75999030d7cc65c9e31e50d232ea6158423bca051613a18a8b20ba682"
+    },
+    "lidar_scarp_features_u8.tif": {
+      "bytes": 36943606,
+      "sha256": "d580bb8bdcdb941e32fefb8b38044bc5bf04e199bf2e83498c3576e6fc465568"
+    },
+    "paleo_geothermal_regional.zip": {
+      "bytes": 84008,
+      "sha256": "faffcf697f32dbbf6cbb317cd1effb3e305538ce38eb239d72d0c6fa071e91ca"
+    },
+    "qfault_attributes.csv": {
+      "bytes": 5786456,
+      "sha256": "3b8745f0086a57b8255f6679afa1bf1168c10b5573491666c75cf53217029507"
+    },
+    "qfaults_receipt.json": {
+      "bytes": 3422,
+      "sha256": "bf5fbd2f3026559f2dbd4af0ca0a12f2d75ec5595f66404e33c20396bbb9164b"
+    },
+    "sb_heat_flow_in_footprint.csv": {
+      "bytes": 909294,
+      "sha256": "9845263e658aeb66a4aeca6e64d995e74f0eb14b89768219ea9d223006dc8baf"
+    },
+    "sb_slip_tendency_in_footprint.csv": {
+      "bytes": 25609539,
+      "sha256": "b40bc2c6b3194d250f2d536a55810bbe454567890e0d5f528782f014a6f8872b"
+    },
+    "sgmc_faults_100m.tif": {
+      "bytes": 213034,
+      "sha256": "26d142c4c93282cd94f6950ab96f22aeff59fbbea523d43d662e76fa1b161b5c"
+    },
+    "topo_10m_derived_100m_u8.manifest.json": {
+      "bytes": 2720,
+      "sha256": "181d5527ba7ed2990031918a8b6c9d5d94e3998b2daf656de0c33322ca94120a"
+    },
+    "topo_10m_derived_100m_u8.tif": {
+      "bytes": 32523329,
+      "sha256": "a6398d9950965dec6aae6ccecdaa6ced48645d133eab222cbdd11def9bdabfa4"
+    },
+    "trace_segments_utm11.csv": {
+      "bytes": 5283577,
+      "sha256": "c5edf9df3e0e1413c52784884fc38e5b9ca54627b27c6f8baf7713e908f48513"
+    }
+  }
+}
