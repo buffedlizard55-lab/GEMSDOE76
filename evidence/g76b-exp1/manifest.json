@@ -1,0 +1,23 @@
+{
+  "experiment": "G76B-EXP1-patch-context-corroboration",
+  "experiment_count_this_session": 1,
+  "maximum_experiments": 3,
+  "started_utc": "2026-10-21T04:18:32.629019+00:00",
+  "preregistration_sha256": "9381178aa6a19e430551ba4367e0122464d16b46782ad0930a94e32e3e44ade4",
+  "source_sha256": {
+    "src/gems76b/features.py": "44ad5e98793f4ba646376395c59a5c1933318be2041680a33475234c95c52a99",
+    "src/gems76b/model.py": "12c68f20d928cba533be13a53526b35030adf437f65e6f0ad979cd26356e6490",
+    "scripts/run_experiment_g76b.py": "4995aa4de90a5f59f2578911c785648a1d71c6902dbb125e5f233867e632bfc7"
+  },
+  "evaluator_implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "control_rasters_sha256": {
+    "d28": "3e78737f0da8dd2ca66cc6caac0ce8eeefcd6715707f8d1bd3091845cd9bcc30",
+    "h33": "c55bafc470054e8271dcb89347a17e07fefe50de6af6e6ba6c4b169ef7ab6fa9",
+    "p8": "d0e41ce921afcf3af33b7d86d75f6a258653dfbb4d050e864babe643245f0ea8"
+  }
+}

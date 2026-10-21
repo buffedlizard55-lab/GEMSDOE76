@@ -83,3 +83,60 @@ Pass 3: rerun the complete suite and reproducibility checks; verify no predictiv
 ## Next session, in order
 
 Resolve the lane; make the shared cache portable at a pinned immutable location without rebuilding; authenticate competition inputs/rules; refresh the full scoped raster registry; preregister one eligible hypothesis; reproduce current best and canaries; run at most three experiments within two hours; generate only if gates pass. If any shared tool is wrong, fix it in the template via an upstream issue/PR, not here. No shared-tool bug requiring a patch was established in this review.
+
+---
+
+## Session-2 addendum (2026-10-21, branch arena/7d0205bb-gemsdoe76) — Lane G76B, a measured negative
+
+**Question posed.** Why does `h33-h33-2-b2` (0.2778 USER-REPORTED) lead the family, and can a new,
+unique lane beat it? The why is documented in `docs/research/why-02778.md` (one supervised
+multi-physics surface + two emission decisions; recall-weighted max-kernel metric; catalogue
+masking makes near-catalogue dots pure FP). This session tested the family's untested ingredient —
+2-D patch context — as a new lane.
+
+**Lane G76B (pre-registered in `docs/preregistration-g76b.md` before any score).** Four
+catalogue-free response families (LiDAR scarp dipole; magnetic edge with cross-scale
+`∇rtp`×`∇TMI_up150` agreement; de-regionalized gravity edge; radiometric `K/(Th+10)` alteration
+edge), each given directional persistence (8 azimuths, 5-tap) and 5×5 support density, plus 21 px
+strain-belt regional context; 30 features into a fold-honest `HistGradientBoostingClassifier`
+(training pool excludes the tested quadrant with a 12 px collar); shared greedy 300 m max-cover
+emission, B = 2 px collar, 37,654-dot budget, shared fail-closed writer. Five ranked hypotheses
+were written down first (H1 chosen; H2–H4 as components; H5 rejected with reasons).
+
+**Result — HOLDOUT-DTI** (gems57-pooled-hide-v2, seed 20, n = 11,321 withheld catalogue px,
+95% CI): candidate dots **0.01870 [0.01089, 0.02788]** vs fair-H33 **0.09611 [0.08340, 0.10930]**
+(paired Δ −0.07741 [−0.09157, −0.06358]) vs random **0.03407** — the candidate is significantly
+*below random*. PROXY-DTI: B′ 0.01624 vs h33_ref 0.09613; C76-pied 0.02868 [0.01685, 0.04237] vs
+h33_ref 0.09448 and random 0.04428 — below random on the best live-tracking instrument as well.
+Canaries clean (max feature AUC 0.592; pooled fold-honest fitted-prob AUC 0.637). Controls
+reproduce external receipts exactly (d28_reference 0.09192 = GEMSDOE70's 0.0919), validating the
+shared evaluator reproduction. Uniqueness gates pass (worst mutual 0.0916 over 101 local registry
+rasters; worst |ρ| 0.2034) — the artifact is unique but bad. Verdict: **negative**; artifact
+preserved DO-NOT-SUBMIT at `evidence/lane-g76b/`; run card `evidence/g76b_run_card.json`; site
+pages `docs/lane-g76b*.html`.
+
+**Diagnosis (measured, `evidence/g76b-exp1/diagnostics.json`).** The supervised head concentrates
+mass: top-5 20 km blocks hold 28.6% of dots (max 2,249/block vs H33's 638; 104 blocks occupied vs
+158), and cross-quadrant transfer is unstable (per-fold fitted-prob AUCs 0.658/0.508/0.654/0.665).
+Concentrated-but-misplaced dots pay full FP under the recall-weighted max-cover DTI — the same
+failure mode the G76 post-mortem predicted, now reproduced with a supervised head. Hand-crafted
+patch context does not substitute for the incumbent's learned multi-line corroboration.
+
+**Answer to "can we beat 0.2778?"** Not with this lane, and emission tweaks are capped near
++0.01 (the whole B2 prune was +0.007 USER-REPORTED). The leader (0.4413, verified on the official
+leaderboard 2026-10-21) implies roughly double the incumbent's truth coverage — a surface-quality
+gap. The only credible routes remain: (1) a full-scale 2-D spatial-context model (patch CNN/U-Net,
+the organizer's reference architecture — never run at full scale by any family lane, compute-bound),
+(2) better selector calibration (local instruments track live weakly: ρ = 0.16/0.33/0.52), or
+(3) genuinely new data. Both hand-crafted feature routes (per-pixel G76, patch-context G76B) are
+now measured negatives in this repository. Negative results are deliverables: no weekly slot was
+spent, and the human selector has one more ruled-out branch.
+
+**Process notes.** 1 of 3 experiments used (pre-registration stops after a clear negative);
+experiment wall-clock 919 s. Two code bugs were caught by assertions before any score was computed
+(IR-76-13: sentinel-mask mismatch in the first cache build; an index-space bug) — evidence
+directories of the failed attempts were removed before the scored run and are disclosed here.
+Data placement was re-solved this session: all 13 SHA-pinned files restored and verified
+(`scripts/restore_data.py`), 76 scored registry rasters fetched hash-verified
+(`scripts/fetch_registry.py`), GEMSDOE70/77 artifacts copied and P8 verified against its published
+inventory.

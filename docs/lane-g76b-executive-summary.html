@@ -1,0 +1,58 @@
+<!doctype html><html lang=en><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>GEMSDOE76 Lane G76B — executive summary</title><style>
+:root{--ink:#17212b;--mut:#5b6b7a;--line:#d9e0e7;--bg:#f6f8fa;--red:#b00020;--redbg:#fdecec;--card:#fff}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 64px}
+header{padding:28px 0 6px}h1{font-size:30px;margin:0 0 4px}h2{font-size:21px;margin:34px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.sub{color:var(--mut)} .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.verdict{border:3px solid var(--red);background:var(--redbg);border-radius:12px;padding:18px 20px;margin:18px 0}
+.verdict h2{border:0;margin:0 0 6px;color:var(--red);font-size:24px}
+code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#eef2f6}.num{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:20px;background:#e8eef4;color:#234}
+.tag.no{background:#f8d7da;color:var(--red)} .small{font-size:13px;color:var(--mut)}
+.btn{display:inline-block;padding:9px 14px;border-radius:8px;background:#e8eef4;color:#234;text-decoration:none;font-weight:600;margin:4px 6px 4px 0}
+a{color:#0b5cad} footer{color:var(--mut);font-size:13px;margin-top:44px;border-top:1px solid var(--line);padding-top:12px}
+.scroll{overflow-x:auto}
+</style></head><body><div class=wrap>
+<header><h1>Lane G76B — executive summary</h1>
+<p class=sub>What this lane produced, whether it is OK to submit, and the exact submission procedure
+for whenever a future candidate passes its pre-registered gates.</p></header>
+
+<div class=verdict><h2>Status: NOT OK to submit</h2>
+<p>This lane's only TIFF is <code>gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif</code>
+(SHA-256 <code>c7564697fcc1c59e04d4f9aa4c8c303a…</code>). It is format-valid (CRS/shape/transform match, all values
+finite in [0,1]) and unique vs the registry, but it <strong>failed its pre-registered holdout gate
+decisively</strong> — HOLDOUT-DTI 0.0187 vs fair-H33 0.0961,
+below random 0.0341 — so submitting it would waste a weekly slot. It exists for
+audit only, in <code>evidence/lane-g76b/</code>, not as a site download.</p></div>
+
+<h2>How a submission would be made (when a candidate ever passes)</h2>
+<div class=card><ol>
+<li><strong>Check the run card.</strong> A promotable candidate needs: HOLDOUT-DTI beating the fair
+incumbent control with a paired 95% CI above zero, C76-pied point estimate above the H33 reference,
+no leakage canary above 0.90, uniqueness gates passing (mutual ≤ 0.70, |ρ| ≤ 0.90), and the shared
+validator green. The selector (a human decision, within the weekly cap shown on the
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">submission page</a>)
+approves the slot — no session self-promotes.</li>
+<li><strong>Download the TIFF</strong> from the repository's evidence directory (or docs/downloads/
+on a future non-blocked site) and verify its SHA-256 against the run card.</li>
+<li><strong>Submit</strong> at the DrivenData submission page: choose the file (single-band GeoTIFF
+or a zip containing one), optionally add a note ≤ 140 characters (the run card carries a suggested
+note), and create the submission. Values must be in [0,1] — the shared writer guarantees this and
+writes zeros, not NaN, outside the footprint, the encoding the portal's whole-raster range check
+accepts.</li>
+<li><strong>Record the receipt.</strong> Copy the organizer-confirmed score back into the repo as
+ORGANIZER-CONFIRMED evidence; a projection is never written as a score.</li>
+</ol></div>
+
+<h2>What this session established</h2>
+<div class=card><p>See <a href="lane-g76b.html">the lane page</a> for full numbers. In one sentence:
+hand-crafted patch context over four physics families with a fold-honest supervised head is a
+<strong>measured negative</strong> — the incumbent H19-5 corroborated-ridge recipe and the
+organizer-reference CNN route remain the only credible paths above 0.2778 USER-REPORTED.</p></div>
+
+<footer>GEMSDOE76 · Lane G76B executive summary · nothing here authorizes a weekly slot.</footer>
+</div></body></html>

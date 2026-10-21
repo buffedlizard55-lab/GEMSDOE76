@@ -9,9 +9,13 @@
 
 - [Website](https://buffedlizard55-lab.github.io/GEMSDOE76/) — explicit submission-readiness status; Pages deployment depends on repository Pages configuration and successful workflow.
 - [Executive summary / submission instructions](docs/executive-summary.html)
+- [Lane G76B page (session 2)](docs/lane-g76b.html) and [its executive summary](docs/lane-g76b-executive-summary.html) — patch-context corroboration lane, verdict negative, artifact status obvious.
+- [Lane G76B run card](docs/lane-g76b-run-card.json) (`evidence/g76b_run_card.json`) — protocol rule-5 JSON.
+- [Lane G76 page (prior session)](docs/lane-g76.html) — piedmont scarp-dipole lane, negative.
 - [Critical inherited-input audit](reports/inherited-main-audit.md) — simulated catalogue/footprint exposed; earlier download advice withdrawn.
-- [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md)
-- [Run card](docs/downloads/run-card.json) — one negative run; unavailable measurements are null, never zero-filled.
+- [Scientific review, four conditional hypotheses, H33 analysis, irregularities and next steps](reports/review.md) — now including the session-2 G76B addendum.
+- [Why 0.2778 leads](docs/research/why-02778.md) — measured lineage audit, score algebra, credible routes (§5) and the G76B addendum (§6).
+- [Run card](docs/downloads/run-card.json) — blocked-status card; unavailable measurements are null, never zero-filled.
 - [Source inventory](evidence/source_inventory.json) — all 78 corresponding public repositories checked; not a full scientific or raster audit.
 - [Recovered-byte manifest](evidence/upstream/recovery.json) — immutable source URLs and SHA256.
 - [Preflight](evidence/preflight.json) and [verification receipt](evidence/verification.json).
@@ -33,6 +37,33 @@ USER-REPORTED live scores (Spearman 0.16 / 0.33 / 0.52; `evidence/instrument_aud
 and documented why the 0.2778 incumbent leads (`docs/research/why-02778.md`) plus nine
 irregularities (`docs/irregularities.md`). These results do not change the blocked status
 above: **nothing in this repository is safe to submit.**
+
+## Lane G76B addendum (session 2, 2026-10-21) — second measured negative
+
+This session asked the prompt's standing question directly — *can a new unique lane beat the
+0.2778 USER-REPORTED incumbent?* — and answered it with a pre-registered experiment
+(`docs/preregistration-g76b.md`, five ranked hypotheses written before implementation).
+**Lane G76B "patch-context corroboration"**: four catalogue-free physics response families
+(LiDAR scarp dipole; magnetic edge with cross-scale `∇rtp`×`∇TMI_up150` agreement;
+de-regionalized gravity edge; radiometric `K/(Th+10)` alteration edge), each with directional
+persistence and 5×5 support density plus 21 px strain-belt regional context, feeding a
+fold-honest `HistGradientBoostingClassifier` (training pool excludes the tested quadrant);
+shared greedy 300 m max-cover emission; B=2 px collar; shared fail-closed writer.
+Result — **HOLDOUT-DTI (gems57-pooled-hide-v2, seed 20, n=11,321): candidate 0.01870
+[0.01089, 0.02788] vs fair-H33 0.09611 [0.08340, 0.10930] vs random 0.03407 — below random;
+C76-pied 0.02868 vs h33_ref 0.09448 — also below random; canaries clean (max 0.592); controls
+reproduce external receipts exactly (d28 0.09192 = GEMSDOE70's 0.0919); uniqueness gates pass
+(worst mutual 0.0916 over 101 local registry rasters, worst |ρ| 0.2034)**. Verdict **negative**:
+diagnosis is mass concentration (top-5 20 km blocks hold 28.6% of dots vs H33's max 638/block)
+plus unstable cross-quadrant transfer (per-fold fitted-prob AUC 0.508–0.665). Artifact preserved
+DO-NOT-SUBMIT at `evidence/lane-g76b/` (SHA-256 `c7564697…`); run card
+`evidence/g76b_run_card.json`; site pages `docs/lane-g76b.html`,
+`docs/lane-g76b-executive-summary.html`; review addendum in `reports/review.md`; new
+irregularities IR-76-10…14 in `docs/irregularities.md`. Both hand-crafted feature routes
+(per-pixel and patch-context) are now measured negatives here; the credible routes above
+0.2778 remain a full-scale patch CNN/U-Net (organizer reference architecture, never run by any
+family lane), better selector calibration, or genuinely new data. **Status unchanged: blocked /
+nothing safe to submit / 0 weekly slots used.**
 
 ## Reproduce locally (CPU)
 

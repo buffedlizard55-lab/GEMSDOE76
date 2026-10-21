@@ -49,7 +49,7 @@ def run_card(preflight):
         'submission_name':None,
         'note':'Negative preflight: lane, cached arrays, current raster registry and matched holdout evidence missing. Do not submit.',
         'verdict':'negative','safe_to_submit':False,'downloadable_submission':False,
-        'experiments_run':0,'weekly_slots_used':0,'selector_approved':False,
+        'experiments_run':preflight['experiments_run'],'weekly_slots_used':0,'selector_approved':False,
         'inherited_candidates':'withdrawn: simulated inputs; original evidence preserved in quarantine',
         'blockers':preflight['blockers']}
 
@@ -78,10 +78,14 @@ def build():
 <h1>A defensible submission.<br>Not just another TIFF.</h1>
 <p class="lede">Testing new fault-discovery mechanisms without copying prior predictions, leaking catalogue labels, or inventing leaderboard results.</p></section>
 <section class="notice" aria-labelledby="status"><p class="eyebrow">CURRENT DECISION · NEGATIVE</p>
-<h2 id="status">No submission TIFF is available. Do not submit.</h2>
-<p>The required scientific checks could not run. A reference raster, renamed archive or random-dot file would not satisfy the request.</p>
-<div class="actions"><span class="disabled" role="status">TIFF download unavailable — prerequisites missing</span><a class="button secondary" href="downloads/run-card.json" download>Download negative run card</a></div>
-<p class="fine">No experiment executed. No weekly slot used. Format validity alone never authorizes a submission.</p></section>
+<h2 id="status">No submission TIFF is OK to download and submit. Do not submit anything from this repository.</h2>
+<p>Three pre-registered experiments have now run (Lanes G76 and G76B). Every generated candidate failed its
+holdout gate — the latest below random — so no TIFF is published as a submission. A reference raster,
+renamed archive or random-dot file would not satisfy the request either.</p>
+<div class="actions"><span class="disabled" role="status">No OK-to-submit TIFF exists</span><a class="button secondary" href="downloads/run-card.json" download>Download negative run card</a>
+<a class="button secondary" href="lane-g76b.html">Latest lane verdict (G76B, negative)</a>
+<a class="button secondary" href="lane-g76.html">Lane G76 verdict (negative)</a></div>
+<p class="fine">3 experiments executed, all negative. 0 weekly slots used. Format validity alone never authorizes a submission.</p></section>
 <section class="notice"><h2>Earlier upload advice has been withdrawn.</h2><p>A concurrent prior build used a simulated footprint, simulated catalogue and synthetic physical fields. Independent bridge-relative checks found off-footprint predictions and catalogue overlap. The archived artifacts are not safe research submissions.</p><a href="inherited-main-audit.html">Read the critical source-and-file audit →</a></section>
 <div class="grid"><article><p class="label">SCIENTIFIC QUESTION</p><h2>Why did H33 help?</h2><p>Inherited evidence points to a sparse subset of an existing geological signal. Reduced redundant emission is a plausible metric benefit, not proof of causation.</p><a href="research.html">Read the H33 evidence →</a></article>
 <article><p class="label">NEXT RESEARCH</p><h2>Contacts, not copies.</h2><p>Four conditional hypotheses target displaced contacts, signed alteration, drainage disequilibrium and edge-termination asymmetry. None is validated or assigned as this session’s lane.</p><a href="research.html#conditional-geological-hypotheses-generated-before-method-implementation">Review hypotheses →</a></article>

@@ -35,7 +35,7 @@ def test_current_preflight_blocks_without_fake_raster():
     report=audit()
     assert report['status']=='blocked'
     assert not report['safe_to_submit'] and not report['downloadable_submission']
-    assert report['experiments_run']==0 and report['weekly_slots_used']==0
+    assert report['experiments_run']==3 and report['weekly_slots_used']==0  # two G76 + one G76B negative sessions
     assert report['reference_grid']['status']=='pass-bridge-relative'
     assert all(row['matches'] for row in report['pinned_files'])
     assert not list((ROOT/'docs/downloads').glob('*.tif'))
