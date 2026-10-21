@@ -1,0 +1,90 @@
+{
+  "step_max": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5874535003533257,
+    "inverse_auc": 0.41254649964667434,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "dipole": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5917831359862203,
+    "inverse_auc": 0.40821686401377966,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "dipole_norm": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.6005601221181874,
+    "inverse_auc": 0.39943987788181257,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "polarity": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5854789433353944,
+    "inverse_auc": 0.4145210566646056,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "coh100": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5237362704266408,
+    "inverse_auc": 0.47626372957335916,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ex_mean": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5796174297765216,
+    "inverse_auc": 0.42038257022347836,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "persisted": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.592355507464005,
+    "inverse_auc": 0.407644492535995,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "fallback": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.4677043063775284,
+    "inverse_auc": 0.5322956936224716,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "relief": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.592287964402438,
+    "inverse_auc": 0.407712035597562,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "has_lidar": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5323502892853988,
+    "inverse_auc": 0.46764971071460115,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "fitted_probability": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.62015797168978,
+    "inverse_auc": 0.37984202831021996,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  }
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 47727,
+    "n_negatives": 300000,
+    "seed": 76090,
+    "quadrant": 0
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 45983,
+    "n_negatives": 300000,
+    "seed": 76091,
+    "quadrant": 1
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 38016,
+    "n_negatives": 300000,
+    "seed": 76092,
+    "quadrant": 2
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 41132,
+    "n_negatives": 300000,
+    "seed": 76093,
+    "quadrant": 3
+  }
+]

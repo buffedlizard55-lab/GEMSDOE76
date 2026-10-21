@@ -23,9 +23,9 @@ sys.path.insert(0, str(ROOT / "vendor"))
 sys.path.insert(0, str(ROOT / "src"))
 
 from gems57 import emit, evaluate_holdout, holdout as g57_holdout, spatial, submission_writer, uniqueness  # noqa: E402
-from gems76.canary import _exact_auc_1d, run_single_feature_auc_canary  # noqa: E402
-from gems76.features import build_or_load_feature_memmap  # noqa: E402
-from gems76.models import (
+from gems76c.canary import _exact_auc_1d, run_single_feature_auc_canary  # noqa: E402
+from gems76c.features import build_or_load_feature_memmap  # noqa: E402
+from gems76c.models import (
     STAGE2_CONTEXT_NAMES,
     _cross_regime_quantile_bridge_subset,
     _prior_correct_prob,

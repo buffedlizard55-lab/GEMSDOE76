@@ -1,0 +1,10 @@
+{
+  "status": "withdrawn",
+  "safe_to_submit": false,
+  "source_commit": "ac5594779cc7b1c10794549fbda4105874acf83a",
+  "reason": "Inherited candidates were generated from simulated footprint, catalogue and physical fields, not competition measurements.",
+  "preserved_evidence": "evidence/inherited-main-manifest.json",
+  "archive": "quarantine/inherited-main-ac55947/",
+  "current_raster_inventory": null,
+  "warning": "Archived predictions remain priors for future uniqueness checks. This withdrawal is not a uniqueness clearance."
+}

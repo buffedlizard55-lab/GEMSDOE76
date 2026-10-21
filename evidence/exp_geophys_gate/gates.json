@@ -1,0 +1,22 @@
+{
+  "verdict": "negative",
+  "holdout_dti": 0.011988574453204408,
+  "holdout_ci95": [
+    0.01020174839789165,
+    0.014048356102920254
+  ],
+  "canary_max_auc": 0.5671350415157672,
+  "beats_fair_h33_benchmark": false,
+  "benchmark_fair_h33": 0.0927,
+  "uniqueness_rows": [
+    {
+      "file": "gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif",
+      "forward_overlap": 0.0461,
+      "reverse_overlap": 0.0204,
+      "mutual": 0.0204
+    }
+  ],
+  "registry_inventory_complete": false,
+  "n_dots": 27246,
+  "note": "Catalogue-free geophysical rank surface, greedy dots. holdout DTI 0.0120 vs fair-H33 benchmark 0.0927; below benchmark - negative, no slot."
+}

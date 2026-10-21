@@ -1,0 +1,64 @@
+name: Audit and publish
+
+on:
+  push:
+    branches: [main, arena/83bf8eca-gemsdoe76]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 7 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: audit-pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-python@v7.0.0
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.lock
+      - name: Refresh public repository metadata (not scores or raster clearance)
+        if: github.event_name != 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/snapshot_sources.py
+      - name: Regression & deliverable contract tests
+        run: pytest -q
+      - name: Check published site links, fragments, and run cards
+        run: python scripts/check_site.py
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: audit-evidence
+          path: |
+            evidence/preflight.json
+            evidence/source_inventory.json
+            docs/downloads/
+      - uses: actions/upload-pages-artifact@v5.0.0
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          path: docs
+
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: audit
+    runs-on: ubuntu-24.04
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v6.0.0
+      - name: Deploy audit website
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1

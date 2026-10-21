@@ -1,5 +1,5 @@
-"""GEMSDOE76 — Multi-Physics Piedmont-Toe Concave Flexure, True Potential-Field Tilt Worms,
-2D Context Pyramid (U-GBDT), and Exact CELF Submodular DTI Trace Allocation.
-"""
+"""GEMSDOE76 lane code: polarity-consistent piedmont scarp-dipole detector.
 
-__version__ = "0.1.0"
+Lane-scoped only. Shared metric / holdout / writer / validator live in
+``vendor/gems57`` (byte-pinned copy of the 60GEMSDOE template; never forked).
+"""

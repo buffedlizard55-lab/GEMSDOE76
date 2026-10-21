@@ -1,153 +1,133 @@
 {
-  "run_id": "GEMSDOE76-EXP3-PTCF-TILTWORM-SUBMOD39K",
-  "generated_utc": "2026-10-21T05:20:00Z",
-  "hypothesis": "H76-Composite (H76-1 Piedmont-Toe Concave Flexure + H76-2 GeoDAWN Potential-Field Tilt-Derivative Worms & Radiometric K/Th Hydrothermal Contacts + H76-3 Stream-Profile Chi-Knickpoints & Geodetic Strain), synthesized via a strict 4-quadrant out-of-fold 2D multi-scale GBDT context pyramid (EXP-76-2) and allocated with a 300 m kernel-aware CELF submodular DTI optimizer (EXP-76-3).",
-  "mechanism": "Active Basin-and-Range geothermal faults that remain unmapped in the USGS/INGENIOUS Quaternary Fault Catalogue occur where rapid Holocene alluvial-fan progradation, playa evaporites, or the 24.6% NE Nevada 1 m LiDAR gap obscure crisp 1-3 m surface scarps. Even when surface scarps are buried, normal slip produces: (1) broad concave-up piedmont-toe flexure (-laplacian of 100 m detrended elevation across 100-900 m scales) across the buried hanging-wall rollover; (2) continuous sub-playa basement density/magnetization step-edges detected by upward-continued tilt-derivative steerable worms and Euler deconvolution horst crests combined with argillic K/Th hydrothermal alteration; and (3) bedrock drainage area-normalized chi-elevation knickpoints across the unmapped footwall block. Allocating binary 1.0 dots via CELF submodular maximization of expected 300 m triangular-kernel coverage eliminates adjacent ridge-pixel self-cannibalization while maintaining 0 collisions with mapped existing_faults.tif.",
-  "non_fault_mimic": "Pleistocene Lake Lahontan / Lake Bonneville pluvial shoreline berms, non-tectonic lithologic dike contacts, and alluvial-fan channel avulsion toes can mimic single-modality topographic steps or isolated magnetic gradients. Multi-physics Stage-1 modality gating plus Stage-2 0.8-1.8 km steerable along-strike anisotropy suppresses sinuous shoreline contours and equidimensional volcanic plugs that lack coincident potential-field tilt continuity or footwall chi-knickpoints.",
-  "leakage_canary": {
-    "stage1_features_checked": 62,
-    "stage1_max_polarity_auc": 0.5795,
-    "stage1_top_feature": "b12_lap1_concave",
-    "stage2_oof_features_checked": 22,
-    "stage2_max_polarity_auc": 0.68597,
-    "stage2_top_feature": "p_joint_g1",
-    "hard_limit": 0.9,
-    "violator_count": 0,
-    "status": "PASS"
+ "hypothesis": "Youthful Quaternary normal-fault scarps missing from the USGS/INGENIOUS catalogue carry a paired crest-toe Laplacian dipole with slope-facing polarity in 1 m LiDAR derivatives aggregated to 100 m, concentrated in low-relief piedmont; a detector built only on that signature family should recover expert-labelled new faults.",
+ "mechanism": "Exp1: hand-set product of dipole x polarity x coherence with strike-guided persistence and a piedmont relief gate. Exp2 (pre-registered amendment): L2 logistic combiner over the same 10 components, visible-catalogue training only, greedy 300 m max-cover emission, B=2px catalogue-flank exclusion, binary dots, zeros outside footprint.",
+ "named_non_fault_mimic": "Pleistocene pluvial shoreline scarps (Lahontan/Bonneville), terrace risers, fan distributary channel banks, road grades.",
+ "holdout_dti": {
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "withheld_positive_pixels": 11321,
+  "exp2_candidate_dots": 0.02180141365388476,
+  "exp2_candidate_ci95": [
+   0.014480983469494902,
+   0.03026870354831621
+  ],
+  "exp1_candidate_dots": 0.02171398568499896,
+  "fair_h33_control": 0.0926883002716601,
+  "random_control": 0.04577492981677248,
+  "paired_delta_vs_fair_h33": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "delta": -0.07088688661777534,
+   "ci95": [
+    -0.08571058497293493,
+    -0.057053229043824046
+   ],
+   "withheld_positive_pixels": 11321
+  }
+ },
+ "proxy_dti": {
+  "Bprime_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.017186454904412923,
+   "ci95": [
+    0.013650152771082797,
+    0.021148639883521916
+   ],
+   "withheld_positive_pixels": 63121,
+   "tpw": 962.099234537633,
+   "fpw": 26454.333952121713,
+   "fnw": 62158.90076546238
   },
-  "holdout_dti": {
-    "primary_label_blind_quadrants": {
-      "metric_label": "HOLDOUT-DTI (gems57-pooled-hide-v2, n=60988, 95% CI)",
-      "evaluator_version": "vendor/gems57/evaluate_holdout.py::gems57-pooled-hide-v2 (label-blind-quadrants-v2, buffer_px=80 [8.0 km])",
-      "n_withheld_positives": 60988,
-      "bootstrap_draws": 1000,
-      "random_control": {
-        "dti": 0.07156,
-        "ci95": [0.06807, 0.07501]
-      },
-      "GEMS70_P8_oof_control": {
-        "dti": 0.09565,
-        "ci95": [0.08371, 0.1089]
-      },
-      "H33_singlepx_oof_control": {
-        "dti": 0.11473,
-        "ci95": [0.09417, 0.13571]
-      },
-      "EXP_76_1_MultiPhysics_Disk": {
-        "dti": 0.17901,
-        "ci95": [0.15835, 0.20005]
-      },
-      "EXP_76_2_ContextPyramid_Disk": {
-        "dti": 0.18473,
-        "ci95": [0.16422, 0.2038]
-      },
-      "EXP_76_3_ContextPyramid_SubmodDTI": {
-        "dti": 0.17822,
-        "ci95": [0.1561, 0.19822],
-        "paired_delta_vs_H33_oof": 0.0635,
-        "paired_delta_vs_H33_ci95": [0.05146, 0.0755],
-        "paired_z_se_multiple_vs_H33": 10.35,
-        "paired_delta_vs_GEMS70_oof": 0.08257,
-        "paired_delta_vs_GEMS70_ci95": [0.0624, 0.10074],
-        "paired_z_se_multiple_vs_GEMS70": 8.44
-      }
-    },
-    "secondary_competition_geometry_hide20": {
-      "metric_label": "HOLDOUT-DTI (gems57-pooled-hide-v2-hide20, n=12155, 95% CI)",
-      "evaluator_version": "vendor/gems57/evaluate_holdout.py::gems57-pooled-hide-v2 (buffered-whole-components-loqo-v2, hide=20%, visible catalogue pixel-masked)",
-      "n_withheld_positives": 12155,
-      "bootstrap_draws": 1000,
-      "random_control": {
-        "dti": 0.04521,
-        "ci95": [0.04005, 0.04986]
-      },
-      "GEMS70_P8_oof_control": {
-        "dti": 0.06356,
-        "ci95": [0.05091, 0.07749]
-      },
-      "H33_singlepx_oof_control": {
-        "dti": 0.07557,
-        "ci95": [0.05673, 0.094]
-      },
-      "EXP_76_1_MultiPhysics_Disk": {
-        "dti": 0.1032,
-        "ci95": [0.08424, 0.12178]
-      },
-      "EXP_76_2_ContextPyramid_Disk": {
-        "dti": 0.10662,
-        "ci95": [0.08796, 0.12592]
-      },
-      "EXP_76_3_ContextPyramid_SubmodDTI": {
-        "dti": 0.10924,
-        "ci95": [0.08856, 0.13041],
-        "rank_among_all_arms": 1,
-        "relative_gain_vs_H33_oof_pct": 44.56,
-        "relative_gain_vs_GEMS70_oof_pct": 71.87
-      }
-    }
+  "C76pied_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.02081735075524697,
+   "ci95": [
+    0.014670301712413287,
+    0.026704442159241733
+   ],
+   "withheld_positive_pixels": 10792,
+   "tpw": 293.9415839394709,
+   "fpw": 27138.200431101388,
+   "fnw": 10498.058416060527
+  }
+ },
+ "leakage_canaries_max_auc": {
+  "exp1": 0.592355507464005,
+  "exp2": 0.62015797168978,
+  "threshold": 0.9,
+  "any_suspected_leakage": false
+ },
+ "uniqueness_vs_registry": {
+  "n_rasters_compared": 122,
+  "worst_mutual_overlap": 0.10615074095713603,
+  "worst_mutual_file": "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+  "worst_abs_surface_rho": 0.2034334829003219,
+  "gates_pass": true
+ },
+ "raster_sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
+ "validator": {
+  "file": "evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif",
+  "bytes": 90648,
+  "sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
   },
-  "registry_uniqueness": {
-    "evidence_class": "REGISTRY-MEASUREMENT",
-    "rasters_checked": 896,
-    "rasters_expected": 896,
-    "complete_accessible_scan": true,
-    "pre_placement_surface_max_abs_spearman": 0.68509,
-    "pre_placement_surface_nearest": "5GEMSDOE:data/derived/context_detector_prob_topo_rad.tif",
-    "final_dots_max_abs_spearman": 0.10844,
-    "final_dots_nearest_rho": "GEMSDOE48:docs/downloads/gemsdoe48-h50-ds-b2xh36rung30-20261007-5b59e106-nan.tif",
-    "final_dots_max_mutual_3px_overlap": 0.55689,
-    "final_dots_nearest_mutual": "GEMSDOE31:docs/downloads/gemsdoe31-add-arm-d28-20261004-8acb75e1-allfinite.tif",
-    "vs_GEMSDOE32_H33_02778": {
-      "mutual_3px_overlap": 0.4932,
-      "oneway_forward_3px_overlap": 0.5799,
-      "oneway_reverse_3px_overlap": 0.4932
-    },
-    "vs_GEMSDOE70_P8_02478": {
-      "mutual_3px_overlap": 0.4235,
-      "oneway_forward_3px_overlap": 0.4235,
-      "oneway_reverse_3px_overlap": 0.4572
-    },
-    "thresholds": {
-      "max_abs_spearman_limit": 0.9,
-      "max_3px_overlap_limit": 0.7
-    },
-    "duplicate_count": 0,
-    "unique": true,
-    "note": "Passes both pre-placement surface (0.6851 <= 0.90) and final dots (|rho|=0.1084 <= 0.90; mutual 3px overlap=0.5569 <= 0.70; live-leaderboard max 1-way overlap vs competition-budget submissions=0.6334 <= 0.70). Archival synthetic 5x5 grid 13gems_20261001_r13-lattice-s5 covers 99.87% of all 5,167,373 footprint pixels within 3 px (leaving 6,718 pixels statewide), forcing raw 1-way overlap >= 0.8286 for every possible 39,200-dot submission by Dirichlet's Pigeonhole Principle."
+  "band_description": [
+   null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.0022451861295849085,
+  "emitted_positive_pixels": 27569,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
   },
-  "raster_sha256": "54c978399d0a875ba89aacc465e7efd8644420e6ba1dfa7c0a1390328be2c514",
-  "zip_sha256": "f54e90ba0ff029db5454915596f112f18dc9e87783fb53fabbc143549ef6fce9",
-  "decoded_array_sha256": "6316481d8989afd6de963ca4810ae5d874da0ff690289eda0c42c5ff0f0e39e5",
-  "validator_output": {
-    "file": "docs/downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif",
-    "zip_file": "docs/downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.zip",
-    "bytes": 137028,
-    "single_band": true,
-    "dtype": "float32",
-    "crs": "EPSG:32611",
-    "shape": [3730, 3292],
-    "transform": [100.0, 0.0, 243350.0, 0.0, -100.0, 4508550.0],
-    "nodata": null,
-    "no_nan_in_footprint": true,
-    "no_nan_anywhere": true,
-    "n_nan": 0,
-    "n_infinite": 0,
-    "values_in_0_1": true,
-    "min": 0.0,
-    "max": 1.0,
-    "emitted_positive_pixels": 39200,
-    "in_footprint_positive_pixels": 39200,
-    "outside_footprint_nonzero_pixels": 0,
-    "on_catalogue_positive_pixels": 0,
-    "all_checks_passed": true
-  },
-  "submission_name": "gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros",
-  "submission_note": "GEMS76 PTCF+TiltWorm+Chi 2D-UGBDT + CELF SubmodDTI 39200d [0,1] zeros sha:6316481d",
-  "submission_note_length": 82,
-  "budget_used": {
-    "experiments_run": 3,
-    "experiments_cap": 3,
-    "wall_clock_hours_cap": 2.0
-  },
-  "verdict": "promote"
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 27569,
+  "footprint_fraction": 0.005335206109564763,
+  "note_on_path": "artifact relocated from docs/downloads/ at integration with main PR #2 (fail-closed site policy); bytes unchanged, sha256 identical"
+ },
+ "submission_name": "gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT",
+ "submission_note_max140": "G76 piedmont-dipole logistic Exp2: HOLDOUT-DTI 0.0218 vs fair-H33 0.0927 (negative, below random). DO NOT SUBMIT.",
+ "experiments_used": "2 of 3 (Exp3 reserved for confirmation of a passing Exp2; not run)",
+ "weekly_slots_used": 0,
+ "organizer_confirmed_scores": "none in this repository",
+ "verdict": "negative"
 }

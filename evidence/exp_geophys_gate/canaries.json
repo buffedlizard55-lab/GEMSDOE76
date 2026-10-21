@@ -1,0 +1,71 @@
+{
+  "evidence_class": "LEAKAGE-CANARIES",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "threshold_auc": 0.9,
+  "any_suspected_leakage": false,
+  "features": {
+    "g_tmi_hg": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_tmi_hg",
+      "auc": 0.5294837434855578,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_tc": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_tc",
+      "auc": 0.4718794848069959,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_slope": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_slope",
+      "auc": 0.5639790694284957,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_grav_hg": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_grav_hg",
+      "auc": 0.4924882841621765,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_curv": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_curv",
+      "auc": 0.5357744008921473,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_edge_max": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_edge_max",
+      "auc": 0.497650519167918,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_cond": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_cond",
+      "auc": 0.4778162275859023,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_base_edge": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_base_edge",
+      "auc": 0.5382671862026323,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    },
+    "g_strain": {
+      "evidence_class": "LEAKAGE-CANARY",
+      "feature": "g_strain",
+      "auc": 0.5671350415157672,
+      "withheld_positive_pixels": 11321,
+      "negative_sample_pixels": 200000
+    }
+  }
+}

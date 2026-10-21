@@ -143,6 +143,9 @@
   },
   "submission_name": "gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros",
   "submission_note": "GEMS76 PTCF+TiltWorm+Chi 2D-UGBDT + CELF SubmodDTI 39200d [0,1] zeros sha:6316481d",
+  "note": "GEMS76 PTCF+TiltWorm+Chi 2D-UGBDT + CELF SubmodDTI 39200d [0,1] zeros sha:6316481d",
+  "raster": "docs/downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif",
+  "raster_zip": "docs/downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.zip",
   "submission_note_length": 82,
   "budget_used": {
     "experiments_run": 3,

@@ -1,0 +1,254 @@
+{
+  "evidence_class": "DATA-MEASUREMENT",
+  "lane": "tectonic-geomorphology: channel steepness and knickpoints",
+  "generated_utc": "2026-10-11T00:54:36Z",
+  "parameters": {
+    "band": 12,
+    "a_min_cells": 20,
+    "window_cells": 5,
+    "theta_ref": 0.45,
+    "a0_m2": 1.0,
+    "cell_m": 100.0,
+    "fill_eps_m": 0.001,
+    "bucket_q_m": 0.25,
+    "playa_raise_threshold_m": 20.0
+  },
+  "source": {
+    "file": "data/official/training_features.tif",
+    "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "band_description": "det_elev - Detrended elevation - topography with regional trends removed"
+  },
+  "provenance": "hash-pinned third-party bridge of the DrivenData competition file; official origin not independently authenticated",
+  "steps": [
+    {
+      "step": "labels",
+      "t_s": 0.4,
+      "footprint_pixels": 5167373,
+      "catalogue_pixels": 60988
+    },
+    {
+      "step": "dem_loaded",
+      "t_s": 4.67,
+      "band": 12,
+      "finite": 5164312,
+      "nan_inside_footprint": 3061,
+      "min": -589.9837036132812,
+      "max": 1469.9127197265625,
+      "sha256": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5"
+    },
+    {
+      "step": "nan_repaired",
+      "t_s": 13.66,
+      "repaired": 3061,
+      "still_nan": 0
+    },
+    {
+      "step": "priority_flood",
+      "t_s": 41.79,
+      "cells": 5167373,
+      "closed": 5167373,
+      "waves": 0,
+      "raised": 914097.0,
+      "max_raise_m": 283.6378701171898
+    },
+    {
+      "step": "d8",
+      "t_s": 44.1,
+      "outlets": 7113011,
+      "routed": 5166149
+    },
+    {
+      "step": "upslope_area",
+      "t_s": 47.68,
+      "max_cells": 825425.0,
+      "max_level": 2335,
+      "mean_cells_inside_footprint": 581.9197478099607
+    },
+    {
+      "step": "drainage_identity",
+      "t_s": 52.01,
+      "distinct_terminals": 1224
+    },
+    {
+      "step": "chi",
+      "t_s": 53.84,
+      "theta": 0.45,
+      "max_chi": 51.03868127724301,
+      "median_chi_channels": 9.94344130810904
+    },
+    {
+      "step": "ksn",
+      "t_s": 56.55,
+      "channel_pixels": 942898,
+      "ksn_p50": 10.603668663977382,
+      "ksn_p95": 79.26397683098526,
+      "ksn_p999": 251.93641339339712
+    },
+    {
+      "step": "knickpoint_step",
+      "t_s": 62.75,
+      "window": 5,
+      "channel_with_both_windows": 942898,
+      "step_p50": -0.025207733855965246,
+      "step_p95": 0.8486523981338138,
+      "step_p999": 2.302585092994046,
+      "frac_step_positive": 0.39045474696096505,
+      "step_floor_ksn": 0.5,
+      "step_winsor": 2.302585092994046
+    },
+    {
+      "step": "confound_masks",
+      "t_s": 62.96,
+      "playa_basin_floor_pixels": 542309,
+      "max_raise_m": 283.6378701171898,
+      "raise_p99": 188.0346732031248
+    },
+    {
+      "step": "cached",
+      "t_s": 64.54,
+      "files": 14
+    }
+  ],
+  "files": [
+    {
+      "name": "dem_filled",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/dem_filled.npy",
+      "sha256": "84526ed0291ea8061c5d3ef5ee7ba275541d6cb6f98790ecf20285af8a764967"
+    },
+    {
+      "name": "dircode",
+      "dtype": "int8",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/dircode.npy",
+      "sha256": "9498bf9b5cfb1316cda38b1b18d9fb7f4deeb2527d89dc593ac26e5412e20b05"
+    },
+    {
+      "name": "acc",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/acc.npy",
+      "sha256": "58e1b4c727c9b6938160bb1b9ec295d27bfc67363e26c79e249351f9c6f13c84"
+    },
+    {
+      "name": "level",
+      "dtype": "int32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/level.npy",
+      "sha256": "56542b94ca803f57eaa0da2abdee8ba5a4f2dc0fed332336415b519a07e32b03"
+    },
+    {
+      "name": "terminal",
+      "dtype": "int32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/terminal.npy",
+      "sha256": "1921f47f3b12a00d528db9e91efff073c1ff98de46e60361ad3f1acf2f8b0d6d"
+    },
+    {
+      "name": "chi",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/chi.npy",
+      "sha256": "ca341ee2831876425e2f0b91db0d803a492d9f859947462dde90bda6dc9421d5"
+    },
+    {
+      "name": "ksn",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/ksn.npy",
+      "sha256": "a536d859de8210d2cd15052d1aa6cb61e29e186be5c3f1431880f8b81b3daf6b"
+    },
+    {
+      "name": "donor",
+      "dtype": "int32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/donor.npy",
+      "sha256": "97f7b0aa8a8e58cf47898730eaa4a716c1a3eadc2f434d4c3cd0ba4b7ef577dd"
+    },
+    {
+      "name": "step",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/step.npy",
+      "sha256": "fb416d56fd4a01363bb4c0b91b8924e9990765b42cef1cfa5729edc4b9bf4acc"
+    },
+    {
+      "name": "channel",
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/channel.npy",
+      "sha256": "7db3df9a2c969a43a2b5ad3be272c66e580e60f8e6e250c7311ac61492933c04"
+    },
+    {
+      "name": "playa",
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/playa.npy",
+      "sha256": "aefa1f6e9c1bf95f0a49011101399249ecddb7ea2c1c50b13a55f00b1af491c7"
+    },
+    {
+      "name": "raise_m",
+      "dtype": "float32",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/raise_m.npy",
+      "sha256": "5a26e11092411f20e329363ce453b11bd52aee5a0c6262efc7d6713f4860ebd0"
+    },
+    {
+      "name": "footprint",
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/footprint.npy",
+      "sha256": "c446094771775c00802862e9ec58846fd1b278b4e608303e68811a2404dfd246"
+    },
+    {
+      "name": "catalogue",
+      "dtype": "bool",
+      "shape": [
+        3730,
+        3292
+      ],
+      "file": ".cache/features60/catalogue.npy",
+      "sha256": "d77fa88ad58d0a268b736b3c1d6a8939fd237d5955369944bd2b299194b2555d"
+    }
+  ]
+}

@@ -1,0 +1,250 @@
+{
+  "lid_step": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5874535003533257,
+    "inverse_auc": 0.41254649964667434,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_dipole": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5900571124458971,
+    "inverse_auc": 0.4099428875541029,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_polarity": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5854789433353944,
+    "inverse_auc": 0.4145210566646056,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_coh": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5237362704266408,
+    "inverse_auc": 0.47626372957335916,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_exmean": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5796174297765216,
+    "inverse_auc": 0.42038257022347836,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_relief": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5857653025351118,
+    "inverse_auc": 0.41423469746488817,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "lid_persist": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.592355507464005,
+    "inverse_auc": 0.407644492535995,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "has_lidar": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5323502892853988,
+    "inverse_auc": 0.46764971071460115,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "fallback_resp": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.4671378363218797,
+    "inverse_auc": 0.5328621636781203,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "elev_hp": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.43728375408532816,
+    "inverse_auc": 0.5627162459146718,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "elev_slope": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5648128122515679,
+    "inverse_auc": 0.4351871877484321,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "mag_edge": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5353668889674057,
+    "inverse_auc": 0.4646331110325943,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "xedge_agree": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5357973432117304,
+    "inverse_auc": 0.46420265678826955,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "tmi_hg": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5296257307216676,
+    "inverse_auc": 0.47037426927833237,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "tc": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.4712048465241586,
+    "inverse_auc": 0.5287951534758414,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "grav_edge": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5234868364102112,
+    "inverse_auc": 0.4765131635897888,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "iso_hg": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.49233341577599155,
+    "inverse_auc": 0.5076665842240085,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "rad_anom": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.4767908342902571,
+    "inverse_auc": 0.5232091657097429,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "rad_edge": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.49974906302446775,
+    "inverse_auc": 0.5002509369755322,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "strain_belt": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5683888329211201,
+    "inverse_auc": 0.4316111670788799,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "strain_dil": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5127372279392279,
+    "inverse_auc": 0.48726277206077206,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "depth_grad": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5367662326649589,
+    "inverse_auc": 0.46323376733504107,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_persist_scarp": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5578533890557371,
+    "inverse_auc": 0.4421466109442629,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_support_scarp": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.548556287430439,
+    "inverse_auc": 0.45144371256956095,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_persist_xmag": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.535415965462415,
+    "inverse_auc": 0.464584034537585,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_support_xmag": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5352799242558078,
+    "inverse_auc": 0.46472007574419216,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_persist_grav": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5255246042752407,
+    "inverse_auc": 0.4744753957247593,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_support_grav": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5272646614698349,
+    "inverse_auc": 0.47273533853016514,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_persist_rad": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5002194631657981,
+    "inverse_auc": 0.49978053683420187,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "ctx_support_rad": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.5014255138680328,
+    "inverse_auc": 0.4985744861319672,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 200000,
+    "suspected_leakage": false
+  },
+  "fitted_probability_fold_honest": {
+    "evidence_class": "LEAKAGE-CANARY",
+    "auc": 0.6269601695411182,
+    "inverse_auc": 0.3730398304588818,
+    "withheld_positive_pixels": 11321,
+    "negative_sample_pixels": 800000,
+    "suspected_leakage": false
+  }
+}

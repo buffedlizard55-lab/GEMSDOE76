@@ -17,9 +17,10 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "vendor"))
 
-from gems76.canary import _exact_auc_1d
-from gems76.features import clean_band
-from gems57 import emit, submission_writer, uniqueness
+from gems76c.canary import _exact_auc_1d
+from gems76c.features import clean_band
+from gems76c import emit_patched as emit, uniqueness_patched as uniqueness
+from gems57 import submission_writer
 
 
 def test_bug_gems57_01_fast_forward_overlap_exact_parity():

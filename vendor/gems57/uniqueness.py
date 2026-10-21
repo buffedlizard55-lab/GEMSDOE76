@@ -1,15 +1,9 @@
-"""Parallel-run gates with corrected dot definition, fail closed on incomplete registries.
+"""Literal parallel-run gates, fail closed on incomplete registries.
 
-Fix 2026-10-20: dot support is binary 1.0, not any positive continuous value.
-The inherited literal definition (finite prediction > 0) made any nonempty
-candidate appear duplicated against a whole-footprint continuous probability
-surface (e.g. 17GEMSDOE E-proba-multiscale, positive on 5,167,373 footprint
-cells, leaving 0 allowed cells uncovered). That surface is a
-continuous_surface (support fraction 1.0 > 0.20 limit) and must be evaluated
-via rank correlation, not 3-px dot overlap. Binary dot fields (values exactly
-1.0) are evaluated via both Spearman and forward dot overlap; continuous
-surfaces via Spearman only. This restores the intended uniqueness meaning
-without changing thresholds and is reported as a protocol fix.
+No density exemption, reverse-overlap clearance or private definition of dots:
+positive finite pixels are the inherited support definition. That makes a
+whole-footprint soft registry surface a universal overlap blocker; the audit
+reports the problem, rather than quietly changing the owner's protocol.
 """
 from __future__ import annotations
 import hashlib
@@ -28,39 +22,8 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def _dots(a):
-    """Positive finite support for sparse/graded dot fields.
-
-    Fixes BUG-GEMS57-03: previously ``abs(a - 1.0) < 1e-6`` silently produced an
-    empty dot set for any graded sparse emission in ``(0, 1)`` (e.g. ``max == 0.95``).
-    Every finite positive cell ``a > 0`` is treated as support; dense whole-footprint
-    probability surfaces are classified explicitly via :func:`representation_class`.
-    """
     a = np.asarray(a)
     return np.isfinite(a) & (a > 0)
-
-
-def _fast_forward_overlap(support: np.ndarray, ym: np.ndarray, xm: np.ndarray, radius_px: float = RADIUS_PX) -> float:
-    """Bit-exact ``mean(_near(support, radius_px)[my_support])`` in O(|my_support| * |disk|).
-
-    Identical to ``binary_dilation(support)[ym, xm].mean()`` to machine precision,
-    while running 150x faster (~2 ms vs ~320 ms per 3730x3292 raster).
-    """
-    if ym.size == 0 or not support.any():
-        return 0.0
-    H, W = support.shape
-    r = int(np.ceil(radius_px))
-    yy, xx = np.mgrid[-r:r + 1, -r:r + 1]
-    dy_arr = yy[yy * yy + xx * xx <= radius_px * radius_px]
-    dx_arr = xx[yy * yy + xx * xx <= radius_px * radius_px]
-    hit = np.zeros(ym.size, dtype=bool)
-    for dy, dx in zip(dy_arr.tolist(), dx_arr.tolist()):
-        ny = ym + dy
-        nx = xm + dx
-        inb = (ny >= 0) & (ny < H) & (nx >= 0) & (nx < W)
-        idx = np.flatnonzero(inb & ~hit)
-        if idx.size:
-            hit[idx] = support[ny[idx], nx[idx]]
-    return float(hit.mean())
 
 
 def _near(support, radius_px=RADIUS_PX):
@@ -107,8 +70,7 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
         'identical_bytes', 'identical_decoded_predictions'))]
     rank_rows = [r for r in checked if r.get('spearman_full_footprint') is not None]
     worst_rho = max(rank_rows, key=lambda r: r['spearman_full_footprint'], default=None)
-    worst_ov = max(checked, key=lambda r: r.get('mutual_overlap', r['my_dots_within_3px_of_theirs']), default=None)
-    worst_fwd = max(checked, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
+    worst_ov = max(checked, key=lambda r: r['my_dots_within_3px_of_theirs'], default=None)
     worst_jac = max(checked, key=lambda r: r['jaccard_dot_sets'], default=None)
     my_dot_count = int(candidate_meta['my_dots'])
     norm = bool(candidate_meta['candidate_rank_variation'])
@@ -124,13 +86,8 @@ def summarize_registry_rows(rows, *, registry_rasters_expected, complete_accessi
         source_errors=source_errors,
         worst_spearman_full_footprint=(worst_rho['spearman_full_footprint'] if worst_rho else None),
         worst_rho_submission=(worst_rho['submission'] if worst_rho else None),
-        worst_dot_overlap=(worst_ov.get('mutual_overlap', worst_ov['my_dots_within_3px_of_theirs']) if worst_ov else None),
+        worst_dot_overlap=(worst_ov['my_dots_within_3px_of_theirs'] if worst_ov else None),
         worst_overlap_submission=(worst_ov['submission'] if worst_ov else None),
-        worst_forward_overlap=(worst_fwd['my_dots_within_3px_of_theirs'] if worst_fwd else None),
-        worst_forward_submission=(worst_fwd['submission'] if worst_fwd else None),
-        overlap_definition=('mutual min(forward,reverse) > 0.70; forward reported separately. '
-                            'Fix 2026-10-20: forward-only fires on dense sampling designs '
-                            'whose 3-px halo covers the whole footprint.'),
         worst_jaccard_dot_sets=(worst_jac['jaccard_dot_sets'] if worst_jac else None),
         worst_jaccard_submission=(worst_jac['submission'] if worst_jac else None),
         byte_unique_among_checked=bool(checked) and not any(r.get('identical_bytes', False) for r in checked),
@@ -270,7 +227,6 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
     norm = float(np.linalg.norm(ranks))
     my_support = _dots(mine) & fp
     my_dot_count = int(my_support.sum())
-    ym, xm = np.nonzero(my_support)
     my_near = _near(my_support) if include_reverse else None
     decoded_digest = hashlib.sha256(np.ascontiguousarray(mine).tobytes()).hexdigest()
     for i, rec in enumerate(records):
@@ -307,25 +263,21 @@ def compare_array_to_registry(mine, registry_index, footprint, *, file_sha256=No
                 nt = int(tb.sum()); n = len(tv)
                 rho = float(ranks[tb].sum() / (norm * np.sqrt(nt*(n-nt)/n)))
             else:
-                tr = rankdata(tv)
+                tr = rankdata(tv).astype(np.float64)
                 tr -= tr.mean()
                 rho = float(np.dot(ranks,tr)/(norm*np.linalg.norm(tr)))
-            ov = _fast_forward_overlap(support, ym, xm, RADIUS_PX) if my_dot_count else 0.0
+            ov = float(_near(support)[my_support].mean()) if my_dot_count else 0.0
             reverse = float(my_near[support].mean()) if include_reverse and support.any() else 0.0
             jac = _jaccard(my_support, support)
             their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
-            mutual = min(ov, reverse) if include_reverse else ov
             row = {**base, 'sha256':digest, 'decoded_sha256':their_decoded,
                 'their_dots':int(support.sum()), 'my_dots_within_3px_of_theirs':ov,
-                'their_dots_within_3px_of_mine':reverse, 'mutual_overlap':mutual,
-                'spearman_full_footprint':rho,
-                'abs_spearman_full_footprint':(abs(rho) if rho is not None else None),
+                'their_dots_within_3px_of_mine':reverse, 'spearman_full_footprint':rho,
                 'jaccard_dot_sets':jac,
                 'identical_bytes':bool(file_sha256 and digest==file_sha256),
                 'identical_decoded_predictions':bool(their_decoded==decoded_digest),
-                'duplicate_by_rho':bool(rho is not None and abs(rho) > RHO_LIMIT),
-                'duplicate_by_overlap':bool(mutual > OVERLAP_LIMIT),
-                'forward_only_overlap_warning':bool(ov > OVERLAP_LIMIT >= mutual),
+                'duplicate_by_rho':bool(rho is not None and rho > RHO_LIMIT),
+                'duplicate_by_overlap':bool(ov > OVERLAP_LIMIT),
                 'duplicate_by_jaccard':bool(jac > JACCARD_LIMIT)}
             rows.append(row)
         except (OSError, ValueError, rasterio.errors.RasterioError) as e:
@@ -385,15 +337,13 @@ def saturation_certificate(registry_path, footprint, catalogue=None, *, expected
     positive = _dots(a) & fp
     covered = _near(positive)
     uncovered = int((allowed & ~covered).sum())
-    # Updated support definition: binary 1.0 dots only; continuous surfaces
-    # have empty dot set and cannot be universal blockers via overlap.
     return dict(evidence_class='REGISTRY-MEASUREMENT', witness_file=str(registry_path),
         witness_sha256=_sha(registry_path), positive_pixels=int(positive.sum()),
         allowed_pixels=int(allowed.sum()), uncovered_allowed_pixels=uncovered,
-        covered_allowed_fraction=float(covered[allowed].mean()) if allowed.any() else 0.0,
-        universal_overlap_blocker=uncovered==0 and positive.sum() > 0, overlap_limit=OVERLAP_LIMIT,
-        support_definition='binary 1.0 dots (finite and |value-1|<1e-6); continuous surfaces have empty dot set',
-        implication='Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate.' if uncovered==0 and positive.sum() > 0 else 'No universal blockage established under corrected binary-dot definition.')
+        covered_allowed_fraction=float(covered[allowed].mean()),
+        universal_overlap_blocker=uncovered==0, overlap_limit=OVERLAP_LIMIT,
+        support_definition='finite prediction > 0 (inherited literal support rule)',
+        implication='Every nonempty candidate dot set in the allowed domain has forward overlap 1.0 with this prior; therefore it cannot pass the 0.70 gate.' if uncovered==0 else 'No universal blockage established.')
 
 
 DENSE_SUPPORT_FRACTION = 0.20
@@ -461,26 +411,18 @@ def two_phase_summary(rows, footprint_cells: int, *, rho_limit: float = RHO_LIMI
     ov_lit, ov_who = _worst(checked, "my_dots_within_3px_of_theirs")
     dot_rows = [r for r in checked if r["representation"] == "dot_field"]
     surf_rows = [r for r in checked if r["representation"] == "continuous_surface"]
-    for r in checked:
-        r.setdefault("mutual_overlap", min(
-            float(r["my_dots_within_3px_of_theirs"]),
-            float(r["their_dots_within_3px_of_mine"]),
-        ))
-    ov_dot_fwd, ov_dot_fwd_who = _worst(dot_rows, "my_dots_within_3px_of_theirs")
-    ov_dot, ov_dot_who = _worst(dot_rows, "mutual_overlap")
+    ov_dot, ov_dot_who = _worst(dot_rows, "my_dots_within_3px_of_theirs")
     ov_rev, ov_rev_who = _worst(checked, "their_dots_within_3px_of_mine")
     jac, jac_who = _worst(checked, "jaccard_dot_sets")
     literal_firings = [dict(submission=r.get("submission"), repo=r.get("repo"),
                             representation=r["representation"],
                             forward_overlap=r["my_dots_within_3px_of_theirs"],
-                            mutual_overlap=r["mutual_overlap"],
                             their_dots=r.get("their_dots"))
                        for r in checked if r["my_dots_within_3px_of_theirs"] > overlap_limit]
-    like_firings = [f for f in literal_firings
-                    if f["representation"] == "dot_field" and f["mutual_overlap"] > overlap_limit]
+    like_firings = [f for f in literal_firings if f["representation"] == "dot_field"]
     literal_rho_firings = [r.get("submission") for r in checked
                            if r.get("spearman_full_footprint") is not None
-                           and abs(r["spearman_full_footprint"]) > rho_limit]
+                           and r["spearman_full_footprint"] > rho_limit]
     return dict(
         evidence_class="REGISTRY-MEASUREMENT",
         rasters_checked=len(checked),
@@ -505,8 +447,6 @@ def two_phase_summary(rows, footprint_cells: int, *, rho_limit: float = RHO_LIMI
             dot_field_rasters=len(dot_rows), continuous_surface_rasters=len(surf_rows),
             worst_forward_overlap_dot_fields=ov_dot,
             worst_forward_overlap_dot_field_submission=(ov_dot_who or {}).get("submission"),
-            worst_raw_oneway_forward_dot_fields=ov_dot_fwd,
-            worst_raw_oneway_forward_dot_field_submission=(ov_dot_fwd_who or {}).get("submission"),
             worst_reverse_overlap=ov_rev,
             worst_reverse_overlap_submission=(ov_rev_who or {}).get("submission"),
             worst_jaccard=jac, worst_jaccard_submission=(jac_who or {}).get("submission"),
@@ -516,185 +456,4 @@ def two_phase_summary(rows, footprint_cells: int, *, rho_limit: float = RHO_LIMI
                   "every raster including the continuous surfaces."),
         ),
         literal_firings=literal_firings,
-    )
-
-
-def compare_surface_and_dots_to_registry(
-    surface: np.ndarray,
-    dots: np.ndarray,
-    registry_index,
-    footprint: np.ndarray,
-    *,
-    dots_file_sha256: str | None = None,
-    sparse_dot_limit_frac: float = 0.05,
-) -> dict:
-    """Simultaneous single-pass exact audit of BOTH pre-placement continuous surface AND final dots."""
-    surf = np.asarray(surface, np.float32)
-    dt = np.asarray(dots, np.float32)
-    fp = np.asarray(footprint, bool)
-    for tag, arr in (("surface", surf), ("dots", dt)):
-        if arr.ndim != 2 or arr.shape != fp.shape or not fp.any():
-            raise ValueError(f"{tag} / footprint grid mismatch")
-        if not np.isfinite(arr).all() or (arr < 0).any() or (arr > 1).any():
-            raise ValueError(f"{tag} must be finite in [0, 1]")
-        if (arr[~fp] > 0).any():
-            raise ValueError(f"positive {tag} mass outside footprint")
-
-    idx = registry_index if isinstance(registry_index, (list, dict)) else json.loads(Path(registry_index).read_text())
-    records, inventory_complete, source_errors = records_from_index(idx)
-    n_fp = int(fp.sum())
-
-    surf_vals = surf[fp]
-    surf_ranks = rankdata(surf_vals)
-    surf_ranks -= surf_ranks.mean()
-    surf_norm = float(np.linalg.norm(surf_ranks))
-
-    dot_vals = dt[fp]
-    dot_ranks = rankdata(dot_vals)
-    dot_ranks -= dot_ranks.mean()
-    dot_norm = float(np.linalg.norm(dot_ranks))
-
-    my_support = _dots(dt) & fp
-    my_dot_count = int(my_support.sum())
-    ym, xm = np.nonzero(my_support)
-    my_near = _near(my_support)
-    dots_decoded_digest = hashlib.sha256(np.ascontiguousarray(dt).tobytes()).hexdigest()
-    surf_decoded_digest = hashlib.sha256(np.ascontiguousarray(surf).tobytes()).hexdigest()
-
-    surf_rows = []
-    dot_rows = []
-    from .grid import TRANSFORM
-
-    for rec in records:
-        p = Path(rec["file"])
-        if not p.is_absolute():
-            p = ROOT / p
-        base = dict(repo=rec.get("repo"), submission=rec.get("submission", p.name), file=str(p))
-        try:
-            if not p.exists():
-                raise FileNotFoundError("missing registry file")
-            digest = _sha(p)
-            if rec.get("sha256") and digest != rec["sha256"]:
-                raise ValueError("registry SHA256 mismatch")
-            with rasterio.open(p) as src:
-                if src.count != 1 or src.shape != fp.shape:
-                    raise ValueError("registry grid/band mismatch")
-                if fp.shape == (3730, 3292) and (src.crs is None or src.crs.to_epsg() != 32611 or src.transform != TRANSFORM):
-                    raise ValueError("registry CRS/transform mismatch")
-                theirs = src.read(1).astype(np.float32)
-            theirs = np.where(np.isfinite(theirs), theirs, 0.0)
-            theirs[~fp] = 0.0
-            tv = theirs[fp]
-            support = (theirs > 0) & fp
-            tb = support[fp]
-            nt = int(tb.sum())
-
-            if np.ptp(tv) == 0:
-                rho_s = None
-                rho_d = None
-            elif np.all((tv == 0) | (tv == 1)):
-                denom_b = np.sqrt(nt * (n_fp - nt) / n_fp)
-                rho_s = float(surf_ranks[tb].sum() / (surf_norm * denom_b)) if surf_norm > 0 else None
-                rho_d = float(dot_ranks[tb].sum() / (dot_norm * denom_b)) if dot_norm > 0 else None
-            else:
-                tr = rankdata(tv)
-                tr -= tr.mean()
-                tn = float(np.linalg.norm(tr))
-                rho_s = float(np.dot(surf_ranks, tr) / (surf_norm * tn)) if surf_norm > 0 and tn > 0 else None
-                rho_d = float(np.dot(dot_ranks, tr) / (dot_norm * tn)) if dot_norm > 0 and tn > 0 else None
-
-            ov_fwd = _fast_forward_overlap(support, ym, xm, RADIUS_PX) if my_dot_count else 0.0
-            ov_rev = float(my_near[support].mean()) if nt else 0.0
-            ov_mut = min(ov_fwd, ov_rev)
-            jac = _jaccard(my_support, support)
-            their_decoded = hashlib.sha256(np.ascontiguousarray(theirs).tobytes()).hexdigest()
-
-            surf_rows.append({
-                **base,
-                "sha256": digest,
-                "decoded_sha256": their_decoded,
-                "their_dots": nt,
-                "spearman_full_footprint": rho_s,
-                "abs_spearman_full_footprint": (abs(rho_s) if rho_s is not None else None),
-                "identical_decoded_predictions": bool(their_decoded == surf_decoded_digest),
-                "duplicate_by_rho": bool(rho_s is not None and abs(rho_s) > RHO_LIMIT),
-            })
-            dot_rows.append({
-                **base,
-                "sha256": digest,
-                "decoded_sha256": their_decoded,
-                "their_dots": nt,
-                "my_dots_within_3px_of_theirs": ov_fwd,
-                "their_dots_within_3px_of_mine": ov_rev,
-                "mutual_overlap": ov_mut,
-                "spearman_full_footprint": rho_d,
-                "abs_spearman_full_footprint": (abs(rho_d) if rho_d is not None else None),
-                "jaccard_dot_sets": jac,
-                "identical_bytes": bool(dots_file_sha256 and digest == dots_file_sha256),
-                "identical_decoded_predictions": bool(their_decoded == dots_decoded_digest),
-                "duplicate_by_rho": bool(rho_d is not None and abs(rho_d) > RHO_LIMIT),
-                "duplicate_by_overlap": bool(ov_mut > OVERLAP_LIMIT),
-                "sparse_prior": bool(nt <= sparse_dot_limit_frac * n_fp),
-                "duplicate_by_sparse_forward_overlap": bool((nt <= sparse_dot_limit_frac * n_fp) and (ov_fwd > OVERLAP_LIMIT)),
-                "forward_only_overlap_warning": bool(ov_fwd > OVERLAP_LIMIT >= ov_mut),
-                "duplicate_by_jaccard": bool(jac > JACCARD_LIMIT),
-            })
-        except (OSError, ValueError, rasterio.errors.RasterioError) as e:
-            err = {**base, "error": str(e)}
-            surf_rows.append(err)
-            dot_rows.append(err)
-
-    complete = inventory_complete and bool(records) and not source_errors
-    dots_summary = summarize_registry_rows(
-        dot_rows,
-        registry_rasters_expected=len(records),
-        complete_accessible_scan=complete,
-        source_errors=source_errors,
-        candidate_meta=dict(
-            my_file=None,
-            my_dots=my_dot_count,
-            candidate_decoded_sha256=dots_decoded_digest,
-            candidate_file_sha256=dots_file_sha256,
-            candidate_rank_variation=dot_norm > 0,
-        ),
-        scope="Complete hash-verified inherited registry + sibling scan (surface + dots).",
-    )
-    sparse_dot_rows = [r for r in dot_rows if "error" not in r and r.get("sparse_prior")]
-    worst_sparse_fwd = max(sparse_dot_rows, key=lambda r: r["my_dots_within_3px_of_theirs"], default=None)
-    surf_valid = [r for r in surf_rows if "error" not in r and r.get("abs_spearman_full_footprint") is not None]
-    worst_surf_rho = max(surf_valid, key=lambda r: r["abs_spearman_full_footprint"], default=None)
-    surf_dup = [r for r in surf_rows if r.get("duplicate_by_rho") or r.get("identical_decoded_predictions")]
-    sparse_fwd_dup = [r for r in sparse_dot_rows if r.get("duplicate_by_sparse_forward_overlap")]
-
-    return dict(
-        complete_accessible_scan=complete and dots_summary["complete_accessible_scan"],
-        registry_rasters_expected=len(records),
-        registry_rasters_checked=dots_summary["registry_rasters_checked"],
-        surface=dict(
-            worst_abs_spearman=(worst_surf_rho["abs_spearman_full_footprint"] if worst_surf_rho else None),
-            worst_signed_spearman=(worst_surf_rho["spearman_full_footprint"] if worst_surf_rho else None),
-            worst_rho_submission=(worst_surf_rho["submission"] if worst_surf_rho else None),
-            worst_rho_repo=(worst_surf_rho["repo"] if worst_surf_rho else None),
-            duplicate_count=len(surf_dup),
-            unique=bool(complete and surf_norm > 0 and not surf_dup),
-            top10_nearest=[
-                {k: r[k] for k in ("repo", "submission", "sha256", "their_dots", "spearman_full_footprint", "abs_spearman_full_footprint")}
-                for r in sorted(surf_valid, key=lambda r: -r["abs_spearman_full_footprint"])[:10]
-            ],
-        ),
-        dots=dots_summary,
-        strict_sparse_forward_gate=dict(
-            sparse_support_limit_fraction=sparse_dot_limit_frac,
-            sparse_rasters_checked=len(sparse_dot_rows),
-            worst_forward_overlap=(worst_sparse_fwd["my_dots_within_3px_of_theirs"] if worst_sparse_fwd else None),
-            worst_forward_submission=(worst_sparse_fwd["submission"] if worst_sparse_fwd else None),
-            worst_forward_repo=(worst_sparse_fwd["repo"] if worst_sparse_fwd else None),
-            firings=len(sparse_fwd_dup),
-            passed=len(sparse_fwd_dup) == 0,
-            top10_nearest_sparse=[
-                {k: r[k] for k in ("repo", "submission", "sha256", "their_dots", "my_dots_within_3px_of_theirs", "their_dots_within_3px_of_mine", "mutual_overlap", "jaccard_dot_sets", "spearman_full_footprint")}
-                for r in sorted(sparse_dot_rows, key=lambda r: -r["my_dots_within_3px_of_theirs"])[:10]
-            ],
-        ),
-        two_phase=two_phase_summary(dot_rows, n_fp, expected_rasters=len(records)),
     )

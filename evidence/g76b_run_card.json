@@ -1,0 +1,210 @@
+{
+ "run_id": "gems76b-patchctx-exp1-20261021",
+ "hypothesis": "Hidden expert-mapped faults require multi-sensor agreement at neighbourhood scale: patch-context corroboration (directional persistence + local support) over four physics families (LiDAR scarp dipole, cross-scale magnetic edge agreement incl. TMI_up150, de-regionalized gravity edge, radiometric K/(Th+10) alteration edge) plus regional strain-belt gating, combined by a fold-honest HistGradientBoosting head, should recover withheld catalogue segments better than emission-geometry controls.",
+ "mechanism": "30 catalogue-free features per cell; per holdout fold the HGB head is trained on fold-visible catalogue positives outside the tested quadrant (12 px collar); emission via the shared greedy 300 m max-cover allocator, B=2 px catalogue-flank exclusion, 37,654-dot budget, binary dots, zeros outside footprint, shared fail-closed writer.",
+ "named_non_fault_mimic": "Stratigraphic/lithological contacts coherent at all scales; pluvial shoreline complexes; road/pipeline corridors; InSAR atmospheric strain artifacts; playa evaporite K/Th chemistry.",
+ "holdout_dti": {
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "withheld_positive_pixels": 11321,
+  "candidate_dots": 0.018702893843443844,
+  "candidate_ci95": [
+   0.010892638130852794,
+   0.027877008060948918
+  ],
+  "fair_h33_control": 0.09611409307227155,
+  "fair_h33_ci95": [
+   0.08339507830356264,
+   0.10930041677881894
+  ],
+  "fair_p8_static_handicapped": 0.002649067049527025,
+  "d28_reference": 0.09192198709430605,
+  "random_control": 0.03406823674881729,
+  "paired_delta_vs_fair_h33": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "delta": -0.0774111992288277,
+   "ci95": [
+    -0.09156946755304647,
+    -0.0635755894446074
+   ],
+   "withheld_positive_pixels": 11321
+  },
+  "paired_delta_vs_random": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "delta": -0.015365342905373443,
+   "ci95": [
+    -0.024585473049785405,
+    -0.004683413201854422
+   ],
+   "withheld_positive_pixels": 11321
+  }
+ },
+ "proxy_dti": {
+  "Bprime_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.016244640131207556,
+   "ci95": [
+    0.009969124876474812,
+    0.023454339391390175
+   ],
+   "withheld_positive_pixels": 63121,
+   "tpw": 910.09323849917,
+   "fpw": 26726.990130651906,
+   "fnw": 62210.90676150083
+  },
+  "Bprime_h33_ref": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.09613245598517184,
+   "ci95": [
+    0.08521129743526842,
+    0.10710578206723309
+   ],
+   "withheld_positive_pixels": 63121,
+   "tpw": 5639.032457275531,
+   "fpw": 35171.90105328291,
+   "fnw": 57481.967542724444
+  },
+  "C76pied_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.028681942222397748,
+   "ci95": [
+    0.016851556369634986,
+    0.042372199845111
+   ],
+   "withheld_positive_pixels": 10792,
+   "tpw": 407.99573537703037,
+   "fpw": 27548.151334835344,
+   "fnw": 10384.00426462297
+  },
+  "C76pied_h33_ref": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.09448136983014939,
+   "ci95": [
+    0.07749294825239772,
+    0.11156947124900492
+   ],
+   "withheld_positive_pixels": 10792,
+   "tpw": 1540.3519732790994,
+   "fpw": 36807.822911156494,
+   "fnw": 9251.648026720904
+  },
+  "C76pied_random": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.04428484528011068,
+   "ci95": [
+    0.03823222090937709,
+    0.05024269379789802
+   ],
+   "withheld_positive_pixels": 10792,
+   "tpw": 719.1636364383688,
+   "fpw": 37310.32411467741,
+   "fnw": 10072.83636356163
+  }
+ },
+ "leakage_canaries": {
+  "max_feature_auc": 0.6269601695411182,
+  "pooled_fold_honest_fitted_prob_auc": 0.6269601695411182,
+  "per_fold_fitted_prob_auc": [
+   0.6579136401456058,
+   0.5082600063371356,
+   0.6543672864321608,
+   0.6649927638461538
+  ],
+  "threshold": 0.9,
+  "any_suspected_leakage": false
+ },
+ "failure_diagnosis": {
+  "evidence_class": "DIAGNOSTIC-MEASUREMENT",
+  "candidate_dots": 28607,
+  "median_d_cat_px": 12.041594578792296,
+  "frac_dots_dcat_le_6px": 0.28419617576117734,
+  "frac_dots_dcat_gt_32px": 0.1739084839374978,
+  "h33_median_d_cat_px_reference": 19.6,
+  "blocks_20km_occupied_candidate": 104,
+  "blocks_20km_occupied_h33": 158,
+  "max_dots_per_block_candidate": 2249,
+  "max_dots_per_block_h33": 638,
+  "top5_block_share_candidate": 0.286433390428916,
+  "conclusion": "Concentration failure mode: the HGB head puts 28.6% of its dots in five 20 km blocks (H33: max 638/block, 158 blocks occupied). Concentrated-but-misplaced mass pays full FP against the recall-weighted DTI, matching the G76 post-mortem prediction. Per-quadrant fitted-prob canaries (0.658/0.508/0.654/0.637) show weak, unstable cross-quadrant transfer rather than inversion or leakage."
+ },
+ "uniqueness_vs_registry": {
+  "n_rasters_compared": 101,
+  "worst_mutual_overlap": 0.09163267555947525,
+  "worst_mutual_file": "gems58-ml-binary-ridge-20261012T000000Z.tif",
+  "worst_abs_surface_rho": 0.20340451354912367,
+  "gates_pass": true
+ },
+ "raster_sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+ "validator": {
+  "file": "evidence/lane-g76b/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif",
+  "bytes": 76951,
+  "sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
+  },
+  "band_description": [
+   null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.0023297197185456753,
+  "emitted_positive_pixels": 28607,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
+  },
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 28607,
+  "footprint_fraction": 0.005536081873710298
+ },
+ "submission_name": "gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT",
+ "submission_note_max140": "G76B patch-context HGB Exp1: HOLDOUT-DTI 0.0187 vs fair-H33 0.0961, below random. Negative. DO NOT SUBMIT.",
+ "experiments_used": "1 of 3 (pre-registration stops after a clear negative)",
+ "experiment_wall_clock_s": 919.1,
+ "weekly_slots_used": 0,
+ "organizer_confirmed_scores": "none in this repository",
+ "verdict": "negative",
+ "safe_to_submit": false,
+ "downloadable_submission": false
+}

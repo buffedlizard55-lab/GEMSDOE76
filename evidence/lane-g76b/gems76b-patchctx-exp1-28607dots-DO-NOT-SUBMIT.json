@@ -1,0 +1,125 @@
+{
+  "file": "gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif",
+  "sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+  "bytes": 76951,
+  "submission_name": "gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT",
+  "note": "G76B patch-context HGB Exp1: HOLDOUT-DTI 0.0187 vs fair-H33 0.0961, below random. Negative. DO NOT SUBMIT.",
+  "note_chars": 106,
+  "validator": {
+    "file": "/home/user/GEMSDOE76/evidence/lane-g76b/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif",
+    "bytes": 76951,
+    "sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+    "meta": {
+      "crs": "EPSG:32611",
+      "shape": [
+        3730,
+        3292
+      ],
+      "dtype": "float32",
+      "count": 1,
+      "nodata": null,
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "profile_compress": "deflate"
+    },
+    "band_description": [
+      null
+    ],
+    "n_finite": 12279160,
+    "n_nan": 0,
+    "n_infinite": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0023297197185456753,
+    "emitted_positive_pixels": 28607,
+    "checks": {
+      "single_band": true,
+      "dtype_float32": true,
+      "dimensions_3730x3292": true,
+      "crs_epsg_32611": true,
+      "transform_matches_sample_submission": true,
+      "no_nan_anywhere": true,
+      "no_inf_anywhere": true,
+      "no_sentinel_values": true,
+      "range_0_1_guaranteed": true,
+      "min_ge_0": true,
+      "max_le_1": true,
+      "in_footprint_all_finite": true,
+      "in_footprint_range_0_1": true,
+      "outside_footprint_zero": true,
+      "zero_dots_on_mapped_catalogue": true
+    },
+    "all_checks_passed": true,
+    "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+    "on_catalogue_positive_pixels": 0,
+    "in_footprint_positive_pixels": 28607,
+    "footprint_fraction": 0.005536081873710298
+  },
+  "template_report": {
+    "path": "/home/user/GEMSDOE76/evidence/lane-g76b/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif",
+    "bytes": 76951,
+    "sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+    "bands": 1,
+    "dtype": "float32",
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "ref_bounds": [
+      243350.0,
+      4135550.0,
+      572550.0,
+      4508550.0
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "nodata": null,
+    "blocksize": [
+      256,
+      256
+    ],
+    "fixture_grid": false,
+    "has_validity_mask": false,
+    "nan_pixels": 0,
+    "infinity_pixels": 0,
+    "n_nan": 0,
+    "min": 0.0,
+    "max": 1.0,
+    "mean": 0.0023297197185456753,
+    "n_nonzero": 28607,
+    "mass": 28607.0,
+    "mass_outside_footprint": 0,
+    "problems": [],
+    "ok": true,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "zip_file": "gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.zip",
+  "zip_sha256": "2a860271889089c8f23754f511564f61cab99be4df1fca28e0e8f47a4c9f5151",
+  "approved_for_weekly_slot": false,
+  "promoted": false,
+  "submission_slots_used": 0,
+  "status": "locally validated within separately recorded inventory scope; not organizer acceptance or slot approval",
+  "metadata": {
+    "verdict": "negative",
+    "submit_recommended": false,
+    "lane": "G76B patch-context corroboration (Exp1 HGB head)",
+    "holdout": "HOLDOUT-DTI (gems57-pooled-hide-v2, seed20, n=11321): candidate 0.01870 [0.01089,0.02788] vs fair-H33 0.09611 [0.08340,0.10930]; below random 0.03407"
+  }
+}

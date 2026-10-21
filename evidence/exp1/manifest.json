@@ -1,0 +1,17 @@
+{
+  "experiment": "G76-EXP1-piedmont-dipole",
+  "experiment_count_this_session": 1,
+  "maximum_experiments": 3,
+  "started_utc": "2026-10-21T02:34:15.730602+00:00",
+  "preregistration_sha256": "769ccfcbb9e1546b474b1ed81bdf37611da247f82378d1df0c2001bf52f2e75c",
+  "source_sha256": {
+    "src/gems76/features.py": "842fc518942dfadd4eb056a1d2a481ca52062a09b1f8971c381dee1b781fcac2",
+    "scripts/run_experiment1.py": "d1577de55c5ec3f60e2e3ef4e05527b8d11d73ab7528959f73dadcddb57ea749"
+  },
+  "evaluator_implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  }
+}

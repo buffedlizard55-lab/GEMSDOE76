@@ -1,0 +1,353 @@
+{
+  "evidence_class": "GEOMETRY / FORMAT MEASUREMENT - not HOLDOUT-DTI or organizer result",
+  "source_commit": "ac5594779cc7b1c10794549fbda4105874acf83a",
+  "reference_origin": "public third-party bridge; official authentication pending",
+  "synthetic_footprint_different_pixels": 5274448,
+  "synthetic_catalogue_different_pixels": 121162,
+  "candidate_reports": [
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.tif",
+      "bytes": 299299,
+      "sha256": "78056ddc628bedae2faa31e5116e1f098014862daac4ae739cccd53d1cef8704",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": "nan",
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": true,
+      "nan_pixels": 7111787,
+      "infinity_pixels": 0,
+      "n_nan": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.007433564402163029,
+      "n_nonzero": 38412,
+      "mass": 38412.0,
+      "mass_outside_footprint": 18368,
+      "problems": [
+        "7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)",
+        "nodata tag outside all-finite [0,1] export policy",
+        "18368 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 2637224,
+      "catalogue_overlap_pixels": 270,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    },
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif",
+      "bytes": 132631,
+      "sha256": "e7ac56f686b772fe4c85f14368cea07d50082e0598e76af3474a8f7e9f746a39",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0031282270792871714,
+      "n_nonzero": 38412,
+      "mass": 38412.0,
+      "mass_outside_footprint": 18368,
+      "problems": [
+        "18368 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 0,
+      "catalogue_overlap_pixels": 270,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    },
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.tif",
+      "bytes": 328949,
+      "sha256": "d1e15d8727a9811dc4ba4f101449eb7db012f4c70f0decca64697c3b2d37b4e4",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": "nan",
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": true,
+      "nan_pixels": 7111787,
+      "infinity_pixels": 0,
+      "n_nan": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.008553669787943363,
+      "n_nonzero": 44200,
+      "mass": 44200.0,
+      "mass_outside_footprint": 21838,
+      "problems": [
+        "7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)",
+        "nodata tag outside all-finite [0,1] export policy",
+        "21838 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 2637224,
+      "catalogue_overlap_pixels": 277,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    },
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif",
+      "bytes": 161792,
+      "sha256": "ecc4ffe5ad0520aacb15d45b501502ea895b1ceea6a409e26419432f9877fe10",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0035995948128402233,
+      "n_nonzero": 44200,
+      "mass": 44200.0,
+      "mass_outside_footprint": 21838,
+      "problems": [
+        "21838 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 0,
+      "catalogue_overlap_pixels": 277,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    },
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.tif",
+      "bytes": 283866,
+      "sha256": "13e28cc11628231a3f5d90a81fe08d61f4ee81e6324ab8e335989d952c0dfdcf",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": "nan",
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": true,
+      "nan_pixels": 7111787,
+      "infinity_pixels": 0,
+      "n_nan": 7111787,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.005766953341662884,
+      "n_nonzero": 29800,
+      "mass": 29800.0,
+      "mass_outside_footprint": 13612,
+      "problems": [
+        "7111787 NaN/infinite pixels: fail our all-finite export policy (public spec permits outside-footprint NaN)",
+        "nodata tag outside all-finite [0,1] export policy",
+        "13612 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 2637224,
+      "catalogue_overlap_pixels": 203,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    },
+    {
+      "path": "/home/user/GEMSDOE76/quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.tif",
+      "bytes": 117133,
+      "sha256": "4da2e509b91794d60aaa2e46d53063a55f6ca6e92f8911fae241e93a3b2e6a2e",
+      "bands": 1,
+      "dtype": "float32",
+      "crs": "EPSG:32611",
+      "width": 3292,
+      "height": 3730,
+      "bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "ref_bounds": [
+        243350.0,
+        4135550.0,
+        572550.0,
+        4508550.0
+      ],
+      "transform": [
+        100.0,
+        0.0,
+        243350.0,
+        0.0,
+        -100.0,
+        4508550.0
+      ],
+      "nodata": null,
+      "blocksize": [
+        256,
+        256
+      ],
+      "fixture_grid": false,
+      "has_validity_mask": false,
+      "nan_pixels": 0,
+      "infinity_pixels": 0,
+      "n_nan": 0,
+      "min": 0.0,
+      "max": 1.0,
+      "mean": 0.0024268762208521366,
+      "n_nonzero": 29800,
+      "mass": 29800.0,
+      "mass_outside_footprint": 13612,
+      "problems": [
+        "13612 emitted pixels outside the valid footprint",
+        "positive predictions on visible catalogue pixels"
+      ],
+      "ok": false,
+      "validation_class": "local on-disk template/range check; not organizer upload acceptance",
+      "nan_inside_footprint": 0,
+      "catalogue_overlap_pixels": 203,
+      "approved_for_weekly_slot": false,
+      "warning": "Format validation only: no holdout, leakage, uniqueness or selector approval implied."
+    }
+  ],
+  "safe_to_submit": false,
+  "warning": "Format checks against simulated reference data did not establish scientific validity or catalogue masking."
+}

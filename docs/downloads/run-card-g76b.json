@@ -1,0 +1,77 @@
+{
+  "run_id": "gems76b-patchctx-exp1-20261021",
+  "experiment_count_this_session": 1,
+  "maximum_experiments": 3,
+  "maximum_wall_hours": 2,
+  "experiment_wall_clock_s": 919.1,
+  "generated_utc": "2026-10-21T04:30:00+00:00",
+  "status": "blocked",
+  "safe_to_submit": false,
+  "downloadable_submission": true,
+  "downloadable_is_approved": false,
+  "submission_name": "gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT",
+  "note": "G76B patch-context HGB Exp1: HOLDOUT-DTI 0.0187 vs fair-H33 0.0961, below random. Negative. DO NOT SUBMIT.",
+  "note_chars": 106,
+  "raster": "docs/downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.tif",
+  "raster_zip": "docs/downloads/gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT.zip",
+  "raster_sha256": "c7564697fcc1c59e04d4f9aa4c8c303a483cea6b5d6bdd4f58bde17c0763c680",
+  "zip_sha256": "2a860271889089c8f23754f511564f61cab99be4df1fca28e0e8f47a4c9f5151",
+  "verdict": "negative",
+  "weekly_slots_used": 0,
+  "selector_approved": false,
+  "lane_assigned": null,
+  "hypothesis": "Hidden expert-mapped faults require multi-sensor agreement at neighbourhood scale: patch-context corroboration (directional persistence + local support density) over four physics families (LiDAR scarp dipole; cross-scale magnetic edge agreement incl. TMI_up150; de-regionalized gravity edge; radiometric K/(Th+10) alteration edge) plus regional strain-belt gating, combined by a fold-honest HistGradientBoosting head.",
+  "mechanism": "30 catalogue-free features per cell; per holdout fold the HGB head trains on fold-visible catalogue positives outside the tested quadrant (12 px collar); emission via the shared greedy 300 m max-cover allocator, B=2 px catalogue-flank exclusion, 37,654-dot budget, binary dots, zeros outside footprint, shared fail-closed writer.",
+  "named_non_fault_mimic": "Stratigraphic/lithological contacts coherent at all scales; pluvial shoreline complexes; road/pipeline corridors; InSAR atmospheric strain artifacts; playa evaporite K/Th chemistry.",
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300,
+    "withheld_positive_pixels": 11321,
+    "dti": 0.018702893843443844,
+    "ci95": [
+      0.010892638130852794,
+      0.027877008060948918
+    ],
+    "fair_h33_control_dti": 0.09611409307227155,
+    "fair_h33_control_ci95": [
+      0.08339507830356264,
+      0.10930041677881894
+    ],
+    "random_dots_control_dti": 0.03406823674881729,
+    "paired_delta_vs_fair_h33": -0.0774111992288277,
+    "delta_ci95": [
+      -0.09156946755304647,
+      -0.0635755894446074
+    ],
+    "beats_benchmark": false,
+    "below_random_dots": true
+  },
+  "proxy_dti": {
+    "Bprime_candidate": 0.016244640131207556,
+    "Bprime_h33_ref": 0.09613245598517184,
+    "C76pied_candidate": 0.028681942222397748,
+    "C76pied_h33_ref": 0.09448136983014939,
+    "C76pied_random": 0.04428484528011068
+  },
+  "leakage_canary": {
+    "threshold_auc": 0.9,
+    "max_feature_auc": 0.6269601695411182,
+    "pooled_fold_honest_fitted_prob_auc": 0.6269601695411182,
+    "any_suspected_leakage": false
+  },
+  "uniqueness": {
+    "n_registry_rasters_compared": 101,
+    "worst_mutual_overlap": 0.09163267555947525,
+    "worst_mutual_file": "gems58-ml-binary-ridge-20261012T000000Z.tif",
+    "worst_abs_surface_rho": 0.20340451354912367,
+    "gate_mutual_le_0.70": true,
+    "gate_abs_rho_le_0.90": true
+  },
+  "failure_diagnosis": "Supervised-head mass concentration: top-5 20 km blocks hold 28.6% of dots (2,249 dots/block vs H33's 638; 104 blocks occupied vs 158) and unstable cross-quadrant transfer (per-fold fitted-prob AUC 0.508-0.665).",
+  "preregistration": "docs/preregistration-g76b.md",
+  "full_run_card": "evidence/g76b_run_card.json",
+  "lane_page": "docs/lane-g76b.html"
+}

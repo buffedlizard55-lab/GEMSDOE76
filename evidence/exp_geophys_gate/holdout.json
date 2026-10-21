@@ -1,0 +1,139 @@
+{
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_m": 300.0,
+  "withheld_positive_pixels": 11321,
+  "pooled": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300.0,
+    "pooled": true,
+    "scores": {
+      "candidate": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.011988574453204408,
+        "ci95": [
+          0.01020174839789165,
+          0.014048356102920254
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 5872.851560145617,
+        "fpw": 2398196.732166346,
+        "fnw": 5448.148439854383
+      },
+      "control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "dti": 0.013140267484303995,
+        "ci95": [
+          0.01096535815250607,
+          0.01538217607368236
+        ],
+        "withheld_positive_pixels": 11321,
+        "tpw": 6435.502644838502,
+        "fpw": 2397052.051102332,
+        "fnw": 4885.497355161498
+      }
+    },
+    "best_comparable_control": "control",
+    "paired_differences": {
+      "control": {
+        "evidence_class": "HOLDOUT-DTI",
+        "evaluator_version": "gems57-pooled-hide-v2",
+        "delta": -0.001151693031099587,
+        "ci95": [
+          -0.0018621934238614046,
+          -0.0004783309405742728
+        ],
+        "withheld_positive_pixels": 11321
+      }
+    },
+    "bootstrap": {
+      "method": "paired physical spatial-cluster percentile",
+      "clusters": 184,
+      "draws": 1000,
+      "seed": 520810,
+      "confidence": 0.95,
+      "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+    },
+    "implementation_sha256": {
+      "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+      "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+      "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+      "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+    }
+  },
+  "per_fold_candidate": {
+    "NW": {
+      "dti": 0.009492826075655133,
+      "withheld_positive_pixels": 1923,
+      "tpw": 980.4048242966334,
+      "fpw": 507720.08803456574,
+      "fnw": 942.5951757033666
+    },
+    "NE": {
+      "dti": 0.008381209819164168,
+      "withheld_positive_pixels": 2367,
+      "tpw": 1033.0162486334643,
+      "fpw": 605768.1566525192,
+      "fnw": 1333.9837513665357
+    },
+    "SW": {
+      "dti": 0.01423118126947217,
+      "withheld_positive_pixels": 3781,
+      "tpw": 2085.72349541386,
+      "fpw": 715590.8276043118,
+      "fnw": 1695.2765045861402
+    },
+    "SE": {
+      "dti": 0.015188672863238578,
+      "withheld_positive_pixels": 3250,
+      "tpw": 1773.7069918016593,
+      "fpw": 569117.659874949,
+      "fnw": 1476.2930081983407
+    }
+  },
+  "per_fold_control": {
+    "NW": {
+      "dti": 0.011418164164268562,
+      "withheld_positive_pixels": 1923,
+      "tpw": 1195.9143197292537,
+      "fpw": 514801.4907913344,
+      "fnw": 727.0856802707463
+    },
+    "NE": {
+      "dti": 0.00903818998923232,
+      "withheld_positive_pixels": 2367,
+      "tpw": 1302.6054385937423,
+      "fpw": 709841.2870673204,
+      "fnw": 1064.3945614062577
+    },
+    "SW": {
+      "dti": 0.01637733665066866,
+      "withheld_positive_pixels": 3781,
+      "tpw": 2052.2323388478626,
+      "fpw": 609370.1905082617,
+      "fnw": 1728.7676611521374
+    },
+    "SE": {
+      "dti": 0.01630621925523221,
+      "withheld_positive_pixels": 3250,
+      "tpw": 1884.750547667642,
+      "fpw": 563039.0827354148,
+      "fnw": 1365.249452332358
+    }
+  },
+  "benchmark_fair_h33_user_context": {
+    "dti": 0.0927,
+    "ci95": [
+      0.0802,
+      0.1058
+    ],
+    "note": "USER-REPORTED context from this repo's Lane-G76 run card; not an organizer receipt."
+  }
+}

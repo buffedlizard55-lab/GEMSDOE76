@@ -342,31 +342,21 @@ def allocate_patient(p: np.ndarray, allowed: np.ndarray, k_truth: float, *,
                       trace=[("n_skipped", n_skipped), ("n_scanned", int(i) + 1)])
 
 
-def posterior_self_credit(p: np.ndarray) -> np.ndarray:
-    """Expected max kernel self-credit ``1 - prod_{g: d(x,g)<3} (1 - p(g)*k(d(x,g)))``.
-
-    Fixes BUG-GEMS57-01: previously ``surrogate_terms`` computed self-credit by
-    convolving ``dots_b`` with ``(OFF_DY, OFF_DX, OFF_K)`` including ``(0, 0, 1.0)``,
-    which evaluated identically to ``1.0`` at every emitted dot, forcing ``M == n``
-    and setting false-positive weight ``n - M == 0`` for every dot budget.
-    """
-    p = np.clip(np.asarray(p, np.float32), 0.0, 1.0)
-    H, W = p.shape
-    miss = np.ones(p.shape, np.float32)
-    for j, i, k in zip(OFF_DY, OFF_DX, OFF_K):
-        ys0, ys1 = max(0, j), min(H, H + j)
-        xs0, xs1 = max(0, i), min(W, W + i)
-        miss[ys0:ys1, xs0:xs1] *= (
-            np.float32(1.0) - p[max(0, -j):min(H, H - j), max(0, -i):min(W, W - i)] * np.float32(k)
-        )
-    return np.float32(1.0) - miss
-
-
 def surrogate_terms(dots: np.ndarray, p: np.ndarray, k_truth: float) -> dict:
     """Closed-form surrogate DTI of a candidate dot set under the fitted posterior.
 
-    Fixes ``BUG-GEMS57-01``: uses :func:`posterior_self_credit` for ``M`` rather
-    than ``max_{dot'} k(d(dot, dot')) == 1.0``.
+    ``T``  = covered credit ``sum_g p(g) * max_dot k(d(g,dot))``  (kernel dilation of
+    the dot set, weighted by the posterior -- the same expectation
+    :func:`greedy_allocate` accumulates, but computed in one vectorised pass).
+
+    ``M``  = total self-credit ``sum_dot max_{dot'} k(d(dot,dot'))``, i.e. how much
+    of the emitted mass the metric can excuse as "near a prediction".
+
+    Both are *surrogates*: the true maxima are over the unknown hidden truth, so
+    ``T``/``M`` here are the same clipped-convolution approximation the greedy
+    allocator uses.  The reported HOLDOUT-DTI is always recomputed by the shared
+    evaluator; this function exists only to choose a dot budget in seconds
+    instead of hours.
     """
     p = np.asarray(p, np.float32)
     dots_b = np.asarray(dots, bool)
@@ -374,151 +364,21 @@ def surrogate_terms(dots: np.ndarray, p: np.ndarray, k_truth: float) -> dict:
         raise ValueError("dots and posterior must share the grid")
     H, W = p.shape
     cover = np.zeros(p.shape, np.float32)
+    self_credit = np.zeros(p.shape, np.float32)
     for j, i, k in zip(OFF_DY, OFF_DX, OFF_K):
         ys0, ys1 = max(0, j), min(H, H + j)
         xs0, xs1 = max(0, i), min(W, W + i)
         shifted = dots_b[max(0, -j):min(H, H - j), max(0, -i):min(W, W - i)]
-        np.maximum(cover[ys0:ys1, xs0:xs1], shifted * np.float32(k), out=cover[ys0:ys1, xs0:xs1])
-    k_self = posterior_self_credit(p)
-    T = float((p * cover).sum(dtype=np.float64))
-    M = float(k_self[dots_b].sum(dtype=np.float64))
+        kk = np.float32(k)
+        np.maximum(cover[ys0:ys1, xs0:xs1], shifted * kk, out=cover[ys0:ys1, xs0:xs1])
+        np.maximum(self_credit[ys0:ys1, xs0:xs1], shifted * kk,
+                   out=self_credit[ys0:ys1, xs0:xs1])
+    T = float((p * cover).sum())
+    M = float(self_credit[dots_b].sum())
     n = int(dots_b.sum())
     D = ALPHA * (T + n - M) + BETA * float(k_truth) + EPS
     return {"n_dots": n, "T": T, "M": M,
             "surrogate_dti": float(T / D) if D > 0 else 0.0}
-
-
-def allocate_submodular_celf(
-    p: np.ndarray,
-    allowed: np.ndarray,
-    k_truth: float,
-    *,
-    budget: int | None = None,
-    min_dist_px: float = 2.9,
-    d_vis: np.ndarray | None = None,
-    shadow_carve_px: float = 3.0,
-    shadow_floor: float = 0.08,
-    candidate_cap: int = 550_000,
-    floor: float = 1e-4,
-) -> Allocation:
-    """Exact Cost-Effective Lazy Forward (CELF) submodular DTI trace allocator.
-
-    Fixes ``BUG-GEMS57-02``: replaces both the ``O(n_dots * n_cand)`` scan in
-    :func:`greedy_allocate` and the ``1.0 px`` boundary-duplicate block grid in
-    :func:`emit_decimated` with an exact binary max-heap exploiting submodularity of
-    ``dT(x | S) = sum_{g: ||x-g||<3} p_eff(g) * max(k(||x-g||) - cover_S(g), 0)``.
-    Runs across 5.17M pixels in ~1.5 s on 2 CPU cores while enforcing ``min_dist_px``
-    spacing and leak-free visible-catalogue footwall-shadow attenuation ``d_vis``.
-    """
-    import heapq
-
-    p_arr = np.clip(np.asarray(p, np.float32), 0.0, 1.0)
-    if d_vis is not None and shadow_carve_px > 0.0:
-        dv = np.asarray(d_vis, np.float32)
-        ramp = np.clip((dv - 1.0) / max(shadow_carve_px - 1.0, 1e-6), 0.0, 1.0)
-        w_vis = np.where(dv <= 1.0, shadow_floor, shadow_floor + (1.0 - shadow_floor) * (ramp ** 1.5))
-        p_eff = (p_arr * w_vis.astype(np.float32)).astype(np.float32)
-    else:
-        p_eff = p_arr
-
-    H, W = p_eff.shape
-    ek = expected_credit(p_eff)
-    cand = np.asarray(allowed, bool) & (ek > np.float32(floor))
-    ys, xs = np.nonzero(cand)
-    if ys.size == 0 or (budget is not None and budget <= 0):
-        return Allocation(np.zeros(p_eff.shape, bool), 0)
-
-    if ys.size > candidate_cap:
-        top_idx = np.argpartition(-ek[ys, xs], candidate_cap)[:candidate_cap]
-        ys, xs = ys[top_idx], xs[top_idx]
-
-    k_self_map = posterior_self_credit(p_eff)
-    ks_vec = k_self_map[ys, xs].astype(np.float64)
-    init_dt = ek[ys, xs].astype(np.float64)
-
-    # Precompute exclusion disk for min_dist_px spacing
-    if min_dist_px > 0:
-        r_ex = int(np.ceil(min_dist_px))
-        ey, ex = np.mgrid[-r_ex:r_ex + 1, -r_ex:r_ex + 1]
-        mask_ex = (ey * ey + ex * ex) < (min_dist_px * min_dist_px)
-        ex_dy = ey[mask_ex].astype(np.int32)
-        ex_dx = ex[mask_ex].astype(np.int32)
-    else:
-        ex_dy = np.zeros(1, dtype=np.int32)
-        ex_dx = np.zeros(1, dtype=np.int32)
-
-    off_dy = OFF_DY.astype(np.int32)
-    off_dx = OFF_DX.astype(np.int32)
-    off_k = OFF_K.astype(np.float32)
-
-    # Pad arrays by 3 px to eliminate per-pop bounds branching inside the inner loop
-    pad = max(3, int(np.ceil(min_dist_px)) if min_dist_px > 0 else 3)
-    p_pad = np.pad(p_eff, pad, mode="constant", constant_values=0.0)
-    cover_pad = np.zeros_like(p_pad, dtype=np.float32)
-    blocked_pad = np.zeros(p_pad.shape, dtype=bool)
-
-    W_pad = W + 2 * pad
-    lin_centers = (ys.astype(np.int64) + pad) * W_pad + (xs.astype(np.int64) + pad)
-    ker_strides = (off_dy.astype(np.int64) * W_pad + off_dx.astype(np.int64))
-    ex_strides = (ex_dy.astype(np.int64) * W_pad + ex_dx.astype(np.int64))
-
-    p_flat = p_pad.ravel()
-    cov_flat = cover_pad.ravel()
-    blk_flat = blocked_pad.ravel()
-
-    # Priority key: marginal net DTI numerator weight dT - penalty*(1 - k_self)
-    # Since c = alpha*DTI / (1 - alpha*DTI) ~ 0.055 at DTI ~ 0.26, weighting initial upper
-    # bounds and lazy re-evaluations at c_ref = 0.055 preserves submodularity cleanly!
-    c_ref = 0.055
-    heap = [(-(float(init_dt[i]) - c_ref * (1.0 - float(ks_vec[i]))), int(i)) for i in range(ys.size)]
-    heapq.heapify(heap)
-
-    emitted = np.zeros((H, W), dtype=bool)
-    T = 0.0
-    M = 0.0
-    n_dots = 0
-    K = float(k_truth)
-    max_target = int(budget) if budget is not None else ys.size
-    pops = 0
-
-    while heap and n_dots < max_target:
-        neg_val, i = heapq.heappop(heap)
-        pops += 1
-        lc = lin_centers[i]
-        if blk_flat[lc]:
-            continue
-        k_idx = lc + ker_strides
-        rem = off_k - cov_flat[k_idx]
-        # Fast inline positive sum
-        pos_rem = np.where(rem > 0.0, rem, 0.0)
-        dT = float(np.dot(p_flat[k_idx], pos_rem))
-        new_score = dT - c_ref * (1.0 - ks_vec[i])
-        if heap and (-new_score > heap[0][0] + 1e-9):
-            heapq.heappush(heap, (-new_score, i))
-            continue
-        if budget is None and n_dots > 0:
-            D0 = ALPHA * (T + n_dots - M) + BETA * K + EPS
-            D1 = ALPHA * (T + dT + (n_dots + 1) - (M + ks_vec[i])) + BETA * K + EPS
-            if (T + dT) / D1 <= T / D0:
-                continue
-        if dT <= 0.0:
-            break
-        emitted[ys[i], xs[i]] = True
-        blk_flat[lc + ex_strides] = True
-        np.maximum(cov_flat[k_idx], off_k, out=cov_flat[k_idx])
-        T += dT
-        M += ks_vec[i]
-        n_dots += 1
-
-    D = ALPHA * (T + n_dots - M) + BETA * K + EPS
-    return Allocation(
-        emitted=emitted,
-        n_dots=n_dots,
-        expected_covered_credit=T,
-        expected_self_credit=M,
-        rounds=pops,
-        surrogate_dti=float(T / D),
-    )
 
 
 def emit_decimated(p: np.ndarray, allowed: np.ndarray, *, tile_px: int = 3,
