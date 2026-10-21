@@ -298,7 +298,7 @@ def _build_gdr_thermal_rasters(ext_dir: Path, fp: np.ndarray, vcache: dict) -> t
 
 
 def build_or_load_feature_memmap(
-    work_dir: Path | str = "/home/user/GEMSDOE76/.cache/gems76",
+    work_dir: Path | str = Path(__file__).resolve().parents[2] / ".cache" / "gems76",
     gems_data_dir: Path | str = "/tmp/gems_data",
     ext_root: Path | str = "/tmp/ref/60GEMSDOE/data",
     force: bool = False,

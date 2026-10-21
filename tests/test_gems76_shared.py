@@ -13,7 +13,7 @@ from rasterio.transform import Affine
 from scipy.ndimage import binary_dilation
 from sklearn.metrics import roc_auc_score
 
-ROOT = Path("/home/user/GEMSDOE76")
+ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "vendor"))
 

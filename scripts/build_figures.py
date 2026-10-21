@@ -12,7 +12,7 @@ from matplotlib.patches import Patch
 from matplotlib.lines import Line2D
 from scipy.ndimage import maximum_filter, gaussian_filter
 
-ROOT = Path("/home/user/GEMSDOE76")
+ROOT = Path(__file__).resolve().parents[1]
 EVID = ROOT / "evidence"
 ASSETS = ROOT / "docs" / "assets"
 GEMS_DATA = Path("/tmp/gems_data")
