@@ -15,7 +15,7 @@ DOCS=ROOT/'docs'
 
 def page(title, body, active=''):
     links=[('index.html','Overview'),('executive-summary.html','How to submit'),
-           ('research.html','Research & review'),('sources.html','Sources')]
+           ('research.html','Research & review'),('inherited-main-audit.html','Critical audit'),('sources.html','Sources')]
     nav=''.join(f'<a href="{url}" '+('aria-current="page" ' if url==active else '')+f'>{text}</a>' for url,text in links)
     return f'''<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
@@ -50,6 +50,7 @@ def run_card(preflight):
         'note':'Negative preflight: lane, cached arrays, current raster registry and matched holdout evidence missing. Do not submit.',
         'verdict':'negative','safe_to_submit':False,'downloadable_submission':False,
         'experiments_run':0,'weekly_slots_used':0,'selector_approved':False,
+        'inherited_candidates':'withdrawn: simulated inputs; original evidence preserved in quarantine',
         'blockers':preflight['blockers']}
 
 
@@ -69,6 +70,8 @@ def build():
     shutil.copyfile(ROOT/'evidence/upstream/recovery.json',downloads/'recovered-byte-manifest.json')
     if (ROOT/'evidence/verification.json').is_file():
         shutil.copyfile(ROOT/'evidence/verification.json',downloads/'verification.json')
+    for name in ('inherited-candidate-validation.json','inherited-main-manifest.json'):
+        shutil.copyfile(ROOT/'evidence'/name,downloads/name)
     (downloads/'review.md').write_text((ROOT/'reports/review.md').read_text())
     checks=''.join('<li>'+html.escape(b)+'</li>' for b in report['blockers'])
     overview=f'''<section class="hero"><p class="eyebrow">GEOLOGICAL FAULT DETECTION · AUDIT-FIRST RESEARCH</p>
@@ -79,6 +82,7 @@ def build():
 <p>The required scientific checks could not run. A reference raster, renamed archive or random-dot file would not satisfy the request.</p>
 <div class="actions"><span class="disabled" role="status">TIFF download unavailable — prerequisites missing</span><a class="button secondary" href="downloads/run-card.json" download>Download negative run card</a></div>
 <p class="fine">No experiment executed. No weekly slot used. Format validity alone never authorizes a submission.</p></section>
+<section class="notice"><h2>Earlier upload advice has been withdrawn.</h2><p>A concurrent prior build used a simulated footprint, simulated catalogue and synthetic physical fields. Independent bridge-relative checks found off-footprint predictions and catalogue overlap. The archived artifacts are not safe research submissions.</p><a href="inherited-main-audit.html">Read the critical source-and-file audit →</a></section>
 <div class="grid"><article><p class="label">SCIENTIFIC QUESTION</p><h2>Why did H33 help?</h2><p>Inherited evidence points to a sparse subset of an existing geological signal. Reduced redundant emission is a plausible metric benefit, not proof of causation.</p><a href="research.html">Read the H33 evidence →</a></article>
 <article><p class="label">NEXT RESEARCH</p><h2>Contacts, not copies.</h2><p>Four conditional hypotheses target displaced contacts, signed alteration, drainage disequilibrium and edge-termination asymmetry. None is validated or assigned as this session’s lane.</p><a href="research.html#conditional-geological-hypotheses-generated-before-method-implementation">Review hypotheses →</a></article>
 <article><p class="label">AUDIT TRAIL</p><h2>Know what was checked.</h2><p>Public metadata for all 78 named project repositories, pinned template modules and bridge-grid checks. Not a full raster uniqueness audit or live leaderboard verification.</p><a href="sources.html">Inspect sources →</a></article></div>
@@ -105,8 +109,11 @@ def build():
 <p>A successful local validator is not organizer acceptance. The current bridged reference grid is EPSG:32611, 3730 × 3292, affine (100, 0, 243350, 0, −100, 4508550); these are technical measurements, not score evidence, and still need official-origin authentication.</p>
 <h2>Review the receipts</h2><p><a href="downloads/preflight.json">Preflight</a> · <a href="downloads/recovered-byte-manifest.json">Pinned sources and hashes</a> · <a href="research.html">Full review and limitations</a></p>'''
     (DOCS/'executive-summary.html').write_text(page('Submission instructions',executive,'executive-summary.html'))
-    research=markdown.markdown((ROOT/'reports/review.md').read_text(),extensions=['tables','fenced_code','toc'])
+    review_text=(ROOT/'reports/review.md').read_text().replace('(inherited-main-audit.md)', '(inherited-main-audit.html)')
+    research=markdown.markdown(review_text,extensions=['tables','fenced_code','toc'])
     (DOCS/'research.html').write_text(page('Research & review','<div class="prose">'+research+'</div>','research.html'))
+    inherited=markdown.markdown((ROOT/'reports/inherited-main-audit.md').read_text(),extensions=['tables','fenced_code','toc'])
+    (DOCS/'inherited-main-audit.html').write_text(page('Critical inherited-input audit','<div class="prose">'+inherited+'</div>','inherited-main-audit.html'))
     rows=read_json(ROOT/'evidence/source_inventory.json')['sources']
     source_rows=''.join(f'<tr><td><a href="{html.escape(r.get("url",r["api_url"]),quote=True)}">{html.escape(r["repository"])}</a></td><td>{html.escape(r["status"])}</td><td>{html.escape(r["checked_utc"])}</td><td>Not verified</td></tr>' for r in rows)
     sources=f'''<p class="eyebrow">SOURCE REGISTER</p><h1>Trace the claim to the evidence.</h1>
@@ -119,7 +126,7 @@ def build():
 <div class="table-wrap"><table><caption>Public GitHub repository metadata snapshot</caption><thead><tr><th scope="col">Repository</th><th scope="col">GitHub metadata</th><th scope="col">Checked (UTC)</th><th scope="col">Organizer receipt</th></tr></thead><tbody>{source_rows}</tbody></table></div>'''
     (DOCS/'sources.html').write_text(page('Sources & access',sources,'sources.html'))
     (DOCS/'.nojekyll').write_text('')
-    print('Built four blocked-status pages and audit downloads. No prediction TIFF published.')
+    print('Built five blocked-status pages and audit downloads. No prediction TIFF published.')
 
 
 if __name__=='__main__':

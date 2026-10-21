@@ -6,162 +6,226 @@
     {
       "path": ".gitignore",
       "bytes": 12,
-      "sha256": "ef8a1af1847c80dc4ac41ea50ada2a9a0b41db1a599d6339dfd42c978c08fe58"
+      "sha256": "ef8a1af1847c80dc4ac41ea50ada2a9a0b41db1a599d6339dfd42c978c08fe58",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/.gitignore",
+      "archive_path": "quarantine/inherited-main-ac55947/.gitignore"
     },
     {
       "path": ".nojekyll",
       "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/.nojekyll",
+      "archive_path": "quarantine/inherited-main-ac55947/.nojekyll"
     },
     {
       "path": "README.md",
       "bytes": 9334,
-      "sha256": "401f40a240b349b7792bafd14d708680d065056a0b233409f5ec791734eaf63d"
+      "sha256": "401f40a240b349b7792bafd14d708680d065056a0b233409f5ec791734eaf63d",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/README.md",
+      "archive_path": "quarantine/inherited-main-ac55947/README.md"
     },
     {
       "path": "docs/.nojekyll",
       "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/.nojekyll",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/.nojekyll"
     },
     {
       "path": "docs/assets/site.css",
       "bytes": 2971,
-      "sha256": "872ee212bd6ac489e5c49e62b045fd7225f77b7721f6a710da7d7ede1ab4add2"
+      "sha256": "872ee212bd6ac489e5c49e62b045fd7225f77b7721f6a710da7d7ede1ab4add2",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/assets/site.css",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/assets/site.css"
     },
     {
       "path": "docs/downloads/audit.json",
       "bytes": 7698,
-      "sha256": "221e06fdbf0ddd59981a441665292df8ee2a6235c5970574d2dbe5909bf79f95"
+      "sha256": "221e06fdbf0ddd59981a441665292df8ee2a6235c5970574d2dbe5909bf79f95",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/audit.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/audit.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.json",
       "bytes": 1179,
-      "sha256": "5a9039f517e90df19aa600bc3f9a1713fcc569ff97be2ee8faf9744617f05f7f"
+      "sha256": "5a9039f517e90df19aa600bc3f9a1713fcc569ff97be2ee8faf9744617f05f7f",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.json",
       "bytes": 1183,
-      "sha256": "cc4918f306a7d368ce0aece15e3879df4616f9da8647addf017aea02932b6307"
+      "sha256": "cc4918f306a7d368ce0aece15e3879df4616f9da8647addf017aea02932b6307",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.json",
       "bytes": 1174,
-      "sha256": "ba9a88ebd63a91f62a5eea5f3ec0ca218d4d1b775eb2d93d574b2efe5d0fde74"
+      "sha256": "ba9a88ebd63a91f62a5eea5f3ec0ca218d4d1b775eb2d93d574b2efe5d0fde74",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.json",
       "bytes": 1178,
-      "sha256": "40715ab7a5e97dc64aba35805538a1dfdd2363ea2be2c7214ff8c7a0febf9b52"
+      "sha256": "40715ab7a5e97dc64aba35805538a1dfdd2363ea2be2c7214ff8c7a0febf9b52",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.json",
       "bytes": 1168,
-      "sha256": "30a6b398ad74b83e0a957b61ff13ba6fab7bcc6fbadbf92b901c8f52acbd212d"
+      "sha256": "30a6b398ad74b83e0a957b61ff13ba6fab7bcc6fbadbf92b901c8f52acbd212d",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.json"
     },
     {
       "path": "docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.json",
       "bytes": 1172,
-      "sha256": "fa6a64a3fefa7371c7104f52c1a8ee73aa14ac018e23a961e21cf5fbdb12b589"
+      "sha256": "fa6a64a3fefa7371c7104f52c1a8ee73aa14ac018e23a961e21cf5fbdb12b589",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.json",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/checks-gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.json"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.tif",
       "bytes": 299299,
-      "sha256": "78056ddc628bedae2faa31e5116e1f098014862daac4ae739cccd53d1cef8704"
+      "sha256": "78056ddc628bedae2faa31e5116e1f098014862daac4ae739cccd53d1cef8704",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif",
       "bytes": 132631,
-      "sha256": "e7ac56f686b772fe4c85f14368cea07d50082e0598e76af3474a8f7e9f746a39"
+      "sha256": "e7ac56f686b772fe4c85f14368cea07d50082e0598e76af3474a8f7e9f746a39",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.zip",
       "bytes": 95401,
-      "sha256": "e8d4a6e8ba9d9e286fe90ae4a21cf3d6f5afb8fed8483ce570161486f39ca08e"
+      "sha256": "e8d4a6e8ba9d9e286fe90ae4a21cf3d6f5afb8fed8483ce570161486f39ca08e",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.zip",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.zip"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.tif",
       "bytes": 328949,
-      "sha256": "d1e15d8727a9811dc4ba4f101449eb7db012f4c70f0decca64697c3b2d37b4e4"
+      "sha256": "d1e15d8727a9811dc4ba4f101449eb7db012f4c70f0decca64697c3b2d37b4e4",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-nan.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif",
       "bytes": 161792,
-      "sha256": "ecc4ffe5ad0520aacb15d45b501502ea895b1ceea6a409e26419432f9877fe10"
+      "sha256": "ecc4ffe5ad0520aacb15d45b501502ea895b1ceea6a409e26419432f9877fe10",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.zip",
       "bytes": 127956,
-      "sha256": "d90e0567ec248b47e931e9ff156bf4ea99755f944d7ef84d32ac7fcac41014ce"
+      "sha256": "d90e0567ec248b47e931e9ff156bf4ea99755f944d7ef84d32ac7fcac41014ce",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.zip",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.zip"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.tif",
       "bytes": 283866,
-      "sha256": "13e28cc11628231a3f5d90a81fe08d61f4ee81e6324ab8e335989d952c0dfdcf"
+      "sha256": "13e28cc11628231a3f5d90a81fe08d61f4ee81e6324ab8e335989d952c0dfdcf",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-nan.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.tif",
       "bytes": 117133,
-      "sha256": "4da2e509b91794d60aaa2e46d53063a55f6ca6e92f8911fae241e93a3b2e6a2e"
+      "sha256": "4da2e509b91794d60aaa2e46d53063a55f6ca6e92f8911fae241e93a3b2e6a2e",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.tif",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.tif"
     },
     {
       "path": "docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.zip",
       "bytes": 78127,
-      "sha256": "2b07e4d602e5b4b2847b4cdbe1dd22f935f3cdca4460983a0c5876dbb1ef989e"
+      "sha256": "2b07e4d602e5b4b2847b4cdbe1dd22f935f3cdca4460983a0c5876dbb1ef989e",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.zip",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.zip"
     },
     {
       "path": "docs/executive-summary.html",
       "bytes": 5695,
-      "sha256": "346548100faa0fd2a88f76fc409d95c7164e97654e9f5767042e933bd2497f25"
+      "sha256": "346548100faa0fd2a88f76fc409d95c7164e97654e9f5767042e933bd2497f25",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/executive-summary.html",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/executive-summary.html"
     },
     {
       "path": "docs/index.html",
       "bytes": 41326,
-      "sha256": "12e1e4e1b98cf7a08d0fd9a99066264a9232dfd0128bb73966e77510f5c06442"
+      "sha256": "12e1e4e1b98cf7a08d0fd9a99066264a9232dfd0128bb73966e77510f5c06442",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/index.html",
+      "archive_path": "quarantine/inherited-main-ac55947/docs/index.html"
     },
     {
       "path": "evidence/audit.json",
       "bytes": 7698,
-      "sha256": "221e06fdbf0ddd59981a441665292df8ee2a6235c5970574d2dbe5909bf79f95"
+      "sha256": "221e06fdbf0ddd59981a441665292df8ee2a6235c5970574d2dbe5909bf79f95",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/evidence/audit.json",
+      "archive_path": "quarantine/inherited-main-ac55947/evidence/audit.json"
     },
     {
       "path": "evidence/catalogue.npy",
       "bytes": 12279288,
-      "sha256": "ac4b4b03f6dd48d4e6ecbb12853331dfe049c72dbe0a329c0d1f682f889b60d2"
+      "sha256": "ac4b4b03f6dd48d4e6ecbb12853331dfe049c72dbe0a329c0d1f682f889b60d2",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/evidence/catalogue.npy",
+      "archive_path": null
     },
     {
       "path": "evidence/footprint.npy",
       "bytes": 12279288,
-      "sha256": "b4921bebb83542c7b29257ad8f9f8ba9b550bbca59744f4206bc9427e51cfbf7"
+      "sha256": "b4921bebb83542c7b29257ad8f9f8ba9b550bbca59744f4206bc9427e51cfbf7",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/evidence/footprint.npy",
+      "archive_path": null
     },
     {
       "path": "index.html",
       "bytes": 2076,
-      "sha256": "888cba11180339b4f1c3364fea077727da0e637d802f98c73d22e672296fdccc"
+      "sha256": "888cba11180339b4f1c3364fea077727da0e637d802f98c73d22e672296fdccc",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/index.html",
+      "archive_path": "quarantine/inherited-main-ac55947/index.html"
     },
     {
       "path": "registry/build.json",
       "bytes": 1489,
-      "sha256": "efe7b1a26cedd85aefeefc728215b7102008d1e472ad53ac471393904e5d45b2"
+      "sha256": "efe7b1a26cedd85aefeefc728215b7102008d1e472ad53ac471393904e5d45b2",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/registry/build.json",
+      "archive_path": "quarantine/inherited-main-ac55947/registry/build.json"
     },
     {
       "path": "scripts/download_competition_data.sh",
       "bytes": 1006,
-      "sha256": "4de8e2f4564ec50e6a74d391d7149c68751cf62ffc4bfd017abcaa5381807b17"
+      "sha256": "4de8e2f4564ec50e6a74d391d7149c68751cf62ffc4bfd017abcaa5381807b17",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/download_competition_data.sh",
+      "archive_path": "quarantine/inherited-main-ac55947/scripts/download_competition_data.sh.txt"
     },
     {
       "path": "scripts/generate_submission.py",
       "bytes": 23712,
-      "sha256": "2d78f3efc36f48dd46aee7d2468cb06e79ffb8e5f18564c3eca41358c67ace2a"
+      "sha256": "2d78f3efc36f48dd46aee7d2468cb06e79ffb8e5f18564c3eca41358c67ace2a",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/generate_submission.py",
+      "archive_path": "quarantine/inherited-main-ac55947/scripts/generate_submission.py.txt"
     },
     {
       "path": "scripts/prepare_data.py",
       "bytes": 749,
-      "sha256": "e50a18eb83daf72879e06474107c5e1c601360e6b405fc5ecab79603dc45f8ce"
+      "sha256": "e50a18eb83daf72879e06474107c5e1c601360e6b405fc5ecab79603dc45f8ce",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/prepare_data.py",
+      "archive_path": "quarantine/inherited-main-ac55947/scripts/prepare_data.py.txt"
     },
     {
       "path": "scripts/verify_submission.py",
       "bytes": 2128,
-      "sha256": "303283d169ecd9df666712ae0c8ff02d4e39465e65943fa97e72831b7aec93a5"
+      "sha256": "303283d169ecd9df666712ae0c8ff02d4e39465e65943fa97e72831b7aec93a5",
+      "source_url": "https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/verify_submission.py",
+      "archive_path": "quarantine/inherited-main-ac55947/scripts/verify_submission.py.txt"
     }
   ]
 }

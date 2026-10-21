@@ -62,6 +62,7 @@
   "experiments_run": 0,
   "weekly_slots_used": 0,
   "selector_approved": false,
+  "inherited_candidates": "withdrawn: simulated inputs; original evidence preserved in quarantine",
   "blockers": [
     "No single method lane was provided. Do not self-assign during a parallel run.",
     "Template cached feature stack unavailable or hash mismatch; receipts are not array bytes.",

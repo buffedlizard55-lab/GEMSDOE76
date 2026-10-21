@@ -4,6 +4,8 @@
 
 **NEGATIVE / BLOCKED. No unique prediction TIFF was generated. There is no file approved to download and submit. No weekly submission slot was used.** This is an incomplete scientific deliverable, not a successful submission build. Producing random dots, changing an old TIFF's name, or quietly dropping uniqueness checks would violate the request.
 
+**Integration update:** remote main subsequently contained synthetic prediction candidates and static scientific claims. These have been audited and withdrawn, with originals preserved outside Pages. See the [critical inherited-main audit](inherited-main-audit.md) on the website (source: `reports/inherited-main-audit.md`). No inherited candidate is a new deliverable from this run.
+
 The starting checkout contained only `README.md` (`# GEMSDOE76`). There was no previous-session code, handoff, training pipeline, cached stack, registry, or data downloader in this checkout. The assertion in the supplied brief that data placement was the single remaining blocker does not describe this repository.
 
 ## Evidence and access
