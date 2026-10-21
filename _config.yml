@@ -1,0 +1,17 @@
+# Safety fallback for the repository's existing legacy root Pages configuration.
+# Actions publishes only docs/. If legacy Jekyll still runs, never publish quarantine.
+exclude:
+  - quarantine
+  - data
+  - evidence
+  - vendor
+  - scripts
+  - tests
+  - reports
+  - registry
+  - README.md
+  - AGENTS.md
+  - HANDOFF.md
+  - requirements.txt
+  - requirements.lock
+  - project.json

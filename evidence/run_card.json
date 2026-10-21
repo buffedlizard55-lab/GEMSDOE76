@@ -68,7 +68,7 @@
  },
  "raster_sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
  "validator": {
-  "file": "/home/user/GEMSDOE76/docs/downloads/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif",
+  "file": "evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif",
   "bytes": 90648,
   "sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
   "meta": {
@@ -121,7 +121,8 @@
   "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
   "on_catalogue_positive_pixels": 0,
   "in_footprint_positive_pixels": 27569,
-  "footprint_fraction": 0.005335206109564763
+  "footprint_fraction": 0.005335206109564763,
+  "note_on_path": "artifact relocated from docs/downloads/ at integration with main PR #2 (fail-closed site policy); bytes unchanged, sha256 identical"
  },
  "submission_name": "gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT",
  "submission_note_max140": "G76 piedmont-dipole logistic Exp2: HOLDOUT-DTI 0.0218 vs fair-H33 0.0927 (negative, below random). DO NOT SUBMIT.",

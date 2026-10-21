@@ -27,7 +27,7 @@ sys.path.insert(0, str(ROOT / "vendor"))
 from gems57.grid import load_grid  # noqa: E402
 from gems57 import uniqueness  # noqa: E402
 
-MINE_TIF = ROOT / "docs/downloads/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif"
+MINE_TIF = ROOT / "evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif"
 SURFACE = ROOT / ".cache/exp2/prob_full.npy"
 
 

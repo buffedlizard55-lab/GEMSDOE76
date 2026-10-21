@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GEMSDOE76: audited fault-detection research, scientific prerequisites and explicit submission readiness.">
+<title>Critical inherited-input audit · GEMSDOE76</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html">GEMS<span>DOE76</span></a><nav aria-label="Main"><a href="index.html" >Overview</a><a href="executive-summary.html" >How to submit</a><a href="research.html" >Research & review</a><a href="inherited-main-audit.html" aria-current="page" >Critical audit</a><a href="sources.html" >Sources</a></nav></header>
+<main id="main"><div class="prose"><h1 id="critical-finding-inherited-predictions-used-simulated-geology">Critical finding: inherited predictions used simulated geology</h1>
+<p><strong>Withdrawn / DO NOT SUBMIT.</strong> This is a source and geometry audit, not a competition score or geological experiment. It does not accuse any person of intent; it describes exactly what the available code and files do.</p>
+<h2 id="why-this-appeared-during-review">Why this appeared during review</h2>
+<p>The session started at <code>ffa37d7144c1f851d8794340153b24b2c946fc7c</code>, whose only tracked project file was an 11-byte README. A later remote-main check found <code>ac5594779cc7b1c10794549fbda4105874acf83a</code>, including a prior PR with three predicted dot fields and an upload recommendation. This review merged that updated main <strong>on the fixed session branch</strong>, preserved the original files and withdrew the unsupported recommendation instead of silently overwriting or treating it as successful validation.</p>
+<h2 id="claim-to-code-audit">Claim-to-code audit</h2>
+<p>All source links below are immutable and manually reviewable.</p>
+<table>
+<thead>
+<tr>
+<th>Claim in inherited site</th>
+<th>What the code actually does</th>
+<th>Evidence / disposition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Footprint and known catalogue are verified competition inputs</td>
+<td><code>build_footprint()</code> builds a perturbed ellipse, then pads/trims random pixels to a desired count. <code>build_catalogue()</code> explicitly says “Simulated known catalogue” and generates random line walks/padding.</td>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/generate_submission.py#L24-L151">Generator lines 24–151</a>. Matching a pixel count is not matching a footprint.</td>
+</tr>
+<tr>
+<td>Magnetic, radiometric and MT inputs produce a physical discovery model</td>
+<td>The function constructs <code>basin</code> with a Gaussian, <code>field_mag</code> and <code>field_mt</code> with sine functions, and <code>field_rad</code> with a basin gradient and random values. There are no reads of those measured physical rasters.</td>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/generate_submission.py#L175-L205">Generator lines 175–205</a>. These are synthetic fields, not GeoDAWN or MT observations.</td>
+</tr>
+<tr>
+<td>HOLDOUT-DTI, feature-alone AUC canaries, spatial CI and registry uniqueness were measured</td>
+<td>The generator contains no implementation of those evaluations and no call to the shared evaluator/registry scanner. The published claims appear in static HTML. The available audit JSON measures format against the <strong>simulated</strong> masks.</td>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/index.html#L144-L168">Static claims</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/generate_submission.py#L459-L517">generator entrypoint</a>. Unsupported; not established HOLDOUT-DTI evidence. No numeric score is carried forward.</td>
+</tr>
+<tr>
+<td>“YES — verified” / okay to submit</td>
+<td>The format audit hardcodes <code>single_band: True</code>, checks a CRS substring, does not compare to an authenticated sample transform, and uses the synthetic footprint/catalogue.</td>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/generate_submission.py#L407-L455">Audit function</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/docs/index.html#L74">upload advice</a>. Withdrawn. Passing [0,1] range alone is insufficient.</td>
+</tr>
+<tr>
+<td>A data downloader and full train/infer pipeline are ready</td>
+<td><code>download_competition_data.sh</code> prints links and exits without downloading. <code>prepare_data.py</code> reads only the first feature band, derives a mask, and saves it. Neither trains or runs inference.</td>
+<td><a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/download_competition_data.sh">Downloader</a>, <a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/ac5594779cc7b1c10794549fbda4105874acf83a/scripts/prepare_data.py">preparation</a>. Compatibility commands now fail closed or delegate to the real audit.</td>
+</tr>
+</tbody>
+</table>
+<p>A static HTML assertion that something was measured is not a measurement receipt. This review found no reproducible backing in that source tree; it does not claim to know what happened outside the repository.</p>
+<h2 id="independent-bridge-relative-validation">Independent bridge-relative validation</h2>
+<p><code>scripts/audit_inherited.py</code> re-read the archived TIFF bytes using the shared format validator, then tested actual positive support against the recovered public bridge footprint and catalogue. This is a <strong>GEOMETRY / FORMAT MEASUREMENT</strong>, not HOLDOUT-DTI or ORGANIZER-CONFIRMED evidence. Official bridge origin remains unauthenticated.</p>
+<p>The simulated footprint differs from the bridge footprint at <strong>5,274,448 pixels</strong>. The simulated catalogue differs from the bridge catalogue at <strong>121,162 pixels</strong>. Equal total counts concealed radically different spatial support.</p>
+<table>
+<thead>
+<tr>
+<th>Inherited field</th>
+<th style="text-align: right;">Positive pixels outside bridge footprint</th>
+<th style="text-align: right;">Positive pixels on bridge catalogue</th>
+<th style="text-align: right;">Nonfinite pixels inside bridge footprint, NaN variant</th>
+<th>Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H76-A</td>
+<td style="text-align: right;">18,368</td>
+<td style="text-align: right;">270</td>
+<td style="text-align: right;">2,637,224</td>
+<td>Withdraw both variants</td>
+</tr>
+<tr>
+<td>H76-B</td>
+<td style="text-align: right;">21,838</td>
+<td style="text-align: right;">277</td>
+<td style="text-align: right;">2,637,224</td>
+<td>Withdraw both variants</td>
+</tr>
+<tr>
+<td>H76-C</td>
+<td style="text-align: right;">13,612</td>
+<td style="text-align: right;">203</td>
+<td style="text-align: right;">2,637,224</td>
+<td>Withdraw both variants</td>
+</tr>
+</tbody>
+</table>
+<p>The zeros variants have finite in-range values but still emit outside the bridge footprint and on the real bridge catalogue. The NaN variants additionally have missing values <em>inside</em> that footprint. These checks disprove the previous local clearance against the recovered bridge; they do not predict an organizer score or diagnose the user's earlier rejected file.</p>
+<p>Full results: <code>evidence/inherited-candidate-validation.json</code>. Original hashes, byte sizes and exact immutable sources: <code>evidence/inherited-main-manifest.json</code>. Original small artifacts and code are retained under <code>quarantine/inherited-main-ac55947/</code>, not the published <code>docs/</code> tree. Large synthetic arrays remain recoverable from the source Git commit rather than duplicated as datasets.</p>
+<h2 id="fixes-made-and-what-remains">Fixes made and what remains</h2>
+<ul>
+<li>Removed these TIFF/ZIP download paths and unsupported scientific claims from published Pages content.</li>
+<li>Preserved original evidence; archived scripts are inert <code>.txt</code> files.</li>
+<li>Retired the synthetic generator; it cannot overwrite the audited site or publish a new candidate through its old command.</li>
+<li>Kept compatibility verification/preparation commands, but they now run the real validator or blocked preflight and never claim model readiness.</li>
+<li>Enforced literal shared-tool provenance, explicit missing cache/lane/registry gates and a negative run card.</li>
+<li>No attempt to salvage by clipping, random jitter, pruning, or relabeling the inherited dots.</li>
+<li>The withdrawn rasters remain <strong>prior predictions</strong> for future registry scans. Quarantining is not permission to ignore overlap with them.</li>
+</ul>
+<p>No authentic unique TIFF is available. A fresh, measured, in-lane model still needs the original scientific prerequisites, then hide-and-recover/canary/uniqueness tests and independent selector approval.</p></div></main><footer><strong>Evidence before confidence.</strong> No organizer-confirmed result or weekly-slot approval.
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE76">Repository</a> · <a href="downloads/run-card.json">JSON run card</a></footer></body></html>

@@ -8,7 +8,7 @@ import pytest
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "vendor"))
-ART = ROOT / "docs/downloads/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif"
+ART = ROOT / "evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif"
 
 
 @pytest.mark.skipif(not ART.exists(), reason="artifact not built")

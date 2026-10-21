@@ -27,7 +27,7 @@ def main() -> int:
     grid = load_grid(ROOT / "data" / "bridge")
     dots = np.load(ROOT / ".cache/exp2/final_dots.npy").astype(np.float32)
     pred = np.where(grid.footprint, dots, 0.0).astype(np.float32)
-    out = ROOT / "docs/downloads" / f"{NAME}.tif"
+    out = ROOT / "evidence/lane-g76" / f"{NAME}.tif"
     receipt = submission_writer.write_submission(
         out, pred, ROOT / "data/bridge/sample_submission.tif", grid.footprint,
         note=NOTE[:140], name=NAME[:140], catalogue=grid.catalogue,
