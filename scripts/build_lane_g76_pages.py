@@ -148,16 +148,17 @@ def main() -> int:
 <meta name=viewport content="width=device-width,initial-scale=1">
 <title>GEMSDOE76 Lane G76 — verdict: Do not submit (negative result)</title><style>{CSS}</style></head><body><div class=wrap>
 <header><h1>GEMSDOE76 — Piedmont Scarp-Dipole Lane</h1>
-<p class=sub>DOE GEMS Prize (DrivenData #306) · pre-registered single-lane session · 2026-10-21 ·
-public-leaderboard leader <strong>0.4413</strong> verified on the
-<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official leaderboard</a> (2026-10-21, participant xiaofanhu)</p></header>
+<p class=sub>DOE GEMS Prize (DrivenData #306) · pre-registered Lane G76 session · 2026-10-21 ·
+archived official leaderboard observation <strong>0.4413</strong> (read 2026-10-21; not verified as current).
+The project brief later reports a current high of <strong>0.3195</strong> (USER-REPORTED; not independently verified here).
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Review the official leaderboard</a>.</p></header>
 
 <div class=verdict><h2>⛔ VERDICT: NEGATIVE — Do not submit any file from this lane</h2>
 <p><strong>It is NOT OK to download-and-submit this session's TIFF.</strong> Lane G76 was tested in two
 pre-registered experiments on the shared hide-and-recover holdout and lost decisively — below even
-count-matched random dots. Spending a weekly submission slot on it would predictably score near the
-bottom of the family. The file below is published only as auditable evidence (its filename says
-DO-NOT-SUBMIT). Promotion to a real slot is a separate human selector step; this session used
+count-matched random dots. The holdout result does not support promotion or justify a weekly slot.
+The file below is retained only as auditable evidence (its filename says DO-NOT-SUBMIT). A real slot
+requires a separate selector step; this session used
 <strong>0 slots</strong>.</p>
 <p><strong>HOLDOUT-DTI</strong> (gems57-pooled-hide-v2, seed 20, n=11,321 withheld catalogue px):
 candidate <strong>{fmt(e2s['candidate_dots']['dti'],4)}</strong> 95% CI [{fmt(e2s['candidate_dots']['ci95'][0],4)}, {fmt(e2s['candidate_dots']['ci95'][1],4)}]
@@ -260,7 +261,7 @@ fix, vendor code untouched here). Full list: <a href="irregularities.md">docs/ir
 <div class=card><ul>
 <li>Problem description &amp; metric &amp; submission format — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData p.967</a></li>
 <li>About / additional resources — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/">DrivenData p.968</a></li>
-<li>Leaderboard — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official board</a> (0.4413 read 2026-10-21)</li>
+<li>Leaderboard — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official board</a>; this page's archived 2026-10-21 snapshot was 0.4413, while the prompt later reports 0.3195 as current. Current value is not verified in this environment.</li>
 <li>Rules PDF (NLR FY26OSTI 96647) — <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">docs.nlr.gov</a></li>
 <li>Masking of known faults (staff clarification) — <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">forum thread 11516</a></li>
 <li>Reference solution — <a href="https://github.com/drivendataorg/gems-prize-reference-solution">github.com/drivendataorg/gems-prize-reference-solution</a></li>
@@ -293,11 +294,11 @@ Core decision rule applied throughout: maximize P(Win) — which here meant not 
 <p><code>gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif</code> (SHA-256 <code>{run_card['raster_sha256'][:16]}…</code>)
 failed its pre-registered promotion gate: HOLDOUT-DTI {fmt(e2s['candidate_dots']['dti'])} vs fair-H33
 {fmt(e2s['fair_h33']['dti'])} (paired Δ {fmt(exp2['paired_differences']['fair_h33']['delta'])}), below random dots.
-It is format-valid but predictably low-scoring. <strong>Do not spend a weekly slot on it.</strong>
+It is format-valid but failed the holdout promotion gate. <strong>Do not spend a weekly slot on it.</strong>
 The instructions below are the general, verified procedure for when a file <em>is</em> promoted by the
 separate human selector step.</p></div>
 
-<h2>How to make a submission (verified against official sources)</h2>
+<h2>Submission format and procedure (check current official instructions)</h2>
 <div class=card><ol>
 <li><strong>File:</strong> one single-band <code>float32</code> GeoTIFF (<code>.tif</code>), or a <code>.zip</code>
 containing exactly one GeoTIFF. It must match the sample submission exactly: CRS EPSG:32611 (UTM 11N),
