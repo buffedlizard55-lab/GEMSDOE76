@@ -176,6 +176,23 @@ def test_rendered_site_links_and_card():
     assert check_site()==[]
 
 
+def test_site_discloses_prior_negative_tiff_without_serving_it():
+    card=json.loads((ROOT/'evidence/run_card.json').read_text())
+    artifact=ROOT/card['validator']['file']
+    assert artifact.is_file()
+    assert hashlib.sha256(artifact.read_bytes()).hexdigest()==card['raster_sha256']
+    overview=(ROOT/'docs/index.html').read_text()
+    instructions=(ROOT/'docs/executive-summary.html').read_text()
+    lane=(ROOT/'docs/lane-g76.html').read_text()
+    assert 'No approved submission TIFF is available. Do not submit.' in overview
+    assert 'prior Lane G76 run generated a unique TIFF' in overview
+    assert 'evidence only and must not be submitted' in overview
+    assert 'no approved file to upload' in instructions
+    assert 'DO NOT SUBMIT' in lane
+    assert 'No experiment executed.' not in overview
+    assert not list((ROOT/'docs').rglob('*.tif'))
+
+
 def test_candidate_validator_rejects_non_grid_fixture(tmp_path):
     """Shared format report returns failure, not a fabricated grid match."""
     candidate=tmp_path/'small-not-a-submission.tif'

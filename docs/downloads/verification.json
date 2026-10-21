@@ -94,9 +94,10 @@
       "stderr": ""
     }
   ],
-  "scientific_experiments_run": 0,
+  "scientific_experiments_run_in_this_verification": 0,
+  "prior_G76_experiments_documented": 2,
+  "unique_tiff_generated_in_prior_G76_run": true,
   "weekly_slots_used": 0,
-  "unique_submission_generated": false,
   "safe_to_submit": false,
   "full_scientific_request_satisfied": false,
   "remaining_blockers": "Lane assignment, pinned cache array bytes, complete scoped raster registry, official authentication, matched baseline/canary/holdout evidence.",
