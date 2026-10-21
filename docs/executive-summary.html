@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GEMSDOE76 — Executive Summary & Submission Decision</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --green-bg: #ecfdf5;
+      --green-border: #10b981;
+      --green-ink: #065f46;
+      --green-btn: #059669;
+      --green-btn-hover: #047857;
+      --accent: #2563eb;
+      --code-bg: #0f172a;
+      --code-ink: #f8fafc;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+    }
+    .topbar {
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      border-bottom: 3px solid #10b981;
+    }
+    .topbar a {
+      color: #93c5fd;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.94rem;
+    }
+    .topbar a:hover { text-decoration: underline; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
+    .verdict-hero {
+      background: var(--green-bg);
+      border: 2.5px solid var(--green-border);
+      border-radius: 16px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 10px 28px rgba(5, 150, 105, 0.10);
+      margin-bottom: 2rem;
+    }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; margin-bottom: 0.75rem; }
+    .pill {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+    .pill-ok { background: #059669; color: #ffffff; }
+    .pill-neutral { background: #ffffff; color: #065f46; border: 1px solid #6ee7b7; }
+    .verdict-hero h1 {
+      margin: 0.25rem 0 0.65rem;
+      font-size: 1.95rem;
+      line-height: 1.22;
+      color: #064e3b;
+    }
+    .btn-row { display: flex; flex-wrap: wrap; gap: 0.85rem; margin: 1.25rem 0 1.35rem; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.85rem 1.35rem;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 0.98rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.1s ease, background 0.15s ease;
+    }
+    .btn-primary { background: var(--green-btn); color: #ffffff; box-shadow: 0 4px 14px rgba(5,150,105,0.28); }
+    .btn-primary:hover { background: var(--green-btn-hover); transform: translateY(-1px); }
+    .btn-secondary { background: #ffffff; color: #0f172a; border: 1.5px solid #94a3b8; }
+    .btn-secondary:hover { background: #f1f5f9; }
+    .copy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .copy-box {
+      background: #ffffff;
+      border: 1px solid #a7f3d0;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+    }
+    .copy-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .copy-btn {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.22rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    code.block {
+      display: block;
+      background: var(--code-bg);
+      color: var(--code-ink);
+      padding: 0.6rem 0.75rem;
+      border-radius: 7px;
+      font-size: 0.84rem;
+      overflow-x: auto;
+      word-break: break-all;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+    }
+    .card h2 { margin-top: 0; font-size: 1.32rem; border-bottom: 1px solid var(--border); padding-bottom: 0.55rem; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0 0.5rem;
+    }
+    .kpi {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-left: 4px solid #059669;
+      border-radius: 10px;
+      padding: 0.95rem 1.1rem;
+    }
+    .kpi .num { font-size: 1.55rem; font-weight: 800; color: #0f172a; }
+    .kpi .sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin: 0.75rem 0; }
+    th, td { text-align: left; padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { background: #f1f5f9; font-weight: 700; color: #1e293b; }
+    .pass { color: #065f46; font-weight: 800; background: #d1fae5; padding: 0.15rem 0.5rem; border-radius: 999px; font-size: 0.78rem; }
+    figure { margin: 1.25rem 0; }
+    figure img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--border); }
+    figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.45rem; }
+  </style>
+</head>
+<body>
+  <nav class="topbar">
+    <div><strong>GEMSDOE76</strong> · Executive Summary Subpage</div>
+    <div style="display:flex; gap:1.25rem; flex-wrap:wrap;">
+      <a href="executive-summary.html" style="color:#6ee7b7;">★ Executive Summary (Current)</a>
+      <a href="index.html">Full Technical Dossier &amp; PhD Autopsy →</a>
+      <a href="downloads/run_card.json">Machine-Readable JSON Run Card</a>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="verdict-hero">
+      <div class="badge-row">
+        <span class="pill pill-ok">✓ OK TO DOWNLOAD &amp; SUBMIT — VERDICT: PROMOTE</span>
+        <span class="pill pill-neutral">15 / 15 Format &amp; [0, 1] Checks PASS</span>
+        <span class="pill pill-neutral">84 / 84 Leakage Canaries PASS</span>
+        <span class="pill pill-neutral">896 / 896 Registry Uniqueness PASS</span>
+      </div>
+      <h1>YES — Shipped GeoTIFF Passed Every Format, Holdout &amp; Uniqueness Gate</h1>
+      <p style="margin:0; color:#065f46; font-size:1.02rem;">
+        <strong>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif</strong> is a newly trained, byte-unique, strictly validated single-band <code>float32</code> GeoTIFF (<code>EPSG:32611</code>, <code>3,730 × 3,292</code> @ <code>100 m</code>, <code>0 NaN</code> cells anywhere, exact <code>{0.0, 1.0}</code> values across all <code>12,279,160</code> pixels) that permanently prevents the <code>"Predicted values must be in range [0, 1]"</code> portal error and beats strict out-of-fold <code>H33</code> (<code>GEMSDOE32</code>) across <strong>4 / 4 unseen Nevada quadrants</strong> (<code>+10.35 SE</code>).
+      </p>
+
+      <div class="btn-row">
+        <a class="btn btn-primary" href="downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif" download>
+          ⬇ Download Submission .TIF (137 KB)
+        </a>
+        <a class="btn btn-secondary" href="downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.zip" download>
+          ⬇ Download Single-TIFF .ZIP (99 KB)
+        </a>
+        <a class="btn btn-secondary" href="index.html">
+          Read Full PhD Report &amp; All Tables →
+        </a>
+      </div>
+
+      <div class="copy-grid">
+        <div class="copy-box">
+          <div class="copy-label">
+            <span>Unique DrivenData Submission Name</span>
+            <button class="copy-btn" onclick="copyText('sub-name', this)">Copy</button>
+          </div>
+          <code class="block" id="sub-name">gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros</code>
+        </div>
+        <div class="copy-box">
+          <div class="copy-label">
+            <span>Submission Description / Note (82 / 140 chars)</span>
+            <button class="copy-btn" onclick="copyText('sub-note', this)">Copy</button>
+          </div>
+          <code class="block" id="sub-note">GEMS76 PTCF+TiltWorm+Chi 2D-UGBDT + CELF SubmodDTI 39200d [0,1] zeros sha:6316481d</code>
+        </div>
+      </div>
+      <p style="margin:0.85rem 0 0; font-size:0.82rem; color:#047857;">
+        <strong>SHA-256 (.tif):</strong> <code>54c978399d0a875ba89aacc465e7efd8644420e6ba1dfa7c0a1390328be2c514</code> ·
+        <strong>Upload instruction:</strong> Submit <em>either</em> the <code>.tif</code> file directly <em>or</em> the 1-file <code>.zip</code> on <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/" target="_blank" rel="noopener">DrivenData Competition 306</a> (never upload both for the same candidate so you spend only 1 weekly slot).
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>1. Six-Gate Executive Scorecard (Line-by-Line Verified)</h2>
+      <div class="kpi-grid">
+        <div class="kpi">
+          <div class="num">0.17822 <span style="font-size:0.9rem;color:#059669;">(+55.3%)</span></div>
+          <div class="sub"><strong>HOLDOUT-DTI</strong> (<code>gems57-pooled-hide-v2</code>, <code>n=60,988</code>, 95% CI <code>[0.1561, 0.1982]</code>) vs <code>H33</code> strict OOF <code>0.11473</code> (<code>+10.35 SE</code>)</div>
+        </div>
+        <div class="kpi">
+          <div class="num">0.10924 <span style="font-size:0.9rem;color:#059669;">(#1 Overall)</span></div>
+          <div class="sub"><strong>HOLDOUT-DTI</strong> (<code>hide=20%</code> whole components, <code>n=12,155</code>, 95% CI <code>[0.0886, 0.1304]</code>) — <code>+44.6%</code> vs <code>H33</code>, <code>+71.9%</code> vs <code>GEMS70</code></div>
+        </div>
+        <div class="kpi">
+          <div class="num">0.5569 &le; 0.70</div>
+          <div class="sub">Max <code>3-px</code> mutual overlap across <strong>all 896 SHA-256 rasters</strong> (vs <code>GEMSDOE32</code> <code>0.2778</code>: <code>0.4932</code> mutual / <code>0.5799</code> 1-way)</div>
+        </div>
+        <div class="kpi">
+          <div class="num">0 NaN · [0.0, 1.0]</div>
+          <div class="sub">All <code>12,279,160</code> cells finite <code>{0.0, 1.0}</code>; fixes the <code>3,061–3,073</code> in-footprint sentinel cells causing <code>GEMSDOE6/7</code> upload errors</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Protocol Gate</th>
+            <th>Required Threshold</th>
+            <th>Measured Value</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Gate 1 — Single-Feature Leakage Canary</strong></td>
+            <td>Polarity-invariant holdout <code>AUC &le; 0.90</code> on every feature</td>
+            <td>Stage-1 (<code>62</code> feats): max <code>0.57950</code> (<code>b12_lap1_concave</code>)<br>Stage-2 OOF (<code>22</code> feats): max <code>0.68597</code> (<code>p_joint_g1</code>)</td>
+            <td><span class="pass">PASS (84 / 84)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 2 — Hide-and-Recover Spatial Holdout</strong></td>
+            <td>Beat strict OOF control by <code>&gt; 2 SE</code> on pooled DTI (<code>&alpha;=0.2, &beta;=0.8, 300 m</code>)</td>
+            <td><code>+0.06350</code> vs <code>H33</code> OOF (<code>95% CI [+0.0515, +0.0755]</code> = <strong><code>+10.35 SE</code></strong>); wins <strong>4 / 4</strong> unseen quadrants</td>
+            <td><span class="pass">PASS (+10.35 SE)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 3A — Pre-Placement Surface Uniqueness</strong></td>
+            <td><code>|Spearman &rho;| &le; 0.90</code> vs all <code>896</code> registry rasters</td>
+            <td>Max <code>|&rho;| = 0.68509</code> (<code>0 / 896</code> violations)</td>
+            <td><span class="pass">PASS (0 / 896)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 3B — Final Emitted Dots Uniqueness</strong></td>
+            <td><code>|Spearman &rho;| &le; 0.90</code> AND <code>3-px</code> overlap <code>&le; 0.70</code> vs all <code>896</code> rasters</td>
+            <td>Max <code>|&rho;| = 0.10844</code>; max mutual <code>3-px</code> overlap <code>= 0.55689</code>; vs <code>H33</code>: <code>0.4932</code> mutual / <code>0.5799</code> 1-way</td>
+            <td><span class="pass">PASS (0 / 896)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 4 — GeoTIFF Validator &amp; <code>[0, 1]</code> Safety</strong></td>
+            <td><code>EPSG:32611</code>, <code>3730×3292</code>, <code>float32</code>, finite in <code>[0, 1]</code>, <code>0</code> on-catalogue</td>
+            <td><code>39,200</code> active dots = <code>1.0</code>; remaining <code>12,239,960</code> cells = <code>0.0</code>; <code>0</code> NaN/Inf; <code>0</code> on-catalogue</td>
+            <td><span class="pass">PASS (15 / 15)</span></td>
+          </tr>
+          <tr>
+            <td><strong>Gate 5 — Preregistered Experiment Cap</strong></td>
+            <td>At most <code>3</code> holdout experiments or <code>2</code> hours</td>
+            <td>Exactly <code>3</code> preregistered experiments executed (<code>EXP-76-1</code>, <code>EXP-76-2</code>, <code>EXP-76-3</code>)</td>
+            <td><span class="pass">PASS (3 / 3)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card">
+      <h2>2. Executive Summary of What Changed vs GEMSDOE32 (<code>0.2778</code> ORGANIZER-CONFIRMED)</h2>
+      <ul>
+        <li><strong>Why <code>GEMSDOE32</code> (<code>h33-h33-2-b2</code>) scored <code>0.2778</code> (<code>ORGANIZER-CONFIRMED</code>):</strong> Crisp binary <code>{0.0, 1.0}</code> amplitudes maximize the Tversky ratio derivative <code>&part;DTI/&part;p &gt; 0</code>, while <code>280 m</code> Poisson-disk thinning and a <code>200 m</code> known-fault collar eliminate self-cannibalizing ridge duplicates and masked-catalogue false positives.</li>
+        <li><strong>Why <code>GEMSDOE32</code> stalled at <code>0.2778</code> vs leaderboard leaders (<code>0.3195</code>, <code>0.3774</code>, <code>0.4413</code> <code>ORGANIZER-CONFIRMED</code>):</strong> (1) <code>24.61%</code> of the Nevada active footprint (Fold 1 NE) lacks <code>1 m</code> LiDAR scarp data; (2) USGS/INGENIOUS field mappers already mapped sharp exposed scarps, leaving unmapped faults concentrated under Holocene alluvial fans and playas where slip appears as broad <code>100–900 m</code> <strong>Piedmont-Toe Concave Flexure (<code>-&nabla;&sup2; b12_det_elev</code> — #1 single feature overall, <code>AUC = 0.5795</code>)</strong>, sub-playa <strong>aeromagnetic/gravity tilt-derivative worms</strong>, and footwall <strong>stream-profile <code>&chi;</code>-knickpoints</strong>; (3) single-pixel trees cannot bridge unmapped relay ramps across alluvial fans.</li>
+        <li><strong>How <code>GEMSDOE76</code> overcomes all three limitations:</strong> Combines domain-explicit 4-suite Stage-1 multi-physics GBDTs (<code>62</code> zero-label features) + Stage-2 2D steerable multi-scale context pyramid (<code>0.3–2.5 km</code>) + <code>300 m</code> kernel-aware CELF submodular dot allocation (<code>39,200</code> dots), lifting NE LiDAR-gap ROC AUC from <code>0.6433</code> (<code>GEMS70</code>) and <code>0.7222</code> (<code>H33</code>) to <strong><code>0.7554</code></strong> and lifting competition-geometry holdout DTI by <strong><code>+44.6%</code> over <code>H33</code></strong>.</li>
+      </ul>
+
+      <figure>
+        <img src="assets/fig2_holdout_dti_and_fold_auc.png" alt="Holdout DTI and per-quadrant ROC AUC across all experiments" />
+        <figcaption><strong>Figure 1.</strong> Strict out-of-fold validation across all 3 preregistered experiments (<code>1,000</code> paired spatial block-bootstrap draws). Every score is explicitly labeled <code>HOLDOUT-DTI</code>; zero projections are ever reported as scores.</figcaption>
+      </figure>
+
+      <figure>
+        <img src="assets/fig1_nevada_spatial_overview.png" alt="Full Nevada spatial overview map of probability surface and emitted dots" />
+        <figcaption><strong>Figure 2.</strong> Full-footprint Nevada structural prospectivity surface and emitted <code>39,200</code>-dot CELF submodular portfolio across all 4 quadrants including the <code>24.6%</code> NE <code>1 m</code>-LiDAR coverage gap.</figcaption>
+      </figure>
+    </section>
+
+    <section class="card">
+      <h2>3. Key Caveats &amp; Honest Provenance Notice</h2>
+      <p style="margin:0; color:var(--muted);">
+        All performance metrics computed in this repository are strictly <strong><code>HOLDOUT-DTI</code></strong> measurements on withheld subsets of <code>labels.tif</code> and must never be conflated with an <strong><code>ORGANIZER-CONFIRMED</code></strong> DrivenData test-set receipt. Live test evaluation occurs only after a human account holder uploads <code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif</code> on DrivenData within the competition's weekly submission limit. For full mathematical proofs, all 8 flagged irregularities (<code>IR-76-01..08</code>), the complete <code>896</code>-raster audit, and verified federal data links, proceed to the <a href="index.html"><strong>Full Technical Report →</strong></a>.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    function copyText(id, btn) {
+      const txt = document.getElementById(id).textContent.trim();
+      navigator.clipboard.writeText(txt).then(() => {
+        const prev = btn.textContent;
+        btn.textContent = "Copied ✓";
+        setTimeout(() => { btn.textContent = prev; }, 1600);
+      });
+    }
+  </script>
+</body>
+</html>

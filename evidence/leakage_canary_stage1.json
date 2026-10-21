@@ -1,0 +1,882 @@
+{
+  "gate": "single_feature_leakage_canary_v1",
+  "hard_auc_limit": 0.9,
+  "n_pixels": 5167373,
+  "n_positives": 60988,
+  "n_features_checked": 62,
+  "max_observed_polarity_auc": 0.5795,
+  "max_observed_feature": "b12_lap1_concave",
+  "violator_count": 0,
+  "passed": true,
+  "violators": [],
+  "features_ranked_by_signal": [
+    {
+      "index": 4,
+      "feature": "b12_lap1_concave",
+      "signed_auc": 0.5795,
+      "max_polarity_auc": 0.5795,
+      "fold_max_polarity_aucs": [
+        0.56127,
+        0.61732,
+        0.58553,
+        0.58052
+      ],
+      "worst_fold_auc": 0.61732,
+      "leakage_flag": false
+    },
+    {
+      "index": 12,
+      "feature": "lid_up",
+      "signed_auc": 0.57912,
+      "max_polarity_auc": 0.57912,
+      "fold_max_polarity_aucs": [
+        0.54737,
+        0.57056,
+        0.61939,
+        0.58979
+      ],
+      "worst_fold_auc": 0.61939,
+      "leakage_flag": false
+    },
+    {
+      "index": 26,
+      "feature": "t10_piedmont_step",
+      "signed_auc": 0.5756,
+      "max_polarity_auc": 0.5756,
+      "fold_max_polarity_aucs": [
+        0.54464,
+        0.58852,
+        0.62329,
+        0.60022
+      ],
+      "worst_fold_auc": 0.62329,
+      "leakage_flag": false
+    },
+    {
+      "index": 11,
+      "feature": "lid_down",
+      "signed_auc": 0.57494,
+      "max_polarity_auc": 0.57494,
+      "fold_max_polarity_aucs": [
+        0.54285,
+        0.56556,
+        0.62047,
+        0.58834
+      ],
+      "worst_fold_auc": 0.62047,
+      "leakage_flag": false
+    },
+    {
+      "index": 5,
+      "feature": "b12_lap3_flexure",
+      "signed_auc": 0.57351,
+      "max_polarity_auc": 0.57351,
+      "fold_max_polarity_aucs": [
+        0.5532,
+        0.64265,
+        0.53624,
+        0.5853
+      ],
+      "worst_fold_auc": 0.64265,
+      "leakage_flag": false
+    },
+    {
+      "index": 23,
+      "feature": "t10_curv_absmax",
+      "signed_auc": 0.57304,
+      "max_polarity_auc": 0.57304,
+      "fold_max_polarity_aucs": [
+        0.5363,
+        0.5927,
+        0.61425,
+        0.59792
+      ],
+      "worst_fold_auc": 0.61425,
+      "leakage_flag": false
+    },
+    {
+      "index": 27,
+      "feature": "scarp_worm_600m",
+      "signed_auc": 0.57256,
+      "max_polarity_auc": 0.57256,
+      "fold_max_polarity_aucs": [
+        0.52723,
+        0.5924,
+        0.62359,
+        0.6071
+      ],
+      "worst_fold_auc": 0.62359,
+      "leakage_flag": false
+    },
+    {
+      "index": 47,
+      "feature": "chi_ksn_smooth",
+      "signed_auc": 0.57133,
+      "max_polarity_auc": 0.57133,
+      "fold_max_polarity_aucs": [
+        0.54103,
+        0.61206,
+        0.61466,
+        0.58028
+      ],
+      "worst_fold_auc": 0.61466,
+      "leakage_flag": false
+    },
+    {
+      "index": 13,
+      "feature": "lid_cross",
+      "signed_auc": 0.57125,
+      "max_polarity_auc": 0.57125,
+      "fold_max_polarity_aucs": [
+        0.54293,
+        0.56117,
+        0.60567,
+        0.58498
+      ],
+      "worst_fold_auc": 0.60567,
+      "leakage_flag": false
+    },
+    {
+      "index": 56,
+      "feature": "geod_2ndinv",
+      "signed_auc": 0.5701,
+      "max_polarity_auc": 0.5701,
+      "fold_max_polarity_aucs": [
+        0.5682,
+        0.53503,
+        0.57817,
+        0.51686
+      ],
+      "worst_fold_auc": 0.57817,
+      "leakage_flag": false
+    },
+    {
+      "index": 57,
+      "feature": "geod_shearrate",
+      "signed_auc": 0.5689,
+      "max_polarity_auc": 0.5689,
+      "fold_max_polarity_aucs": [
+        0.57213,
+        0.50248,
+        0.59083,
+        0.50049
+      ],
+      "worst_fold_auc": 0.59083,
+      "leakage_flag": false
+    },
+    {
+      "index": 59,
+      "feature": "eq_density",
+      "signed_auc": 0.56853,
+      "max_polarity_auc": 0.56853,
+      "fold_max_polarity_aucs": [
+        0.54995,
+        0.54318,
+        0.50148,
+        0.57431
+      ],
+      "worst_fold_auc": 0.57431,
+      "leakage_flag": false
+    },
+    {
+      "index": 18,
+      "feature": "lid_tect_vs_fluv",
+      "signed_auc": 0.56732,
+      "max_polarity_auc": 0.56732,
+      "fold_max_polarity_aucs": [
+        0.53944,
+        0.56229,
+        0.61487,
+        0.55806
+      ],
+      "worst_fold_auc": 0.61487,
+      "leakage_flag": false
+    },
+    {
+      "index": 28,
+      "feature": "scarp_worm_1500m",
+      "signed_auc": 0.56506,
+      "max_polarity_auc": 0.56506,
+      "fold_max_polarity_aucs": [
+        0.5223,
+        0.57537,
+        0.61245,
+        0.60417
+      ],
+      "worst_fold_auc": 0.61245,
+      "leakage_flag": false
+    },
+    {
+      "index": 25,
+      "feature": "t10_hs_lineament",
+      "signed_auc": 0.56503,
+      "max_polarity_auc": 0.56503,
+      "fold_max_polarity_aucs": [
+        0.53743,
+        0.5766,
+        0.60367,
+        0.58651
+      ],
+      "worst_fold_auc": 0.60367,
+      "leakage_flag": false
+    },
+    {
+      "index": 21,
+      "feature": "t10_slope_max",
+      "signed_auc": 0.56495,
+      "max_polarity_auc": 0.56495,
+      "fold_max_polarity_aucs": [
+        0.54142,
+        0.57316,
+        0.6082,
+        0.58588
+      ],
+      "worst_fold_auc": 0.6082,
+      "leakage_flag": false
+    },
+    {
+      "index": 9,
+      "feature": "lid_step",
+      "signed_auc": 0.56377,
+      "max_polarity_auc": 0.56377,
+      "fold_max_polarity_aucs": [
+        0.52729,
+        0.54675,
+        0.61458,
+        0.58022
+      ],
+      "worst_fold_auc": 0.61458,
+      "leakage_flag": false
+    },
+    {
+      "index": 14,
+      "feature": "lid_relief",
+      "signed_auc": 0.56343,
+      "max_polarity_auc": 0.56343,
+      "fold_max_polarity_aucs": [
+        0.53766,
+        0.5419,
+        0.60735,
+        0.56875
+      ],
+      "worst_fold_auc": 0.60735,
+      "leakage_flag": false
+    },
+    {
+      "index": 10,
+      "feature": "lid_ex",
+      "signed_auc": 0.5627,
+      "max_polarity_auc": 0.5627,
+      "fold_max_polarity_aucs": [
+        0.52273,
+        0.54757,
+        0.60948,
+        0.59029
+      ],
+      "worst_fold_auc": 0.60948,
+      "leakage_flag": false
+    },
+    {
+      "index": 19,
+      "feature": "lid_piedmont_step",
+      "signed_auc": 0.56188,
+      "max_polarity_auc": 0.56188,
+      "fold_max_polarity_aucs": [
+        0.51981,
+        0.54875,
+        0.61717,
+        0.58557
+      ],
+      "worst_fold_auc": 0.61717,
+      "leakage_flag": false
+    },
+    {
+      "index": 20,
+      "feature": "t10_slope_p90",
+      "signed_auc": 0.56156,
+      "max_polarity_auc": 0.56156,
+      "fold_max_polarity_aucs": [
+        0.54153,
+        0.567,
+        0.60439,
+        0.57976
+      ],
+      "worst_fold_auc": 0.60439,
+      "leakage_flag": false
+    },
+    {
+      "index": 50,
+      "feature": "rad_K",
+      "signed_auc": 0.43949,
+      "max_polarity_auc": 0.56051,
+      "fold_max_polarity_aucs": [
+        0.54305,
+        0.59923,
+        0.60308,
+        0.59985
+      ],
+      "worst_fold_auc": 0.60308,
+      "leakage_flag": false
+    },
+    {
+      "index": 53,
+      "feature": "rad_TC_hp15",
+      "signed_auc": 0.44045,
+      "max_polarity_auc": 0.55955,
+      "fold_max_polarity_aucs": [
+        0.53392,
+        0.60231,
+        0.5758,
+        0.56157
+      ],
+      "worst_fold_auc": 0.60231,
+      "leakage_flag": false
+    },
+    {
+      "index": 1,
+      "feature": "det_elev_slope",
+      "signed_auc": 0.55764,
+      "max_polarity_auc": 0.55764,
+      "fold_max_polarity_aucs": [
+        0.54792,
+        0.5545,
+        0.5913,
+        0.56938
+      ],
+      "worst_fold_auc": 0.5913,
+      "leakage_flag": false
+    },
+    {
+      "index": 46,
+      "feature": "chi_step_smooth",
+      "signed_auc": 0.55572,
+      "max_polarity_auc": 0.55572,
+      "fold_max_polarity_aucs": [
+        0.52291,
+        0.61371,
+        0.57288,
+        0.60826
+      ],
+      "worst_fold_auc": 0.61371,
+      "leakage_flag": false
+    },
+    {
+      "index": 16,
+      "feature": "lid_dipole_norm",
+      "signed_auc": 0.55407,
+      "max_polarity_auc": 0.55407,
+      "fold_max_polarity_aucs": [
+        0.50646,
+        0.5515,
+        0.59131,
+        0.59884
+      ],
+      "worst_fold_auc": 0.59884,
+      "leakage_flag": false
+    },
+    {
+      "index": 29,
+      "feature": "scarp_worm_aniso_1500m",
+      "signed_auc": 0.54918,
+      "max_polarity_auc": 0.54918,
+      "fold_max_polarity_aucs": [
+        0.51655,
+        0.57766,
+        0.57344,
+        0.5638
+      ],
+      "worst_fold_auc": 0.57766,
+      "leakage_flag": false
+    },
+    {
+      "index": 22,
+      "feature": "t10_steep_frac",
+      "signed_auc": 0.54284,
+      "max_polarity_auc": 0.54284,
+      "fold_max_polarity_aucs": [
+        0.52874,
+        0.54548,
+        0.57451,
+        0.55983
+      ],
+      "worst_fold_auc": 0.57451,
+      "leakage_flag": false
+    },
+    {
+      "index": 52,
+      "feature": "rad_UTh",
+      "signed_auc": 0.54046,
+      "max_polarity_auc": 0.54046,
+      "fold_max_polarity_aucs": [
+        0.53152,
+        0.5671,
+        0.50042,
+        0.60044
+      ],
+      "worst_fold_auc": 0.60044,
+      "leakage_flag": false
+    },
+    {
+      "index": 38,
+      "feature": "depth_base_hp15",
+      "signed_auc": 0.4596,
+      "max_polarity_auc": 0.5404,
+      "fold_max_polarity_aucs": [
+        0.52247,
+        0.55364,
+        0.54924,
+        0.56914
+      ],
+      "worst_fold_auc": 0.56914,
+      "leakage_flag": false
+    },
+    {
+      "index": 6,
+      "feature": "dem100_lap_concave",
+      "signed_auc": 0.53545,
+      "max_polarity_auc": 0.53545,
+      "fold_max_polarity_aucs": [
+        0.53278,
+        0.58127,
+        0.50881,
+        0.53659
+      ],
+      "worst_fold_auc": 0.58127,
+      "leakage_flag": false
+    },
+    {
+      "index": 36,
+      "feature": "iso_grav_hp15",
+      "signed_auc": 0.53538,
+      "max_polarity_auc": 0.53538,
+      "fold_max_polarity_aucs": [
+        0.51775,
+        0.54907,
+        0.5416,
+        0.56549
+      ],
+      "worst_fold_auc": 0.56549,
+      "leakage_flag": false
+    },
+    {
+      "index": 39,
+      "feature": "grad_depth_base",
+      "signed_auc": 0.5325,
+      "max_polarity_auc": 0.5325,
+      "fold_max_polarity_aucs": [
+        0.5259,
+        0.55458,
+        0.52413,
+        0.56701
+      ],
+      "worst_fold_auc": 0.56701,
+      "leakage_flag": false
+    },
+    {
+      "index": 51,
+      "feature": "rad_ThK_alteration",
+      "signed_auc": 0.46766,
+      "max_polarity_auc": 0.53234,
+      "fold_max_polarity_aucs": [
+        0.52293,
+        0.55905,
+        0.6135,
+        0.51767
+      ],
+      "worst_fold_auc": 0.6135,
+      "leakage_flag": false
+    },
+    {
+      "index": 45,
+      "feature": "grav_worm_1600m",
+      "signed_auc": 0.53156,
+      "max_polarity_auc": 0.53156,
+      "fold_max_polarity_aucs": [
+        0.52732,
+        0.56002,
+        0.50121,
+        0.54998
+      ],
+      "worst_fold_auc": 0.56002,
+      "leakage_flag": false
+    },
+    {
+      "index": 49,
+      "feature": "chi_knick_worm_1400m",
+      "signed_auc": 0.53092,
+      "max_polarity_auc": 0.53092,
+      "fold_max_polarity_aucs": [
+        0.50924,
+        0.5438,
+        0.52729,
+        0.57382
+      ],
+      "worst_fold_auc": 0.57382,
+      "leakage_flag": false
+    },
+    {
+      "index": 34,
+      "feature": "iso_grav_slope_hp15",
+      "signed_auc": 0.52691,
+      "max_polarity_auc": 0.52691,
+      "fold_max_polarity_aucs": [
+        0.52308,
+        0.55079,
+        0.50936,
+        0.52622
+      ],
+      "worst_fold_auc": 0.55079,
+      "leakage_flag": false
+    },
+    {
+      "index": 7,
+      "feature": "ptcf_concave_toe_idx",
+      "signed_auc": 0.52687,
+      "max_polarity_auc": 0.52687,
+      "fold_max_polarity_aucs": [
+        0.5272,
+        0.52944,
+        0.52224,
+        0.5244
+      ],
+      "worst_fold_auc": 0.52944,
+      "leakage_flag": false
+    },
+    {
+      "index": 44,
+      "feature": "mag_worm_1600m",
+      "signed_auc": 0.52656,
+      "max_polarity_auc": 0.52656,
+      "fold_max_polarity_aucs": [
+        0.52918,
+        0.51689,
+        0.5386,
+        0.50895
+      ],
+      "worst_fold_auc": 0.5386,
+      "leakage_flag": false
+    },
+    {
+      "index": 58,
+      "feature": "geod_dilaterate",
+      "signed_auc": 0.52547,
+      "max_polarity_auc": 0.52547,
+      "fold_max_polarity_aucs": [
+        0.50227,
+        0.53984,
+        0.54364,
+        0.56878
+      ],
+      "worst_fold_auc": 0.56878,
+      "leakage_flag": false
+    },
+    {
+      "index": 60,
+      "feature": "gdr_thermal_plume_800m",
+      "signed_auc": 0.52215,
+      "max_polarity_auc": 0.52215,
+      "fold_max_polarity_aucs": [
+        0.53017,
+        0.55148,
+        0.54098,
+        0.5163
+      ],
+      "worst_fold_auc": 0.55148,
+      "leakage_flag": false
+    },
+    {
+      "index": 8,
+      "feature": "lid_valid",
+      "signed_auc": 0.5207,
+      "max_polarity_auc": 0.5207,
+      "fold_max_polarity_aucs": [
+        0.50253,
+        0.52014,
+        0.51812,
+        0.50438
+      ],
+      "worst_fold_auc": 0.52014,
+      "leakage_flag": false
+    },
+    {
+      "index": 61,
+      "feature": "gdr_thermal_plume_2200m",
+      "signed_auc": 0.51596,
+      "max_polarity_auc": 0.51596,
+      "fold_max_polarity_aucs": [
+        0.54179,
+        0.53615,
+        0.56947,
+        0.50357
+      ],
+      "worst_fold_auc": 0.56947,
+      "leakage_flag": false
+    },
+    {
+      "index": 0,
+      "feature": "det_elev",
+      "signed_auc": 0.4846,
+      "max_polarity_auc": 0.5154,
+      "fold_max_polarity_aucs": [
+        0.50187,
+        0.5484,
+        0.52958,
+        0.52603
+      ],
+      "worst_fold_auc": 0.5484,
+      "leakage_flag": false
+    },
+    {
+      "index": 24,
+      "feature": "t10_aspect_coh",
+      "signed_auc": 0.5143,
+      "max_polarity_auc": 0.5143,
+      "fold_max_polarity_aucs": [
+        0.53472,
+        0.51463,
+        0.50591,
+        0.52518
+      ],
+      "worst_fold_auc": 0.53472,
+      "leakage_flag": false
+    },
+    {
+      "index": 43,
+      "feature": "cos_tdr_grav",
+      "signed_auc": 0.51424,
+      "max_polarity_auc": 0.51424,
+      "fold_max_polarity_aucs": [
+        0.51208,
+        0.50102,
+        0.54805,
+        0.52046
+      ],
+      "worst_fold_auc": 0.54805,
+      "leakage_flag": false
+    },
+    {
+      "index": 37,
+      "feature": "iso_grav_hg_hp15",
+      "signed_auc": 0.48604,
+      "max_polarity_auc": 0.51396,
+      "fold_max_polarity_aucs": [
+        0.52784,
+        0.50451,
+        0.5076,
+        0.51525
+      ],
+      "worst_fold_auc": 0.52784,
+      "leakage_flag": false
+    },
+    {
+      "index": 33,
+      "feature": "tmi_vg_hp15",
+      "signed_auc": 0.48811,
+      "max_polarity_auc": 0.51189,
+      "fold_max_polarity_aucs": [
+        0.50636,
+        0.52009,
+        0.51678,
+        0.51317
+      ],
+      "worst_fold_auc": 0.52009,
+      "leakage_flag": false
+    },
+    {
+      "index": 42,
+      "feature": "grad_tdr_mag",
+      "signed_auc": 0.51107,
+      "max_polarity_auc": 0.51107,
+      "fold_max_polarity_aucs": [
+        0.50614,
+        0.50289,
+        0.53833,
+        0.5043
+      ],
+      "worst_fold_auc": 0.53833,
+      "leakage_flag": false
+    },
+    {
+      "index": 32,
+      "feature": "tmi_hg_hp15",
+      "signed_auc": 0.51079,
+      "max_polarity_auc": 0.51079,
+      "fold_max_polarity_aucs": [
+        0.50387,
+        0.53137,
+        0.50518,
+        0.5276
+      ],
+      "worst_fold_auc": 0.53137,
+      "leakage_flag": false
+    },
+    {
+      "index": 17,
+      "feature": "lid_concave_excess",
+      "signed_auc": 0.51078,
+      "max_polarity_auc": 0.51078,
+      "fold_max_polarity_aucs": [
+        0.50749,
+        0.53622,
+        0.52708,
+        0.51158
+      ],
+      "worst_fold_auc": 0.53622,
+      "leakage_flag": false
+    },
+    {
+      "index": 40,
+      "feature": "tmi_shallow_res",
+      "signed_auc": 0.48925,
+      "max_polarity_auc": 0.51075,
+      "fold_max_polarity_aucs": [
+        0.50414,
+        0.51677,
+        0.51973,
+        0.51266
+      ],
+      "worst_fold_auc": 0.51973,
+      "leakage_flag": false
+    },
+    {
+      "index": 30,
+      "feature": "mag_anom_hp15",
+      "signed_auc": 0.4903,
+      "max_polarity_auc": 0.5097,
+      "fold_max_polarity_aucs": [
+        0.50393,
+        0.51099,
+        0.52392,
+        0.50416
+      ],
+      "worst_fold_auc": 0.52392,
+      "leakage_flag": false
+    },
+    {
+      "index": 55,
+      "feature": "cond_surf_hp15",
+      "signed_auc": 0.5072,
+      "max_polarity_auc": 0.5072,
+      "fold_max_polarity_aucs": [
+        0.51289,
+        0.51099,
+        0.51026,
+        0.50912
+      ],
+      "worst_fold_auc": 0.51289,
+      "leakage_flag": false
+    },
+    {
+      "index": 15,
+      "feature": "lid_coh",
+      "signed_auc": 0.50686,
+      "max_polarity_auc": 0.50686,
+      "fold_max_polarity_aucs": [
+        0.50783,
+        0.50786,
+        0.52648,
+        0.53867
+      ],
+      "worst_fold_auc": 0.53867,
+      "leakage_flag": false
+    },
+    {
+      "index": 48,
+      "feature": "chi_knick_density",
+      "signed_auc": 0.50579,
+      "max_polarity_auc": 0.50579,
+      "fold_max_polarity_aucs": [
+        0.50288,
+        0.51125,
+        0.52705,
+        0.50068
+      ],
+      "worst_fold_auc": 0.52705,
+      "leakage_flag": false
+    },
+    {
+      "index": 31,
+      "feature": "rtp_hp15",
+      "signed_auc": 0.49453,
+      "max_polarity_auc": 0.50547,
+      "fold_max_polarity_aucs": [
+        0.50167,
+        0.50004,
+        0.51234,
+        0.50738
+      ],
+      "worst_fold_auc": 0.51234,
+      "leakage_flag": false
+    },
+    {
+      "index": 3,
+      "feature": "b19_hp12",
+      "signed_auc": 0.50386,
+      "max_polarity_auc": 0.50386,
+      "fold_max_polarity_aucs": [
+        0.51055,
+        0.52311,
+        0.50245,
+        0.53193
+      ],
+      "worst_fold_auc": 0.53193,
+      "leakage_flag": false
+    },
+    {
+      "index": 2,
+      "feature": "b19_hp3",
+      "signed_auc": 0.49788,
+      "max_polarity_auc": 0.50212,
+      "fold_max_polarity_aucs": [
+        0.51006,
+        0.52529,
+        0.52293,
+        0.51114
+      ],
+      "worst_fold_auc": 0.52529,
+      "leakage_flag": false
+    },
+    {
+      "index": 35,
+      "feature": "iso_grav_vg_hp15",
+      "signed_auc": 0.50192,
+      "max_polarity_auc": 0.50192,
+      "fold_max_polarity_aucs": [
+        0.50305,
+        0.50865,
+        0.50475,
+        0.52908
+      ],
+      "worst_fold_auc": 0.52908,
+      "leakage_flag": false
+    },
+    {
+      "index": 54,
+      "feature": "mag_destruct_K_alter",
+      "signed_auc": 0.50083,
+      "max_polarity_auc": 0.50083,
+      "fold_max_polarity_aucs": [
+        0.50206,
+        0.5216,
+        0.50347,
+        0.50683
+      ],
+      "worst_fold_auc": 0.5216,
+      "leakage_flag": false
+    },
+    {
+      "index": 41,
+      "feature": "cos_tdr_mag",
+      "signed_auc": 0.50001,
+      "max_polarity_auc": 0.50001,
+      "fold_max_polarity_aucs": [
+        0.5021,
+        0.50754,
+        0.51646,
+        0.50627
+      ],
+      "worst_fold_auc": 0.51646,
+      "leakage_flag": false
+    }
+  ]
+}

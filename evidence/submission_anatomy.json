@@ -1,0 +1,18 @@
+{
+  "n_dots": 39200,
+  "q1_frac": 0.027,
+  "q2_frac": 0.1262,
+  "q3_frac": 0.586,
+  "q4_frac": 0.2608,
+  "top10_steep_frac": 0.0541,
+  "d_cat_0_2_px": 0,
+  "d_cat_2_3_px": 1775,
+  "d_cat_gt_3_px": 37425,
+  "quadrant_counts": {
+    "NW": 17822,
+    "NE": 8280,
+    "SW": 6961,
+    "SE": 6137
+  },
+  "lidar_covered_frac": 0.7976
+}
