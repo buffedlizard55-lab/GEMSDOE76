@@ -38,7 +38,15 @@ def test_current_preflight_blocks_without_fake_raster():
     assert report['experiments_run']==0 and report['weekly_slots_used']==0
     assert report['reference_grid']['status']=='pass-bridge-relative'
     assert all(row['matches'] for row in report['pinned_files'])
-    assert not list((ROOT/'docs/downloads').glob('*.tif'))
+    # A labeled negative candidate may be published so its download/submit
+    # status is obvious; nothing promoted or safe_to_submit may be published.
+    tifs = list((ROOT/'docs/downloads').glob('*.tif'))
+    card = json.loads((ROOT/'docs/downloads/run-card.json').read_text())
+    listed = {card.get('raster'), card.get('raster_zip')} - {None}
+    for tif in tifs:
+        assert str(tif.relative_to(ROOT)) in listed, str(tif)
+    assert card.get('verdict') != 'promote'
+    assert card.get('safe_to_submit') is not True
 
 
 def test_modified_pin_is_detected(tmp_path):
@@ -168,21 +176,40 @@ def test_rendered_site_links_and_card():
     assert check_site()==[]
 
 
-def test_site_discloses_prior_negative_tiff_without_serving_it():
+def test_site_serves_labeled_negative_candidate_with_explicit_status():
+    # The prior Lane G76 negative artifact is preserved in evidence/ only.
     card=json.loads((ROOT/'evidence/run_card.json').read_text())
     artifact=ROOT/card['validator']['file']
     assert artifact.is_file()
     assert hashlib.sha256(artifact.read_bytes()).hexdigest()==card['raster_sha256']
+    assert 'DO NOT SUBMIT' in (ROOT/'docs/lane-g76.html').read_text()
+
+    # A labeled negative candidate may be published for transparency: it is OK
+    # to download, explicitly NOT OK to submit, and uses no weekly slot.
+    run=json.loads((ROOT/'docs/downloads/run-card.json').read_text())
+    assert run.get('verdict')=='negative'
+    assert run.get('safe_to_submit') is False
+    assert run.get('downloadable_submission') is True
+    tif=ROOT/run['raster']
+    assert tif.is_file()
+    assert hashlib.sha256(tif.read_bytes()).hexdigest()==run['raster_sha256']
+    zipf=ROOT/run['raster_zip']
+    assert zipf.is_file()
+
     overview=(ROOT/'docs/index.html').read_text()
     instructions=(ROOT/'docs/executive-summary.html').read_text()
-    lane=(ROOT/'docs/lane-g76.html').read_text()
-    assert 'No approved submission TIFF is available. Do not submit.' in overview
-    assert 'prior Lane G76 run generated a unique TIFF' in overview
-    assert 'evidence only and must not be submitted' in overview
-    assert 'no approved file to upload' in instructions
-    assert 'DO NOT SUBMIT' in lane
+    assert 'not OK to submit' in overview
+    assert 'DO NOT SUBMIT' in overview
+    assert run['submission_name'] in overview
+    assert run['raster_sha256'] in overview
     assert 'No experiment executed.' not in overview
-    assert not list((ROOT/'docs').rglob('*.tif'))
+
+    # Nothing promoted or safe_to_submit may be published; every raster/archive
+    # in docs must be the labeled negative candidate listed in the run card.
+    listed = {run.get('raster'), run.get('raster_zip')} - {None}
+    for p in (ROOT/'docs').rglob('*'):
+        if p.suffix.lower() in ('.tif', '.tiff', '.zip'):
+            assert str(p.relative_to(ROOT)) in listed, str(p)
 
 
 def test_candidate_validator_rejects_non_grid_fixture(tmp_path):

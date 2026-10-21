@@ -1,72 +1,121 @@
 {
-  "run_id": "gems76-preflight-20261021",
-  "hypothesis": "Conditional proposal A: concordant displacement of magnetic and radiometric contacts; no lane assigned or experiment executed.",
-  "mechanism": "Buried cross-cutting faults may offset pre-existing lithologic contacts without a surface scarp; hypothesis only.",
-  "non_fault_mimic": "Channel-alluvium boundaries and airborne survey line-leveling seams.",
-  "holdout": {
-    "evidence_class": "HOLDOUT-DTI",
-    "status": "not-run",
-    "evaluator_version": "gems57-pooled-hide-v2",
-    "withheld_positive_pixels": null,
-    "dti": null,
-    "ci95": null,
-    "current_best_reproduced": false,
-    "feature_canaries": "not-run"
-  },
-  "registry": {
-    "surface_rank_correlation": null,
-    "surface_forward_overlap_3px": null,
-    "final_dot_rank_correlation": null,
-    "final_dot_forward_overlap_3px": null,
-    "status": "not-run: no candidate and no complete scoped raster inventory",
-    "duplicate": null,
-    "uniqueness_cleared": false,
-    "limits": {
-      "rank_correlation_stop_above": 0.9,
-      "forward_overlap_stop_above": 0.7
-    }
-  },
-  "raster_sha256": null,
-  "validator": {
-    "status": "not-run: no generated candidate raster",
-    "no_nan_inside_footprint": null,
-    "all_values_in_0_1": null,
-    "crs_matches": null,
-    "shape_matches": null,
-    "transform_matches": null,
-    "reference_only_grid_audit": {
-      "status": "pass-bridge-relative",
-      "crs": "EPSG:32611",
-      "shape": [
-        3730,
-        3292
-      ],
-      "transform": [
-        100.0,
-        0.0,
-        243350.0,
-        0.0,
-        -100.0,
-        4508550.0
-      ],
-      "footprint_pixels": 5167373,
-      "catalogue_pixels": 60988,
-      "official_origin_authenticated": false
-    }
-  },
-  "submission_name": null,
-  "note": "Negative preflight: lane, cached arrays, current raster registry and matched holdout evidence missing. Do not submit.",
-  "verdict": "negative",
+  "run_id": "gems76-geophys-gate1-20261021",
+  "experiment_count_this_session": 1,
+  "maximum_experiments": 3,
+  "maximum_wall_hours": 2,
+  "generated_utc": "2026-10-21T00:00:00+00:00",
+  "status": "blocked",
   "safe_to_submit": false,
-  "downloadable_submission": false,
-  "experiments_run": 0,
+  "downloadable_submission": true,
+  "downloadable_is_approved": false,
+  "submission_name": "gems76-geophys-cataloguefree-rank-gate1-20261021",
+  "note": "Gate-1 negative evidence: catalogue-free geophysical rank surface; holdout DTI 0.0120 [0.0102,0.0140] vs fair-H33 0.0927; DO NOT SUBMIT",
+  "note_chars": 135,
+  "raster": "docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif",
+  "raster_zip": "docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.zip",
+  "raster_sha256": "9810829f5df3c8e8267a3b2079653a8d0f2dcecceeb3310076f88dbf92095c69",
+  "zip_sha256": "e4556b6337a9440de3d0228dcd74a4c95c3ddd3cd024fd36ce4cd873fc96cb20",
+  "verdict": "negative",
   "weekly_slots_used": 0,
   "selector_approved": false,
-  "inherited_candidates": "withdrawn: simulated inputs; original evidence preserved in quarantine",
-  "blockers": [
-    "No single method lane was provided. Do not self-assign during a parallel run.",
-    "Template cached feature stack unavailable or hash mismatch; receipts are not array bytes.",
-    "No current complete scoped raster inventory; repository metadata is not a uniqueness clearance.",
-    "No locally reproduced current-best baseline, feature-alone canaries, or candidate holdout comparison."
+  "lane_assigned": null,
+  "hypothesis": "Buried geothermal faults missing from the USGS/INGENIOUS catalogue carry a coherent, catalogue-free geophysical edge/strain signature (magnetic and gravity horizontal gradient, tilt derivative, conductivity, geodetic strain, scarp slope, curvature) that can be recovered above catalogue-flank emission at the 300 m DTI kernel scale.",
+  "mechanism": "Rank-average of robust-z-scored geophysical planes from the pinned 19-band training_features.tif (none derived from the fault catalogue), emitted as isolated dots via exact greedy max-cover on footprint minus catalogue. DTI = distance-weighted Tversky, triangular kernel R=300 m (3 px at 100 m), alpha=0.2 (FP), beta=0.8 (FN); per-truth-pixel max kernel credit, known catalogue pixels masked pixel-exactly, whole withheld fault segments scored via buffered hide-and-recover.",
+  "named_non_fault_mimic": "Playa/lakebed edges, alluvial-fan distributary channels, terrace risers, road grades, and airborne survey line-leveling seams can produce edge/strain/conductivity responses without faulting.",
+  "holdout": {
+    "evidence_class": "HOLDOUT-DTI",
+    "evaluator_version": "gems57-pooled-hide-v2",
+    "alpha": 0.2,
+    "beta": 0.8,
+    "triangular_radius_m": 300,
+    "withheld_positive_pixels": 11321,
+    "dti": 0.011988574453204408,
+    "ci95": [
+      0.01020174839789165,
+      0.014048356102920254
+    ],
+    "control_dti": 0.013140267484303995,
+    "control_ci95": [
+      0.01096535815250607,
+      0.01538217607368236
+    ],
+    "paired_delta": -0.001151693031099587,
+    "delta_ci95": [
+      -0.0018621934238614046,
+      -0.0004783309405742728
+    ],
+    "benchmark_fair_h33_user_context": 0.0927,
+    "beats_benchmark": false,
+    "worse_than_random_dots_user_context": true,
+    "random_dots_user_context": 0.0458
+  },
+  "leakage_canary": {
+    "threshold_auc": 0.9,
+    "max_auc": 0.5671350415157672,
+    "any_suspected_leakage": false,
+    "features": {
+      "g_tmi_hg": 0.5295,
+      "g_tc": 0.4719,
+      "g_slope": 0.564,
+      "g_grav_hg": 0.4925,
+      "g_curv": 0.5358,
+      "g_edge_max": 0.4977,
+      "g_cond": 0.4778,
+      "g_base_edge": 0.5383,
+      "g_strain": 0.5671
+    }
+  },
+  "registry_overlap": {
+    "n_registry_rasters_compared": 1,
+    "locally_available": "gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif only",
+    "mutual_overlap_3px": 0.0204,
+    "forward_overlap": 0.0461,
+    "reverse_overlap": 0.0204,
+    "gate_mutual_le_0_70": true,
+    "rank_correlation_stop_above_0_90": "not computed - no ranked surface inventory available",
+    "scoped_raster_inventory_complete": false
+  },
+  "validator": {
+    "ok": true,
+    "problems": [],
+    "nan_inside_footprint": 0,
+    "values_in_0_1": [
+      0.0,
+      0.8902793526649475
+    ],
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "catalogue_overlap_pixels": 0,
+    "mass_outside_footprint": 0,
+    "approved_for_weekly_slot": false,
+    "validation_class": "local on-disk template/range check; not organizer upload acceptance"
+  },
+  "evidence_files": {
+    "manifest": "evidence/exp_geophys_gate/manifest.json",
+    "canaries": "evidence/exp_geophys_gate/canaries.json",
+    "holdout": "evidence/exp_geophys_gate/holdout.json",
+    "emission": "evidence/exp_geophys_gate/emission.json",
+    "gates": "evidence/exp_geophys_gate/gates.json",
+    "writer_receipt": "docs/downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.json"
+  },
+  "labeling_policy": "Every number is HOLDOUT-DTI (evaluator version, withheld positives, 95% CI) or a USER-REPORTED benchmark explicitly marked as such. No projection is written as a score. ORGANIZER-CONFIRMED requires an authenticated submission-page receipt; none exists here.",
+  "conclusion": "NEGATIVE. The catalogue-free geophysical surface does not recover withheld faults (holdout DTI 0.0120 vs fair-H33 benchmark 0.0927). Do not use a weekly slot on this file. The TIFF is published only as labeled negative evidence; it is unique (mutual overlap 0.0204 vs the nearest local prior) and format-valid, but scientifically uncompetitive. Per the parallel-run protocol, no lane was assigned and no self-assignment was made.",
+  "blockers_to_promote": [
+    "No method lane assigned to this parallel run (protocol forbids self-assignment)",
+    "Template cached feature stack arrays not in repo (receipts only)",
+    "No complete scoped raster inventory",
+    "No current-best baseline reproduction on these exact folds beyond the USER-REPORTED fair-H33 benchmark",
+    "No authenticated organizer data/rules/slot access"
   ]
 }

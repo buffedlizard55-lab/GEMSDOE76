@@ -1,24 +1,42 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="GEMSDOE76: audited fault-detection research, scientific prerequisites and explicit submission readiness.">
+<meta name="description" content="GEMSDOE76: audited fault-detection research, explicit submission status.">
 <title>Submission instructions · GEMSDOE76</title><link rel="stylesheet" href="style.css"></head>
 <body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html">GEMS<span>DOE76</span></a><nav aria-label="Main"><a href="index.html" >Overview</a><a href="executive-summary.html" aria-current="page" >How to submit</a><a href="research.html" >Research & review</a><a href="inherited-main-audit.html" >Critical audit</a><a href="sources.html" >Sources</a></nav></header>
 <main id="main"><p class="eyebrow">EXECUTIVE SUMMARY</p><h1>How to make a competition submission</h1>
-<section class="notice"><h2>STOP: there is currently no approved file to upload.</h2><p>A prior Lane G76 run produced a unique, format-validated TIFF, but its holdout result was negative. That evidence artifact is explicitly marked DO NOT SUBMIT and is not served as a competition download. Do not submit it, the reference TIFFs, the JSON run card, or this webpage. This page is a future procedure, not approval.</p><p><strong>HOLDOUT-DTI</strong> (gems57-pooled-hide-v2, 11,321 withheld positives): 0.0218; 95% CI [0.0145, 0.0303]. See the <a href="lane-g76.html">Lane G76 negative result</a> and its run card.</p><a class="button secondary" href="downloads/run-card.json" download>Download the current negative decision</a></section>
-<h2>Before a file can be released</h2><ol class="steps">
-<li><strong>Establish inputs and lane.</strong> Resolve the parallel-run method assignment, place hash-pinned shared feature caches, authenticate sample/catalogue and data eligibility, and refresh the complete scoped raster registry.</li>
-<li><strong>Validate science.</strong> Run feature-alone leakage canaries, buffered whole-segment spatial hide-and-recover, and a frozen current-best comparator. Every catalogue feature must use visible faults only. Pool DTI components and report version, withheld positives and 95% confidence intervals.</li>
-<li><strong>Prove distinctness in the accessible scope.</strong> Check the surface before placement and the final dots. Stop if rank correlation exceeds 0.90 or forward dot overlap within 3 pixels exceeds 70% against any prior. Missing priors are not a clearance.</li>
-<li><strong>Package once, without silent repairs.</strong> Use the shared writer for single-band float32 GeoTIFF and, optionally, a ZIP containing only that TIFF. Predictions must already be finite and in [0,1]. Zero the exterior explicitly; mask visible catalogue pixels exactly. Verify CRS, shape and transform against the authenticated format.</li>
-<li><strong>Separate selection from generation.</strong> Require a documented holdout improvement against the current best and selector approval. Check current contest rules and the remaining weekly cap on the organizer’s submission page. No slot is authorized here.</li></ol>
-<h2>Only after a genuinely approved file is published</h2><ol class="steps">
-<li>Download the file explicitly marked as the approved prediction, not a reference or diagnostic. Compare its SHA256 against its adjacent receipt.</li>
-<li>Sign in to the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">official competition</a>, review eligibility/rules, then open its New submission form. Follow the current organizer instructions if they differ from this retained brief.</li>
-<li>Choose the approved single-band <code>.tif</code>, or its one-TIFF <code>.zip</code>, as “File to submit”. Do not upload a document.</li>
-<li>Copy the artifact’s unique submission name and its note of at most 140 characters from its receipt. There is no candidate name or note intended for upload in this negative run.</li>
-<li>Submit only after the selector approves the slot. Save the submission-page receipt and organizer result. Only then label a score ORGANIZER-CONFIRMED.</li></ol>
-<h2>Prevent the reported range error</h2><p>The offending file was not available, so its exact cause is unknown. We reject NaN, infinity, negative values, values above one and incompatible nodata rather than silently clipping them. We validate the serialized file—not just the array in memory.</p>
-<pre><code>.venv/bin/python scripts/validate_candidate.py /path/to/candidate.tif</code></pre>
-<p>A successful local validator is not organizer acceptance. The current bridged reference grid is EPSG:32611, 3730 × 3292, affine (100, 0, 243350, 0, −100, 4508550); these are technical measurements, not score evidence, and still need official-origin authentication.</p>
-<h2>Review the receipts</h2><p><a href="downloads/preflight.json">Preflight</a> · <a href="downloads/recovered-byte-manifest.json">Pinned sources and hashes</a> · <a href="research.html">Full review and limitations</a></p></main><footer><strong>Evidence before confidence.</strong> No organizer-confirmed result or weekly-slot approval.
+<section class="notice"><h2>CURRENT FILE — READ BEFORE DOWNLOADING</h2>
+<p><strong>Do not submit this file.</strong> A unique prediction TIFF exists (gems76-geophys-cataloguefree-rank-gate1-20261021),
+it is format-valid ([0,1], finite, EPSG:32611, 3730 × 3292, transform matches sample_submission.tif), but its
+holdout result is negative (DTI 0.0120 vs fair-H33 benchmark 0.0927). Downloading it is fine;
+uploading it to the competition would waste a weekly slot on a known-negative candidate.</p>
+<p><strong>File:</strong> <a href="downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.tif" download>gems76-geophys-cataloguefree-rank-gate1-20261021.tif</a>
+ · <strong>SHA-256:</strong> <code>9810829f5df3c8e8267a3b2079653a8d0f2dcecceeb3310076f88dbf92095c69</code>
+ · <strong>One-TIFF ZIP:</strong> <a href="downloads/gems76-geophys-cataloguefree-rank-gate1-20261021.zip" download>download</a>
+ · <strong>Note (135/140 chars):</strong> Gate-1 negative evidence: catalogue-free geophysical rank surface; holdout DTI 0.0120 [0.0102,0.0140] vs fair-H33 0.0927; DO NOT SUBMIT  SHA
+ · <strong>Verdict:</strong> negative</p>
+<p class="fine">This prevents the historical portal error "Predicted values must be in range [0, 1]": the raster is
+all-finite, serialized without clipping, and validated on disk before release. Local validation is not organizer acceptance.</p></section>
+<h2>Release sequence (once a candidate passes all gates)</h2>
+<ol class="steps">
+<li>Establish inputs and lane; place hash-pinned shared feature caches; authenticate sample/catalogue and data eligibility; refresh the scoped raster registry.</li>
+<li>Validate science: feature-alone leakage canaries (AUC &le; 0.90), buffered whole-segment spatial hide-and-recover, pooled DTI with version, withheld positives and 95% CI; uniqueness vs every prior.</li>
+<li>Package once via the shared writer (single-band float32 GeoTIFF, optional one-TIFF ZIP); no silent clipping/repair; values already in [0,1]; exterior zeroed; catalogue pixels masked exactly.</li>
+<li>Separate selection from generation: holdout improvement vs current best, selector approval, current weekly cap on the organizer submission page.</li>
+<li>Sign in to the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">official competition</a>, choose the approved <code>.tif</code> or one-TIFF <code>.zip</code>, copy the unique submission name and a note of at most 140 characters from the receipt, submit, and save the organizer receipt. Only then label a score ORGANIZER-CONFIRMED.</li>
+</ol>
+<h2>Only after a genuinely approved file is published</h2>
+<ol class="steps">
+<li>Download the file explicitly marked as the approved prediction (not a reference or diagnostic). Compare its SHA-256 against its adjacent receipt.</li>
+<li>Sign in to the official competition, review eligibility/rules, open its New submission form.</li>
+<li>Choose the approved single-band <code>.tif</code> or its one-TIFF <code>.zip</code> as “File to submit”. Do not upload a document.</li>
+<li>Copy the artifact's unique submission name and its note of at most 140 characters from its receipt.</li>
+<li>Submit only after selector approval. Save the submission-page receipt and organizer result. Only then label a score ORGANIZER-CONFIRMED.</li>
+</ol>
+<p><a class="button secondary" href="downloads/run-card.json" download>Download current run card</a></p>
+<p>A successful local validator is not organizer acceptance. The current bridged reference grid is
+EPSG:32611, 3730 × 3292, affine (100, 0, 243350, 0, −100, 4508550); these are technical measurements, not score
+evidence, and still need official-origin authentication.</p>
+<h2>Review the receipts</h2><p><a href="downloads/preflight.json">Preflight</a> ·
+<a href="downloads/run-card.json">Run card</a> · <a href="downloads/recovered-byte-manifest.json">
+Pinned sources and hashes</a> · <a href="research.html">Full review and limitations</a></p></main><footer><strong>Evidence before confidence.</strong> No organizer-confirmed result or weekly-slot approval.
 <a href="https://github.com/buffedlizard55-lab/GEMSDOE76">Repository</a> · <a href="downloads/run-card.json">JSON run card</a></footer></body></html>

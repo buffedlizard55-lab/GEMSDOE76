@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-21T04:03:30.251675+00:00",
+  "generated_utc": "2026-10-21T04:15:59.201016+00:00",
   "evidence_class": "SOFTWARE VERIFICATION - NOT HOLDOUT-DTI OR ORGANIZER-CONFIRMED",
   "all_checks_passed": true,
   "passes_completed": [
@@ -38,7 +38,7 @@
       "exit_code": 0,
       "expected_exit_code": 0,
       "passed": true,
-      "stdout": "Built five blocked-status pages and audit downloads. No prediction TIFF published.\n",
+      "stdout": "Built site. State: negative | downloadable_submission: True | safe_to_submit: False\n",
       "stderr": ""
     },
     {
@@ -62,7 +62,7 @@
       "exit_code": 0,
       "expected_exit_code": 0,
       "passed": true,
-      "stdout": "..............................                                           [100%]\n30 passed in 2.46s\n",
+      "stdout": ".............................                                            [100%]\n29 passed in 2.59s\n",
       "stderr": ""
     },
     {
