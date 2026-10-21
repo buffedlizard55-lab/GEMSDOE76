@@ -26,6 +26,8 @@ python3 -m venv .venv
 .venv/bin/python scripts/preflight.py       # expected exit 2: scientific prerequisites missing
 .venv/bin/python scripts/build_site.py
 .venv/bin/python scripts/check_site.py
+# Or rerun the complete local verification and refresh its receipt:
+.venv/bin/python scripts/verify_project.py
 ```
 
 Inspect a future candidate **without modifying it**:

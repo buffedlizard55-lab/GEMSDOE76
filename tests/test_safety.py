@@ -178,3 +178,38 @@ def test_candidate_validator_rejects_non_grid_fixture(tmp_path):
     assert report['approved_for_weekly_slot'] is False
     assert report['nan_inside_footprint'] is None
     assert any('shape' in p for p in report['problems'])
+
+
+def test_withdrawn_generator_cannot_publish(tmp_path):
+    import subprocess,sys
+    p=subprocess.run([sys.executable,str(ROOT/'scripts/generate_submission.py')],
+                     cwd=tmp_path,capture_output=True,text=True)
+    assert p.returncode==2 and 'BLOCKED / DO NOT SUBMIT' in p.stderr
+    assert not list(tmp_path.iterdir())
+
+
+def test_archived_originals_preserved_byte_exact():
+    manifest=json.loads((ROOT/'evidence/inherited-main-manifest.json').read_text())
+    for row in manifest['files']:
+        if row['archive_path']:
+            path=ROOT/row['archive_path']
+            assert path.is_file(),str(path)
+            assert hashlib.sha256(path.read_bytes()).hexdigest()==row['sha256']
+        else:
+            assert row['path'].endswith('.npy')
+            assert manifest['source_commit'] in row['source_url']
+
+
+def test_inherited_candidates_are_withdrawn_against_bridge():
+    receipt=json.loads((ROOT/'evidence/inherited-candidate-validation.json').read_text())
+    assert receipt['safe_to_submit'] is False
+    assert receipt['synthetic_footprint_different_pixels']>0
+    assert receipt['synthetic_catalogue_different_pixels']>0
+    assert len(receipt['candidate_reports'])==6
+    for report in receipt['candidate_reports']:
+        assert report['ok'] is False
+        assert report['approved_for_weekly_slot'] is False
+        assert report['mass_outside_footprint']>0
+        assert report['catalogue_overlap_pixels']>0
+    assert not (ROOT/'evidence/footprint.npy').exists()
+    assert not (ROOT/'evidence/catalogue.npy').exists()
