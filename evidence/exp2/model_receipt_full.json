@@ -1,0 +1,31 @@
+{
+  "features": [
+    "step_max",
+    "dipole",
+    "dipole_norm",
+    "polarity",
+    "coh100",
+    "ex_mean",
+    "persisted",
+    "fallback",
+    "relief",
+    "has_lidar"
+  ],
+  "coefficients": {
+    "step_max": -0.01917781585632438,
+    "dipole": 0.22337253697830975,
+    "dipole_norm": 0.5963286983700484,
+    "polarity": 0.44617583374317504,
+    "coh100": -0.22733156688145362,
+    "ex_mean": 0.09250571182420583,
+    "persisted": -0.1017783217943675,
+    "fallback": -0.020449513359513085,
+    "relief": -0.1763249095116738,
+    "has_lidar": -0.632581096355569
+  },
+  "intercept": -2.442130129115139,
+  "n_positives": 58225,
+  "n_negatives": 582250,
+  "standardization": "median/IQR over the training sample",
+  "model": "sklearn LogisticRegression(C=1.0, lbfgs, max_iter=1000)"
+}

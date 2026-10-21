@@ -1,0 +1,132 @@
+{
+ "hypothesis": "Youthful Quaternary normal-fault scarps missing from the USGS/INGENIOUS catalogue carry a paired crest-toe Laplacian dipole with slope-facing polarity in 1 m LiDAR derivatives aggregated to 100 m, concentrated in low-relief piedmont; a detector built only on that signature family should recover expert-labelled new faults.",
+ "mechanism": "Exp1: hand-set product of dipole x polarity x coherence with strike-guided persistence and a piedmont relief gate. Exp2 (pre-registered amendment): L2 logistic combiner over the same 10 components, visible-catalogue training only, greedy 300 m max-cover emission, B=2px catalogue-flank exclusion, binary dots, zeros outside footprint.",
+ "named_non_fault_mimic": "Pleistocene pluvial shoreline scarps (Lahontan/Bonneville), terrace risers, fan distributary channel banks, road grades.",
+ "holdout_dti": {
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "withheld_positive_pixels": 11321,
+  "exp2_candidate_dots": 0.02180141365388476,
+  "exp2_candidate_ci95": [
+   0.014480983469494902,
+   0.03026870354831621
+  ],
+  "exp1_candidate_dots": 0.02171398568499896,
+  "fair_h33_control": 0.0926883002716601,
+  "random_control": 0.04577492981677248,
+  "paired_delta_vs_fair_h33": {
+   "evidence_class": "HOLDOUT-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "delta": -0.07088688661777534,
+   "ci95": [
+    -0.08571058497293493,
+    -0.057053229043824046
+   ],
+   "withheld_positive_pixels": 11321
+  }
+ },
+ "proxy_dti": {
+  "Bprime_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.017186454904412923,
+   "ci95": [
+    0.013650152771082797,
+    0.021148639883521916
+   ],
+   "withheld_positive_pixels": 63121,
+   "tpw": 962.099234537633,
+   "fpw": 26454.333952121713,
+   "fnw": 62158.90076546238
+  },
+  "C76pied_candidate": {
+   "evidence_class": "PROXY-DTI",
+   "evaluator_version": "gems57-pooled-hide-v2",
+   "dti": 0.02081735075524697,
+   "ci95": [
+    0.014670301712413287,
+    0.026704442159241733
+   ],
+   "withheld_positive_pixels": 10792,
+   "tpw": 293.9415839394709,
+   "fpw": 27138.200431101388,
+   "fnw": 10498.058416060527
+  }
+ },
+ "leakage_canaries_max_auc": {
+  "exp1": 0.592355507464005,
+  "exp2": 0.62015797168978,
+  "threshold": 0.9,
+  "any_suspected_leakage": false
+ },
+ "uniqueness_vs_registry": {
+  "n_rasters_compared": 122,
+  "worst_mutual_overlap": 0.10615074095713603,
+  "worst_mutual_file": "gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif",
+  "worst_abs_surface_rho": 0.2034334829003219,
+  "gates_pass": true
+ },
+ "raster_sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
+ "validator": {
+  "file": "/home/user/GEMSDOE76/docs/downloads/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif",
+  "bytes": 90648,
+  "sha256": "322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178",
+  "meta": {
+   "crs": "EPSG:32611",
+   "shape": [
+    3730,
+    3292
+   ],
+   "dtype": "float32",
+   "count": 1,
+   "nodata": null,
+   "transform": [
+    100.0,
+    0.0,
+    243350.0,
+    0.0,
+    -100.0,
+    4508550.0
+   ],
+   "profile_compress": "deflate"
+  },
+  "band_description": [
+   null
+  ],
+  "n_finite": 12279160,
+  "n_nan": 0,
+  "n_infinite": 0,
+  "min": 0.0,
+  "max": 1.0,
+  "mean": 0.0022451861295849085,
+  "emitted_positive_pixels": 27569,
+  "checks": {
+   "single_band": true,
+   "dtype_float32": true,
+   "dimensions_3730x3292": true,
+   "crs_epsg_32611": true,
+   "transform_matches_sample_submission": true,
+   "no_nan_anywhere": true,
+   "no_inf_anywhere": true,
+   "no_sentinel_values": true,
+   "range_0_1_guaranteed": true,
+   "min_ge_0": true,
+   "max_le_1": true,
+   "in_footprint_all_finite": true,
+   "in_footprint_range_0_1": true,
+   "outside_footprint_zero": true,
+   "zero_dots_on_mapped_catalogue": true
+  },
+  "all_checks_passed": true,
+  "validation_class": "local format/range preflight; not organizer acceptance or uniqueness clearance",
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_positive_pixels": 27569,
+  "footprint_fraction": 0.005335206109564763
+ },
+ "submission_name": "gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT",
+ "submission_note_max140": "G76 piedmont-dipole logistic Exp2: HOLDOUT-DTI 0.0218 vs fair-H33 0.0927 (negative, below random). DO NOT SUBMIT.",
+ "experiments_used": "2 of 3 (Exp3 reserved for confirmation of a passing Exp2; not run)",
+ "weekly_slots_used": 0,
+ "organizer_confirmed_scores": "none in this repository",
+ "verdict": "negative"
+}

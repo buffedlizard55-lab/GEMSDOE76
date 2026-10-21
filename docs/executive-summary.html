@@ -1,0 +1,68 @@
+<!doctype html><html lang=en><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>GEMSDOE76 — Executive summary: how to submit (and why not this file)</title><style>
+:root{--ink:#17212b;--mut:#5b6b7a;--line:#d9e0e7;--bg:#f6f8fa;--red:#b00020;--redbg:#fdecec;--ok:#0b6e2f;--card:#fff}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 64px}
+header{padding:28px 0 6px}h1{font-size:30px;margin:0 0 4px}h2{font-size:21px;margin:34px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.sub{color:var(--mut)} .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.verdict{border:3px solid var(--red);background:var(--redbg);border-radius:12px;padding:18px 20px;margin:18px 0}
+.verdict h2{border:0;margin:0 0 6px;color:var(--red);font-size:24px}
+code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#eef2f6}.num{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:20px;background:#e8eef4;color:#234}
+.tag.no{background:#f8d7da;color:var(--red)} .small{font-size:13px;color:var(--mut)}
+img{max-width:100%;border:1px solid var(--line);border-radius:8px}
+.btn{display:inline-block;padding:9px 14px;border-radius:8px;background:#e8eef4;color:#234;text-decoration:none;font-weight:600;margin:4px 6px 4px 0}
+.btn.disabled{background:#eee;color:#999;pointer-events:none}
+a{color:#0b5cad} footer{color:var(--mut);font-size:13px;margin-top:44px;border-top:1px solid var(--line);padding-top:12px}
+.scroll{overflow-x:auto}
+</style></head><body><div class=wrap>
+<header><h1>Executive summary</h1><p class=sub>Exactly how a submission is made in this competition — and this session's status.</p></header>
+
+<div class=verdict><h2>⛔ THIS SESSION'S FILE: DO NOT SUBMIT</h2>
+<p><code>gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif</code> (SHA-256 <code>322ca8753a56e717…</code>)
+failed its pre-registered promotion gate: HOLDOUT-DTI 0.0218 vs fair-H33
+0.0927 (paired Δ -0.0709), below random dots.
+It is format-valid but predictably low-scoring. <strong>Do not spend a weekly slot on it.</strong>
+The instructions below are the general, verified procedure for when a file <em>is</em> promoted by the
+separate human selector step.</p></div>
+
+<h2>How to make a submission (verified against official sources)</h2>
+<div class=card><ol>
+<li><strong>File:</strong> one single-band <code>float32</code> GeoTIFF (<code>.tif</code>), or a <code>.zip</code>
+containing exactly one GeoTIFF. It must match the sample submission exactly: CRS EPSG:32611 (UTM 11N),
+100&nbsp;m pixels, 3730×3292, transform (100, 0, 243350, 0, −100, 4508550), values in [0,&nbsp;1]
+(probability/confidence of fault presence). — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">official submission format</a></li>
+<li><strong>Avoid the historical "Predicted values must be in range [0, 1]" rejection:</strong> use the
+all-finite "zeros" encoding (0.0 outside the footprint, no NaN anywhere, no nodata tag). Measured root
+causes of that error in this project family: float32 sentinel (−3.4×10<sup>38</sup>) pixels leaking from
+<code>training_features.tif</code> (3,061 inside the footprint), and NaN left inside the footprint by a
+feature-band footprint mask (same 3,061 px). The organizer's own reference writer emits an all-finite,
+nodata-free raster. This repo's shared writer fails closed on all three hazards and re-validates the
+bytes on disk.</li>
+<li><strong>Where:</strong> the competition's submission page ("New submission" → choose file → optional
+note → submit). Respect the weekly cap shown on that page at the time (this session could not read the
+portal balance — no auth). Record the returned receipt/score against the file's SHA-256; that receipt is
+the only ORGANIZER-CONFIRMED evidence class.</li>
+<li><strong>Name &amp; note:</strong> give every upload a unique name and a ≤140-character note stating lane,
+evidence and counts, e.g. for a hypothetical promoted G76 successor:
+<code>G76 piedmont-dipole logistic Exp2: HOLDOUT-DTI 0.0218 vs fair-H33 0.0927 (negative, below random). DO NOT SUBMIT.</code></li>
+<li><strong>Remember the prize structure:</strong> one selected submission is scored first against the
+private expert set (Initial Prize Round) and then re-scored against the expanded label set (Final Prize
+Round). Known-catalogue pixels are masked in both rounds — never spend probability mass on them.</li>
+</ol></div>
+
+<h2>What the selector should look at instead</h2>
+<div class=card><p>Measurements from this session's 79-raster audit (not picks — slot choice is the human
+selector's step): the incumbent family (H33-B2 and near-duplicates) remains the only group with
+USER-REPORTED live ≥0.26. Among <em>unscored</em> files measured here, GEMSDOE70's P9 hero
+(<code>gems70-p5-multiphysics-submodular-37654-20261020</code>) has the highest C76-piedmont proxy
+(0.1079) of any 37,654-dot candidate and beat H33 on GEMSDOE70's own three instruments; it has no live
+score yet. The single biggest identified upside remains a properly trained 2-D spatial-context model
+(reference-solution architecture at scale), which needs GPU time this sandbox does not have. Details:
+<a href="research/why-02778.md">why-02778.md</a>, <a href="score-ledger.csv">score-ledger.csv</a>.</p></div>
+
+<footer><a href="index.html">← Back to GEMSDOE76</a></footer>
+</div></body></html>
