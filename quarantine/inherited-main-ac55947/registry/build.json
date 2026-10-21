@@ -1,0 +1,41 @@
+{
+  "grid": {
+    "height": 3730,
+    "width": 3292,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "crs": "EPSG:32611",
+    "footprint_px": 5167373,
+    "catalogue_px": 60988
+  },
+  "primary": {
+    "slug": "gemsdoe76-h76a-radiometric-halo-mtbreach-38412",
+    "timestamp": "20261021T000000Z",
+    "dots": 38412,
+    "zeros_path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif",
+    "nan_path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-nan.tif",
+    "zip_path": "docs/downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.zip",
+    "sha256_zeros": "e7ac56f686b772fe4c85f14368cea07d50082e0598e76af3474a8f7e9f746a39",
+    "sha256_nan": "78056ddc628bedae2faa31e5116e1f098014862daac4ae739cccd53d1cef8704"
+  },
+  "secondary": {
+    "slug": "gemsdoe76-h76b-transtensional-swarm-44200",
+    "dots": 44200,
+    "zeros_path": "docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif",
+    "sha256_zeros": "ecc4ffe5ad0520aacb15d45b501502ea895b1ceea6a409e26419432f9877fe10",
+    "bytes": 161792
+  },
+  "tertiary": {
+    "slug": "gemsdoe76-h76c-drainage-chain-29800",
+    "dots": 29800,
+    "zeros_path": "docs/downloads/gemsdoe76-h76c-drainage-chain-29800-20261021T000000Z-zeros.tif",
+    "sha256_zeros": "4da2e509b91794d60aaa2e46d53063a55f6ca6e92f8911fae241e93a3b2e6a2e",
+    "bytes": 117133
+  }
+}

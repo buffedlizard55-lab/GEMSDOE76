@@ -1,0 +1,29 @@
+{
+  "experiment": "geophys-catalogue-free-rank-surface",
+  "experiment_count_this_session": 1,
+  "maximum_experiments": 3,
+  "maximum_wall_hours": 2,
+  "started_utc": "2026-10-21T04:08:05.364980+00:00",
+  "lane_assigned": null,
+  "note": "No lane assigned to this parallel run; this is pre-submission gate vetting (canary + holdout), not a lane experiment. No weekly slot used.",
+  "source_sha256": {
+    "vendor/gems57/evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "vendor/gems57/holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "vendor/gems57/metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "vendor/gems57/emit.py": "05c473e736e4a599b35be77b2791b62d72460383853c8fba0eb56ea26c99055d",
+    "vendor/gems57/geo.py": "4320d4fb718a66a794b21c35af28cc1f2ce7b6e49649b17e86b3e9eb34235ff8",
+    "vendor/gems57/grid.py": "b96df7ec0f33658a61b0baa5db85fcd19be2cd8b1873f99699bd26bddae8cd8d",
+    "scripts/run_geophys_gate.py": "1844066124667f914fb3123fd54e67bc6cfac928133123b4338884d43688ce42"
+  },
+  "evaluator_implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "data_sha256": {
+    "training_features": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
+    "sample_submission": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
+    "existing_faults": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093"
+  }
+}

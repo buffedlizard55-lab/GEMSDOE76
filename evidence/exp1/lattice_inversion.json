@@ -1,0 +1,10 @@
+{
+  "evidence_class": "DERIVED-PRIOR (not a score)",
+  "lattice_spacing_px": 5,
+  "lattice_dots_local_reconstruction": 204504,
+  "mean_kernel_cover_uniform_truth": 0.3717529686840718,
+  "reported_live_dti_user_supplied": 0.0904,
+  "approximation": "FP_w ~= n - TP_w (bijection approx); DTI = cG/(0.2n + 0.8G)",
+  "implied_hidden_truth_pixels": 12348.113623724303,
+  "note": "Order-of-magnitude prior for emission stopping only; sensitive to truth geometry (lines vs uniform). GEMSDOE70 reported ~12,590 by a similar route."
+}

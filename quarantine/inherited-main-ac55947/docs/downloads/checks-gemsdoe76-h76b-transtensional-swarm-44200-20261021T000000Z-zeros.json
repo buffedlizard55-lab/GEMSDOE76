@@ -1,0 +1,44 @@
+{
+  "path": "docs/downloads/gemsdoe76-h76b-transtensional-swarm-44200-20261021T000000Z-zeros.tif",
+  "sha256": "ecc4ffe5ad0520aacb15d45b501502ea895b1ceea6a409e26419432f9877fe10",
+  "bytes": 161792,
+  "meta": {
+    "crs": "EPSG:32611",
+    "width": 3292,
+    "height": 3730,
+    "transform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "dtype": "float32",
+    "nodata": null
+  },
+  "footprint_px": 5167373,
+  "emitted_positive_pixels": 44200,
+  "on_catalogue_positive_pixels": 0,
+  "in_footprint_finite_pixels": 5167373,
+  "in_footprint_min": 0.0,
+  "in_footprint_max": 1.0,
+  "full_grid_finite_pixels": 12279160,
+  "outside_nan": 0,
+  "outside_zero": 7111787,
+  "checks": {
+    "single_band": true,
+    "dtype_float32": true,
+    "dimensions_3730x3292": true,
+    "crs_epsg_32611": true,
+    "in_footprint_all_finite": true,
+    "in_footprint_zero_nan": true,
+    "in_footprint_zero_inf": true,
+    "in_footprint_zero_sentinel": true,
+    "in_footprint_range_0_1": true,
+    "outside_footprint_compliant": true,
+    "zero_on_catalogue_leakage": true,
+    "validator_range_0_1_guaranteed": true
+  },
+  "all_checks_passed": true
+}

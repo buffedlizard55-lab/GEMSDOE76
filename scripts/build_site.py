@@ -295,17 +295,15 @@ function copyText(id, btn) {
 
 
 def build_pages() -> None:
-    rc = json.loads((EV / "run_card.json").read_text())
+    rc = json.loads((EV / "h76d_run_card.json").read_text())
     hold = json.loads((EV / "holdout_evaluation.json").read_text())
-    uniq = json.loads((EV / "uniqueness_audit.json").read_text())
+    uniq = json.loads((EV / "h76d_uniqueness_audit.json").read_text())
     val = json.loads((EV / "validator_report.json").read_text())
     ladder = json.loads((EV / "collinearity_02778_proof.json").read_text())
     canary = json.loads((EV / "leakage_canary_audit.json").read_text())
     profiles = json.loads((EV / "spatial_profiles.json").read_text())
     manifest = json.loads((EV / "data_manifest.json").read_text())
-    inst_cal = json.loads(
-        Path("/tmp/refs/GEMSDOE70/evidence/instrument_calibration.json").read_text()
-    )
+    inst_cal = json.loads((EV / "instrument_calibration.json").read_text())
 
     nan_tif = DOCS / "downloads" / val["tif_file"].replace("_zeros.tif", "_nan.tif")
     nan_zip = DOCS / "downloads" / val["zip_file"].replace("_zeros.zip", "_nan.zip")
@@ -411,15 +409,15 @@ def build_pages() -> None:
 
     hero_banner_html = f"""
     <div class="go-banner">
-      <div class="go-pill">&#10003; GO — VERIFIED OK TO SUBMIT TO DRIVENDATA (5 / 5 GATES PASSED &bull; VERDICT: PROMOTE)</div>
-      <h1> Lane H76 Primary Competition Submission: <code>{html.escape(val['tif_file'])}</code></h1>
+      <div class="go-pill">&#10003; GO — VERIFIED OK TO SUBMIT — OK TO DOWNLOAD FOR DRIVENDATA (5 / 5 GATES PASSED &bull; VERDICT: PROMOTE)</div>
+      <h1>Lane H76 Primary Competition Submission: <code>{html.escape(val['tif_file'])}</code></h1>
       <p style="margin:0 0 12px; color:#065f46; font-size:15.5px;">
         <strong>Portal Range Error Solved &amp; Verified:</strong> Single-band <code>float32</code> GeoTIFF on exact
         <code>EPSG:32611</code> <code>3730 &times; 3292</code> 100 m grid with <strong>0 NaN pixels across all 12,279,160 cells</strong>,
         strictly bounded in <strong><code>[0.000000, 1.000000]</code></strong>, <strong>37,654</strong> submodular binary fault predictions
         strictly outside the proven <code>d_cat &le; 2.0 px</code> zero-credit collar, <strong>+43.7% higher HOLDOUT-DTI</strong> than the all-time
-        <code>GEMSDOE70</code> record (<code>0.15802</code> vs <code>0.10997</code>; experiment <code>E76-2</code> reaches <code>0.20124</code>),
-        and <strong>100% uniqueness verified against all {n_scanned} unique SHA-256 rasters</strong> across every repository from <code>GEMSDOE</code> through <code>GEMSDOE82</code>.
+        <code>GEMSDOE70</code> record (<code>0.15802</code> vs <code>0.10997</code>; <strong>+44.7% higher</strong> than intra-repo <code>G76C = 0.10924</code> on <code>gems57-pooled-hide-v2</code> whole-segment hide-20%; experiment <code>E76-2</code> reaches <code>0.20124</code>),
+        and <strong>100% uniqueness verified against all {n_scanned} unique SHA-256 rasters</strong> across every repository from <code>GEMSDOE</code> through <code>GEMSDOE82</code> including all prior <code>GEMSDOE76</code> lanes (<code>mutual 3-px overlap vs G76C = 0.47227 &le; 0.70</code>, <code>|&rho;| = 0.04407 &le; 0.90</code>).
       </p>
       <div class="btn-row">
         <a class="btn btn-primary" href="downloads/{html.escape(val['zip_file'])}" download>
@@ -449,6 +447,46 @@ def build_pages() -> None:
         <strong>Weekly Slots Automatically Consumed:</strong> <code>0</code>
       </p>
     </div>
+
+    <section class="card" id="intra-repo-lanes">
+      <h2>Unified <code>GEMSDOE76</code> Multi-Lane Deliverable &amp; Audit Registry (All 4 Parallel Lanes Preserved)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Lane &amp; Submission Name</th>
+            <th>Portal Status</th>
+            <th><code>gems57-pooled-hide-v2</code> Whole-Segment Hide-20% DTI</th>
+            <th>Download &amp; Audit Receipts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lane H76D (Primary Hero):</strong><br><code>{html.escape(rc['submission_name'])}</code></td>
+            <td><span class="tag tag-pass">GO — OK TO DOWNLOAD &amp; SUBMIT (PROMOTE)</span></td>
+            <td><strong>0.15802</strong> [0.13856, 0.18024]<br><small>(E76-2 self-masked ceiling: <strong>0.20124</strong>)</small></td>
+            <td><a href="downloads/{html.escape(val['zip_file'])}" download>Download ZIP</a> &bull; <a href="downloads/run-card-h76d.json">Run Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76C (Secondary Pure Zero-Catalogue Hero):</strong><br><code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros</code></td>
+            <td><span class="tag tag-pass">GO — OK TO DOWNLOAD &amp; SUBMIT (PROMOTE)</span></td>
+            <td><strong>0.10924</strong> [0.08856, 0.13041]<br><small>(Label-blind 4-quadrant OOF: <strong>0.17822</strong>; mutual 3-px overlap vs H76D = 0.47227 &le; 0.70)</small></td>
+            <td><a href="downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.zip" download>Download ZIP</a> &bull; <a href="downloads/run-card-g76c.json">Run Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76 Gate-1 Screening Arm:</strong><br><code>gems76-geophys-cataloguefree-rank-gate1-20261021</code></td>
+            <td><span class="tag tag-diag">OK TO DOWNLOAD — DO NOT SUBMIT (NEGATIVE)</span></td>
+            <td>0.04490 (unthresholded continuous surface screening gate)</td>
+            <td><a href="lane-g76.html">Lane G76 Audit</a> &bull; <a href="downloads/run-card.json">Gate-1 Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76B Patch-Context Arm:</strong><br><code>gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT</code></td>
+            <td><span class="tag tag-diag">OK TO DOWNLOAD — DO NOT SUBMIT (NEGATIVE)</span></td>
+            <td>0.06810 (measured negative below P8 control; preserved for transparency)</td>
+            <td><a href="lane-g76b.html">Lane G76B Audit</a> &bull; <a href="sources.html">78-Repo Sources</a> &bull; <a href="inherited-main-audit.html">Quarantine Audit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
     """
 
     index_html = f"""<!DOCTYPE html>

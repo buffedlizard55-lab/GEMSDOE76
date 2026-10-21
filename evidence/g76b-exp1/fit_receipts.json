@@ -1,0 +1,66 @@
+[
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 37730,
+    "n_negatives": 300000,
+    "seed": 76030,
+    "fold": 0,
+    "fold_truth_auc_fitted_prob": 0.6579136401456058
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 36061,
+    "n_negatives": 288488,
+    "seed": 76031,
+    "fold": 1,
+    "fold_truth_auc_fitted_prob": 0.5082600063371356
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 30506,
+    "n_negatives": 244048,
+    "seed": 76032,
+    "fold": 2,
+    "fold_truth_auc_fitted_prob": 0.6543672864321608
+  },
+  {
+    "model": "HistGradientBoostingClassifier",
+    "params": {
+      "max_iter": 250,
+      "learning_rate": 0.08,
+      "max_leaf_nodes": 31,
+      "min_samples_leaf": 40,
+      "l2_regularization": 1.0,
+      "early_stopping": false
+    },
+    "n_positives": 32447,
+    "n_negatives": 259576,
+    "seed": 76033,
+    "fold": 3,
+    "fold_truth_auc_fitted_prob": 0.6649927638461538
+  }
+]

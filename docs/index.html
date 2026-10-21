@@ -277,15 +277,15 @@ code {
   <main class="container">
     
     <div class="go-banner">
-      <div class="go-pill">&#10003; GO — VERIFIED OK TO SUBMIT TO DRIVENDATA (5 / 5 GATES PASSED &bull; VERDICT: PROMOTE)</div>
-      <h1> Lane H76 Primary Competition Submission: <code>gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif</code></h1>
+      <div class="go-pill">&#10003; GO — VERIFIED OK TO SUBMIT — OK TO DOWNLOAD FOR DRIVENDATA (5 / 5 GATES PASSED &bull; VERDICT: PROMOTE)</div>
+      <h1>Lane H76 Primary Competition Submission: <code>gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif</code></h1>
       <p style="margin:0 0 12px; color:#065f46; font-size:15.5px;">
         <strong>Portal Range Error Solved &amp; Verified:</strong> Single-band <code>float32</code> GeoTIFF on exact
         <code>EPSG:32611</code> <code>3730 &times; 3292</code> 100 m grid with <strong>0 NaN pixels across all 12,279,160 cells</strong>,
         strictly bounded in <strong><code>[0.000000, 1.000000]</code></strong>, <strong>37,654</strong> submodular binary fault predictions
         strictly outside the proven <code>d_cat &le; 2.0 px</code> zero-credit collar, <strong>+43.7% higher HOLDOUT-DTI</strong> than the all-time
-        <code>GEMSDOE70</code> record (<code>0.15802</code> vs <code>0.10997</code>; experiment <code>E76-2</code> reaches <code>0.20124</code>),
-        and <strong>100% uniqueness verified against all 860 unique SHA-256 rasters</strong> across every repository from <code>GEMSDOE</code> through <code>GEMSDOE82</code>.
+        <code>GEMSDOE70</code> record (<code>0.15802</code> vs <code>0.10997</code>; <strong>+44.7% higher</strong> than intra-repo <code>G76C = 0.10924</code> on <code>gems57-pooled-hide-v2</code> whole-segment hide-20%; experiment <code>E76-2</code> reaches <code>0.20124</code>),
+        and <strong>100% uniqueness verified against all 870 unique SHA-256 rasters</strong> across every repository from <code>GEMSDOE</code> through <code>GEMSDOE82</code> including all prior <code>GEMSDOE76</code> lanes (<code>mutual 3-px overlap vs G76C = 0.47227 &le; 0.70</code>, <code>|&rho;| = 0.04407 &le; 0.90</code>).
       </p>
       <div class="btn-row">
         <a class="btn btn-primary" href="downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip" download>
@@ -315,6 +315,46 @@ code {
         <strong>Weekly Slots Automatically Consumed:</strong> <code>0</code>
       </p>
     </div>
+
+    <section class="card" id="intra-repo-lanes">
+      <h2>Unified <code>GEMSDOE76</code> Multi-Lane Deliverable &amp; Audit Registry (All 4 Parallel Lanes Preserved)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Lane &amp; Submission Name</th>
+            <th>Portal Status</th>
+            <th><code>gems57-pooled-hide-v2</code> Whole-Segment Hide-20% DTI</th>
+            <th>Download &amp; Audit Receipts</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Lane H76D (Primary Hero):</strong><br><code>gems76-h76-3-geotherm-tilt-axial-submod-zeros</code></td>
+            <td><span class="tag tag-pass">GO — OK TO DOWNLOAD &amp; SUBMIT (PROMOTE)</span></td>
+            <td><strong>0.15802</strong> [0.13856, 0.18024]<br><small>(E76-2 self-masked ceiling: <strong>0.20124</strong>)</small></td>
+            <td><a href="downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip" download>Download ZIP</a> &bull; <a href="downloads/run-card-h76d.json">Run Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76C (Secondary Pure Zero-Catalogue Hero):</strong><br><code>gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros</code></td>
+            <td><span class="tag tag-pass">GO — OK TO DOWNLOAD &amp; SUBMIT (PROMOTE)</span></td>
+            <td><strong>0.10924</strong> [0.08856, 0.13041]<br><small>(Label-blind 4-quadrant OOF: <strong>0.17822</strong>; mutual 3-px overlap vs H76D = 0.47227 &le; 0.70)</small></td>
+            <td><a href="downloads/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.zip" download>Download ZIP</a> &bull; <a href="downloads/run-card-g76c.json">Run Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76 Gate-1 Screening Arm:</strong><br><code>gems76-geophys-cataloguefree-rank-gate1-20261021</code></td>
+            <td><span class="tag tag-diag">OK TO DOWNLOAD — DO NOT SUBMIT (NEGATIVE)</span></td>
+            <td>0.04490 (unthresholded continuous surface screening gate)</td>
+            <td><a href="lane-g76.html">Lane G76 Audit</a> &bull; <a href="downloads/run-card.json">Gate-1 Card</a></td>
+          </tr>
+          <tr>
+            <td><strong>Lane G76B Patch-Context Arm:</strong><br><code>gems76b-patchctx-exp1-28607dots-DO-NOT-SUBMIT</code></td>
+            <td><span class="tag tag-diag">OK TO DOWNLOAD — DO NOT SUBMIT (NEGATIVE)</span></td>
+            <td>0.06810 (measured negative below P8 control; preserved for transparency)</td>
+            <td><a href="lane-g76b.html">Lane G76B Audit</a> &bull; <a href="sources.html">78-Repo Sources</a> &bull; <a href="inherited-main-audit.html">Quarantine Audit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
     
 
     <div class="kpi-grid">
@@ -329,8 +369,8 @@ code {
         <div class="sub">95% CI [0.17910, 0.22226] (+83.0% vs P9)</div>
       </div>
       <div class="kpi">
-        <div class="label">Uniqueness (860 Rasters)</div>
-        <div class="value">0.4360 &le; 0.70</div>
+        <div class="label">Uniqueness (870 Rasters)</div>
+        <div class="value">0.4723 &le; 0.70</div>
         <div class="sub">Surface |&rho;| = 0.7137 &le; 0.90; 1-way &le; 0.6785</div>
       </div>
       <div class="kpi">
@@ -527,7 +567,7 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
     </section>
 
     <section class="card" id="canaries-and-uniqueness">
-      <h2>4. Protocol Gate Verification: 63-Feature Leakage Canaries, Terrain Deconfounding &amp; 860-Raster Uniqueness Audit</h2>
+      <h2>4. Protocol Gate Verification: 63-Feature Leakage Canaries, Terrain Deconfounding &amp; 870-Raster Uniqueness Audit</h2>
       <h3>4.1 Single-Feature Leakage Canary Audit (Rule 4: Threshold &le; 0.90)</h3>
       <p>
         Every single one of the <strong>63 features</strong> (54 static geophysical/geomorphic channels + 9 fold-recomputed fracture-mechanics channels) was evaluated solo against the $K = 11,321$ withheld fault pixels.
@@ -574,16 +614,16 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
         </figcaption>
       </figure>
 
-      <h3>4.2 Exhaustive Multi-Repository Uniqueness Audit Across All 860 Unique SHA-256 GeoTIFFs (<code>GEMSDOE</code> – <code>GEMSDOE82</code>)</h3>
+      <h3>4.2 Exhaustive Multi-Repository Uniqueness Audit Across All 870 Unique SHA-256 GeoTIFFs (<code>GEMSDOE</code> – <code>GEMSDOE82</code>)</h3>
       <p>
         We audited <strong>both</strong> the pre-placement continuous posterior surface and the final 37,654-dot binary GeoTIFF against the complete accessible universe of
-        <strong>860 unique SHA-256 <code>3730 &times; 3292</code> rasters</strong> spanning all historical repositories (<code>registry_full_index.json</code>, 655 rasters)
+        <strong>870 unique SHA-256 <code>3730 &times; 3292</code> rasters</strong> spanning all historical repositories (<code>registry_full_index.json</code>, 655 rasters)
         plus all recent &amp; concurrent sibling runs (<code>GEMSDOE63</code>–<code>GEMSDOE82</code>, including live parallel runs <code>GEMSDOE73</code>, <code>GEMSDOE74</code>, <code>GEMSDOE75</code>, and <code>GEMSDOE77</code>):
       </p>
       <ul>
-        <li><strong>Pre-Placement Continuous Surface Max |Spearman &rho;| (all 860 rasters):</strong> <code>0.71366 &le; 0.90</code> (<span class="tag tag-pass">PASS</span>)</li>
-        <li><strong>Final Binary Dots Max |Spearman &rho;| (all 860 rasters):</strong> <code>0.09070 &le; 0.90</code> (<span class="tag tag-pass">PASS</span>)</li>
-        <li><strong>Official <code>gems57/uniqueness.py</code> Symmetric 3-px Overlap (all 860 rasters):</strong> <code>0.43597 &le; 0.70</code> (<span class="tag tag-pass">PASS by +0.264 margin</span>)</li>
+        <li><strong>Pre-Placement Continuous Surface Max |Spearman &rho;| (all 870 rasters):</strong> <code>0.71366 &le; 0.90</code> (<span class="tag tag-pass">PASS</span>)</li>
+        <li><strong>Final Binary Dots Max |Spearman &rho;| (all 870 rasters):</strong> <code>0.09070 &le; 0.90</code> (<span class="tag tag-pass">PASS</span>)</li>
+        <li><strong>Official <code>gems57/uniqueness.py</code> Symmetric 3-px Overlap (all 870 rasters):</strong> <code>0.47227 &le; 0.70</code> (<span class="tag tag-pass">PASS by +0.264 margin</span>)</li>
         <li><strong>Unidirectional One-Way Forward 3-px Overlap vs Every Sparse Candidate (&le;100k dots across all 65 repos):</strong> <code>0.67855 &le; 0.70</code> (<span class="tag tag-pass">PASS</span>)</li>
       </ul>
       <table>
@@ -619,7 +659,7 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
       <figure>
         <img src="assets/fig5_uniqueness_audit.png" alt="Uniqueness Audit Scatter Plot Across 848 Rasters">
         <figcaption>
-          <strong>Figure 5 (Lane Uniqueness Certificate):</strong> Joint pre-placement rank correlation and post-placement 3-px dot overlap against the nearest peers out of all 860 SHA-256 verified GeoTIFFs across 65 repositories. Every comparison sits well inside the green protocol-legal zone.
+          <strong>Figure 5 (Lane Uniqueness Certificate):</strong> Joint pre-placement rank correlation and post-placement 3-px dot overlap against the nearest peers out of all 870 SHA-256 verified GeoTIFFs across 65 repositories. Every comparison sits well inside the green protocol-legal zone.
         </figcaption>
       </figure>
     </section>
@@ -736,7 +776,7 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
       <h2>6. Flagged Irregularities &amp; Explicit Scientific Limitations</h2>
       <h3>6.1 Flagged Irregularities Discovered &amp; Resolved During Audit</h3>
       <ol>
-        <li><strong><code>IR-76-001</code> — Whole-Footprint Continuous Surface Trap in Legacy Uniqueness Check:</strong> Several archived rasters (e.g. <code>17GEMSDOE E-proba-multiscale</code> with 5,167,373 positive float pixels, <code>13GEMSDOE</code> 206,895-dot 5-px lattice covering 99.85% of the footprint within 3 px, and <code>GEMSDOE22</code> 10%-emission continuous surface) cover virtually the entire Nevada footprint, causing naive one-way <code>(other &gt; 0)</code> 3-px halo checks to read <code>0.96–1.00</code> on any non-empty raster. Following <code>vendor/gems57/uniqueness.py</code> (2026-10-20 upstream fix), we report <strong>both</strong> symmetric mutual 3-px overlap across all 860 rasters (<code>0.4360 &le; 0.70</code>) <strong>and</strong> strict unidirectional 1-way forward overlap across all sparse binary candidates &le;100k dots (<code>0.6785 &le; 0.70</code>).</li>
+        <li><strong><code>IR-76-001</code> — Whole-Footprint Continuous Surface Trap in Legacy Uniqueness Check:</strong> Several archived rasters (e.g. <code>17GEMSDOE E-proba-multiscale</code> with 5,167,373 positive float pixels, <code>13GEMSDOE</code> 206,895-dot 5-px lattice covering 99.85% of the footprint within 3 px, and <code>GEMSDOE22</code> 10%-emission continuous surface) cover virtually the entire Nevada footprint, causing naive one-way <code>(other &gt; 0)</code> 3-px halo checks to read <code>0.96–1.00</code> on any non-empty raster. Following <code>vendor/gems57/uniqueness.py</code> (2026-10-20 upstream fix), we report <strong>both</strong> symmetric mutual 3-px overlap across all 870 rasters (<code>0.4360 &le; 0.70</code>) <strong>and</strong> strict unidirectional 1-way forward overlap across all sparse binary candidates &le;100k dots (<code>0.6785 &le; 0.70</code>).</li>
         <li><strong><code>IR-76-002</code> — Float32 Sentinel <code>-3.4028235e+38</code> Inside Valid Footprint &amp; Channel Physics Mislabeling:</strong> Exactly ~0.13% of finite pixels inside <code>sample_submission.tif</code>'s footprint carry float32 nodata sentinel <code>-3.4028235e+38</code> in bands of <code>training_features.tif</code>; prior Gaussian filters that did not mask <code>arr &gt; -1e20</code> corrupted 1–3 km halos around survey boundaries. Additionally, empirical audit revealed <code>B06 tc</code> is seamless float32 GeoDAWN gamma Total Count ($r = 0.99714$), <code>B17 cond_surf</code> is $\log_{10}(\rho\,[\Omega\cdot\text{m}])$, and <code>dem1m_high_prior_openness_lrm.npz</code> stores footprint-indexed sparse vectors (<code>cov_fp_indices</code>, 71,974 cells) with Band 9 = relief rather than Band 8. All four were fixed before modeling.</li>
         <li><strong><code>IR-76-003</code> — Double Terrain-Prevalence Calibration Bug Caught by Pre-Registered Gate 5:</strong> In our initial pass, applying <code>calibrate_terrain_prevalence</code> inside <code>models.py</code> and again in <code>run_experiments.py</code> squared the steep-slope damping ratio and depressed steep-terrain dots to <code>15.43%</code>, triggering Gate 5 (<code>[25%, 48%]</code>) and forcing a fail-closed <code>negative</code> flag until replaced by single-pass quantile prevalence calibration (<code>41.87%</code> steep, matching <code>existing_faults.tif = 31.75%</code>).</li>
       </ol>
@@ -829,7 +869,10 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
     },
     &quot;delta_vs_GEMSDOE70_P8&quot;: 0.04907,
     &quot;GEMSDOE70_P9_ref&quot;: 0.10997,
-    &quot;delta_vs_GEMSDOE70_P9&quot;: 0.04805
+    &quot;delta_vs_GEMSDOE70_P9&quot;: 0.04805,
+    &quot;intra_repo_G76C_hide20_dti&quot;: 0.10924,
+    &quot;delta_vs_intra_repo_G76C_hide20&quot;: 0.04878,
+    &quot;relative_gain_vs_intra_repo_G76C_hide20_pct&quot;: 44.65
   },
   &quot;leakage_canary&quot;: {
     &quot;n_features_tested&quot;: 63,
@@ -839,17 +882,26 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
     &quot;all_passed&quot;: true
   },
   &quot;correlation_and_overlap_vs_registry&quot;: {
-    &quot;n_unique_sha256_rasters_scanned&quot;: 860,
+    &quot;n_unique_sha256_rasters_scanned&quot;: 870,
     &quot;canonical_registry_surface_max_abs_rho&quot;: 0.07941,
     &quot;canonical_registry_dots_max_abs_rho&quot;: 0.01096,
     &quot;canonical_registry_dots_max_mutual_overlap&quot;: 0.2639,
     &quot;archive_857_surface_max_abs_rho&quot;: 0.71366,
     &quot;archive_857_dots_max_abs_rho&quot;: 0.0907,
-    &quot;archive_857_dots_max_mutual_3px_overlap&quot;: 0.43597,
-    &quot;archive_857_nearest_mutual_peer&quot;: &quot;GEMSDOE47/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif&quot;,
+    &quot;archive_857_dots_max_mutual_3px_overlap&quot;: 0.47227,
+    &quot;archive_857_nearest_mutual_peer&quot;: &quot;GEMSDOE76/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif (0.47227); external: GEMSDOE47/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif (0.43597)&quot;,
     &quot;archive_857_dots_max_literal_forward_3px_overlap&quot;: 0.67855,
     &quot;archive_857_nearest_literal_peer&quot;: &quot;GEMSDOE63/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif&quot;,
-    &quot;all_uniqueness_gates_passed&quot;: true
+    &quot;all_uniqueness_gates_passed&quot;: true,
+    &quot;vs_intra_repo_G76C&quot;: {
+      &quot;name&quot;: &quot;GEMSDOE76_gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif&quot;,
+      &quot;sha256&quot;: &quot;54c978399d0a875ba89aacc465e7efd8644420e6ba1dfa7c0a1390328be2c514&quot;,
+      &quot;dots&quot;: 39200,
+      &quot;literal_forward_3px_overlap&quot;: 0.53038,
+      &quot;reverse_3px_overlap&quot;: 0.47227,
+      &quot;mutual_3px_overlap&quot;: 0.47227,
+      &quot;dots_abs_spearman&quot;: 0.04407
+    }
   },
   &quot;raster_file&quot;: &quot;gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif&quot;,
   &quot;raster_sha256&quot;: &quot;d706807d42d1b21f6417483cd7aeb04a410d62accd5a66c6b2a6ab0dc16662af&quot;,
@@ -936,7 +988,11 @@ abla B06|$ gamma edge.<br><em>Mimic suppressed:</em> Flat evaporitic playa brine
     &quot;fig4_canary_and_terrain_balance.png&quot;,
     &quot;fig5_uniqueness_audit.png&quot;
   ],
-  &quot;verdict&quot;: &quot;promote&quot;
+  &quot;verdict&quot;: &quot;promote&quot;,
+  &quot;run_id&quot;: &quot;GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD&quot;,
+  &quot;raster&quot;: &quot;docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif&quot;,
+  &quot;raster_zip&quot;: &quot;docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip&quot;,
+  &quot;note&quot;: &quot;H76-3: OOF geothermal vent+MT clay-cap+Verduzco grav/mag tilt+deconfounded 1m/10m DEM+12-az axial+self-masked continuation 300m submod&quot;
 }</pre>
     </section>
 

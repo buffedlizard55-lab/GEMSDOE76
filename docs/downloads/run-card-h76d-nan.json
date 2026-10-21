@@ -1,0 +1,203 @@
+{
+  "lane": "H76",
+  "repository": "buffedlizard55-lab/GEMSDOE76",
+  "branch": "arena/a59416de-gemsdoe76",
+  "hypothesis": "H76-3 (Multi-Line Geothermal Vent Upflow, Verduzco Depth-Invariant Potential-Field Tilt, Relief-Deconfounded 1m/10m Micro-Scarp & Self-Masked Fracture-Mechanics Axial Meta-Stack with Exact 300 m Submodular Max-Cover)",
+  "mechanism": "Combines (1) sign-corrected MT smectite clay-cap lateral resistivity gradients, strike-anisotropic GDR-1391 hot springs/geothermometers/2m temperature probes/opaline sinter vents, ScienceBase terrain-corrected borehole heat-flow residuals, and newly verified float32 gamma-ray Total Count (`r = 0.99714` on B06 `tc`) sinter-leaching edges; (2) depth-invariant Miller\u2013Singh / Verduzco gravity & magnetic tilt zero-crossing edges that cancel 1/z^2 burial attenuation over blind Cenozoic basins (+315% basin-floor fault enrichment); (3) properly dequantized 1m LiDAR crest-toe scarp dipoles (`Band 9 = relief`, divided by fluvial incision `cross_max`), 10m bedrock fluvial knickpoints (`knick_n = 2.27x`, `raised_n = 3.18x`), and Lake Lahontan highstand shoreline deconfounding; and (4) 12-azimuth 0.9\u20132.1 km axial continuity stacked with self-masked connected-component fault-tip tangent rays, horsetail splays, and en-echelon relay-ramp bridges, decoded via unblurred Minoux lazy-greedy 300 m kernel submodular max-cover strictly outside the proven `d_cat <= 2.05 px` zero-credit collar.",
+  "non_fault_mimic": "(1) Steep erosional mountain canyon walls & V-shaped alluvial arroyos (suppressed via `sqrt(relief + 9)` division, `cross_max` & `log10(drainage_area)` division, terrain-matched hard negatives, and terrain-stratum prevalence calibration bringing `%STEEP` from P8's 69.5% down to neotectonic parity); (2) Pleistocene Lake Lahontan wave-cut shorelines at 1,212 / 1,298 / 1,334 m elevation contours (explicitly modeled & suppressed via `lahontan_shoreline_idx`, empirical single-feature AUC = 0.464 < 0.50); and (3) Evaporitic playa brines & intact pluton borders (suppressed via lateral `|grad(B17)|` gating, orthogonal cross-gradient confounder `|sin(angle(grad g, grad m))|`, and 2nd-domain corroboration).",
+  "evidence_label": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "evaluator_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "withheld_positive_pixels": 11321,
+  "holdout_dti": 0.15802,
+  "holdout_ci95": [
+    0.13856,
+    0.18024
+  ],
+  "holdout_dti_matched_37654_dots": 0.15802,
+  "holdout_ci95_matched_37654_dots": [
+    0.13856,
+    0.18024
+  ],
+  "experiment_ablation_holdout_dti": {
+    "E76_1_pure_physics_37654": {
+      "dti": 0.08666,
+      "ci95": [
+        0.06358,
+        0.11432
+      ]
+    },
+    "E76_2_selfmask_hgb_37654": {
+      "dti": 0.20124,
+      "ci95": [
+        0.1791,
+        0.22226
+      ]
+    },
+    "E76_3_hero_matched_37654": {
+      "dti": 0.15802,
+      "ci95": [
+        0.13856,
+        0.18024
+      ]
+    },
+    "E76_3_hero_sensitivity_41800": {
+      "dti": 0.15871,
+      "ci95": [
+        0.13866,
+        0.18048
+      ]
+    }
+  },
+  "benchmark_comparisons_holdout_dti": {
+    "GEMSDOE70_P8_ref": 0.10895,
+    "D28_h19_4_static": 0.09189,
+    "H33_fold_fair": 0.09609,
+    "H33_gemsdoe32_static": 0.0037,
+    "random_control_37654": 0.03066,
+    "paired_delta_vs_D28": {
+      "delta": 0.06613,
+      "ci95": [
+        0.05305,
+        0.0806
+      ]
+    },
+    "paired_delta_vs_H33_fold_fair": {
+      "delta": 0.06193,
+      "ci95": [
+        0.04876,
+        0.07632
+      ]
+    },
+    "delta_vs_GEMSDOE70_P8": 0.04907,
+    "GEMSDOE70_P9_ref": 0.10997,
+    "delta_vs_GEMSDOE70_P9": 0.04805,
+    "intra_repo_G76C_hide20_dti": 0.10924,
+    "delta_vs_intra_repo_G76C_hide20": 0.04878,
+    "relative_gain_vs_intra_repo_G76C_hide20_pct": 44.65
+  },
+  "leakage_canary": {
+    "n_features_tested": 63,
+    "threshold_symmetric_auc": 0.9,
+    "max_symmetric_auc": 0.77222,
+    "top_feature": "vis_ray_collinear_short",
+    "all_passed": true
+  },
+  "correlation_and_overlap_vs_registry": {
+    "n_unique_sha256_rasters_scanned": 870,
+    "canonical_registry_surface_max_abs_rho": 0.07941,
+    "canonical_registry_dots_max_abs_rho": 0.01096,
+    "canonical_registry_dots_max_mutual_overlap": 0.2639,
+    "archive_857_surface_max_abs_rho": 0.71366,
+    "archive_857_dots_max_abs_rho": 0.0907,
+    "archive_857_dots_max_mutual_3px_overlap": 0.47227,
+    "archive_857_nearest_mutual_peer": "GEMSDOE76/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif (0.47227); external: GEMSDOE47/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif (0.43597)",
+    "archive_857_dots_max_literal_forward_3px_overlap": 0.67855,
+    "archive_857_nearest_literal_peer": "GEMSDOE63/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif",
+    "all_uniqueness_gates_passed": true,
+    "vs_intra_repo_G76C": {
+      "name": "GEMSDOE76_gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif",
+      "sha256": "54c978399d0a875ba89aacc465e7efd8644420e6ba1dfa7c0a1390328be2c514",
+      "dots": 39200,
+      "literal_forward_3px_overlap": 0.53038,
+      "reverse_3px_overlap": 0.47227,
+      "mutual_3px_overlap": 0.47227,
+      "dots_abs_spearman": 0.04407
+    }
+  },
+  "raster_file": "gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif",
+  "raster_sha256": "a15080715c1179452924bbb302d02a5ba845ca562d75ee2ef217c691f06aaf1b",
+  "zip_file": "gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip",
+  "zip_sha256": "f5d94cde7018c57975fd4863984cdd235e09aa7c1b865929e05a4730020e8243",
+  "validator_output": {
+    "all_checks_passed": true,
+    "portal_range_error_prevented": true,
+    "tif_file": "gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif",
+    "tif_bytes": 140199,
+    "tif_sha256": "d706807d42d1b21f6417483cd7aeb04a410d62accd5a66c6b2a6ab0dc16662af",
+    "zip_file": "gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip",
+    "zip_bytes": 105132,
+    "zip_sha256": "76691a8a0dd945f9af82ffb47d4b2083e2448f2247d66e225a03d6abdd0f36d2",
+    "crs": "EPSG:32611",
+    "shape": [
+      3730,
+      3292
+    ],
+    "geotransform": [
+      100.0,
+      0.0,
+      243350.0,
+      0.0,
+      -100.0,
+      4508550.0
+    ],
+    "dtype": "float32",
+    "compression": "Compression.deflate",
+    "nodata_tag": null,
+    "min_value": 0.0,
+    "max_value": 1.0,
+    "n_total_pixels": 12279160,
+    "n_valid_footprint_pixels": 5167373,
+    "n_nan_inside_footprint": 0,
+    "n_nan_entire_raster": 0,
+    "n_inf_entire_raster": 0,
+    "n_values_below_0": 0,
+    "n_values_above_1": 0,
+    "n_positive_inside_footprint": 37654,
+    "n_positive_outside_footprint": 0,
+    "n_positive_on_mapped_catalogue": 0,
+    "submission_name": "gems76-h76-3-geotherm-tilt-axial-submod-zeros",
+    "submission_note": "H76-3: OOF geothermal vent+MT clay-cap+Verduzco grav/mag tilt+deconfounded 1m/10m DEM+12-az axial+self-masked continuation 300m submod",
+    "submission_note_length": 134,
+    "checks": {
+      "single_band_count_eq_1": true,
+      "exact_shape_3730x3292": true,
+      "exact_crs_epsg_32611": true,
+      "exact_affine_geotransform": true,
+      "dtype_float32": true,
+      "zero_nan_inside_footprint": true,
+      "zero_nan_entire_raster_portal_safe": true,
+      "zero_inf_entire_raster": true,
+      "all_pixels_strictly_ge_0": true,
+      "all_pixels_strictly_le_1": true,
+      "zero_positive_outside_footprint": true,
+      "zero_positive_on_known_catalogue": true,
+      "non_trivial_positive_support": true,
+      "submission_name_valid": true,
+      "submission_note_le_140_chars": true,
+      "zip_single_byte_identical_geotiff": true
+    }
+  },
+  "submission_name": "gems76-h76-3-geotherm-tilt-axial-submod-zeros",
+  "submission_note": "H76-3: OOF geothermal vent+MT clay-cap+Verduzco grav/mag tilt+deconfounded 1m/10m DEM+12-az axial+self-masked continuation 300m submod",
+  "submission_note_chars": 134,
+  "experiments_run_count": 3,
+  "experiment_budget_limit": 3,
+  "weekly_submission_slots_consumed": 0,
+  "wall_clock_seconds": 273.9,
+  "peak_rss_mb": 2227.3,
+  "gates_passed": {
+    "gate1_leakage_canary_le_0_90": true,
+    "gate2_uniqueness_surface_and_dots": true,
+    "gate3_geotiff_range_0_1_zero_nan": true,
+    "gate4_beats_H33_D28_P8_and_random_on_holdout": true,
+    "gate5_terrain_calibration_25_to_48_pct": true
+  },
+  "figures_generated": [
+    "fig1_holdout_benchmarks.png",
+    "fig2_collinearity_02778_proof.png",
+    "fig3_spatial_predictions_zoom.png",
+    "fig4_canary_and_terrain_balance.png",
+    "fig5_uniqueness_audit.png"
+  ],
+  "verdict": "promote",
+  "run_id": "GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD-NAN",
+  "raster": "docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_nan.tif",
+  "raster_zip": "docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_nan.zip",
+  "note": "H76-3: OOF geothermal vent+MT clay-cap+Verduzco grav/mag tilt+deconfounded 1m/10m DEM+12-az axial+self-masked continuation 300m submod"
+}

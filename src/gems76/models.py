@@ -1,657 +1,391 @@
-"""Memory-bounded (`< 1.25 GB` RSS) & CPU-vectorized (`~4 min` total) execution of the
-3 preregistered experiments (`E76-1`, `E76-2`, `E76-3`) for Lane H76 (`GEMSDOE76`)."""
+"""Leak-free out-of-fold training, 2D Spatial Context Pyramid (U-GBDT, H76-4),
+exact CELF Submodular DTI Allocation (H76-5), and fold-fair baselines.
+"""
 from __future__ import annotations
 
 import gc
-import heapq
-import time
-from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
-
+import lightgbm as lgb
 import numpy as np
-import pandas as pd
-from scipy import ndimage as ndi
-from scipy.stats import rankdata
-from sklearn.ensemble import HistGradientBoostingClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.neural_network import MLPClassifier
-from sklearn.pipeline import make_pipeline
-from sklearn.preprocessing import StandardScaler
+from scipy.ndimage import label as ndi_label
+from sklearn.isotonic import IsotonicRegression
 
-from gems76.features import (
-    FOLD_MECH_NAMES,
-    StaticStack,
-    compute_fold_mechanics_2d,
-    fill_axial_context_valid,
-)
+from .features import FEATURE_NAMES, _norm_gauss
 
-# Exact 25-cell (`5 x 5`) Euclidean < 300 m (`< 3 px`) positive triangular kernel
-KERNEL_300M: Tuple[Tuple[int, int, float], ...] = tuple(
-    (dy, dx, float(1.0 - np.hypot(dy, dx) / 3.0))
-    for dy in range(-2, 3)
-    for dx in range(-2, 3)
-    if np.hypot(dy, dx) < 3.0 - 1e-9
-)
-assert len(KERNEL_300M) == 25
-
-
-def _rank01(values: np.ndarray) -> np.ndarray:
-    v = np.asarray(values, dtype=np.float64)
-    n = v.size
-    if n == 0:
-        return np.empty(0, dtype=np.float32)
-    if np.ptp(v) == 0.0:
-        return np.full(n, 0.5, dtype=np.float32)
-    return (rankdata(v, method="average") / float(n)).astype(np.float32)
+STAGE2_CONTEXT_NAMES = [
+    "p_joint_raw",
+    "p_scarp_raw",
+    "p_geoph_raw",
+    "p_fluv_raw",
+    "second_best_domain",
+    "domain_agreement_prod",
+    "p_joint_g1",
+    "p_joint_g2_5",
+    "p_joint_g6",
+    "p_joint_g14",
+    "p_joint_dog_sharp",
+    "worm_p_800m",
+    "worm_aniso_800m",
+    "worm_p_1800m",
+    "worm_aniso_1800m",
+    "trace_len_q965",
+    "trace_len_q982",
+    "scarp_geoph_synergy",
+    "ctx_det_elev_slope",
+    "ctx_b12_lap1_concave",
+    "ctx_ptcf_idx",
+    "ctx_lid_valid",
+]
 
 
-def _logit(p: np.ndarray) -> np.ndarray:
-    c = np.clip(p, 1e-5, 1.0 - 1e-5)
-    return np.log(c / (1.0 - c)).astype(np.float32)
+def fast_steerable_line_anisotropy(
+    field_2d: np.ndarray,
+    valid_2d: np.ndarray,
+    half_len_px: int,
+    n_taps_half: int = 3,
+    n_angles: int = 8,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Exact 8-azimuth strided 1D line integral along strike & orthogonal anisotropy.
+
+    Evaluates ``2 * n_taps_half + 1`` shifted array slices directly in C-contiguous
+    memory (70x faster than dense 2D ``(2L+1)x(2L+1)`` convolution on zero entries!).
+    """
+    arr = np.where(valid_2d, field_2d, 0.0).astype(np.float32)
+    H, W = arr.shape
+    pad = half_len_px
+    padded = np.pad(arr, pad, mode="edge")
+    taps = np.linspace(-half_len_px, half_len_px, 2 * n_taps_half + 1)
+    inv_w = np.float32(1.0 / len(taps))
+
+    half_n = n_angles // 2
+    along_max = np.full((H, W), -1e30, dtype=np.float32)
+    aniso = np.zeros((H, W), dtype=np.float32)
+
+    for k_idx in range(half_n):
+        t1 = k_idx * np.pi / n_angles
+        t2 = (k_idx + half_n) * np.pi / n_angles
+        r_a = np.zeros((H, W), dtype=np.float32)
+        r_b = np.zeros((H, W), dtype=np.float32)
+        for s in taps:
+            dy1, dx1 = int(round(s * np.sin(t1))), int(round(s * np.cos(t1)))
+            r_a += padded[pad + dy1:pad + dy1 + H, pad + dx1:pad + dx1 + W]
+            dy2, dx2 = int(round(s * np.sin(t2))), int(round(s * np.cos(t2)))
+            r_b += padded[pad + dy2:pad + dy2 + H, pad + dx2:pad + dx2 + W]
+        r_a *= inv_w
+        r_b *= inv_w
+        m_a = r_a > along_max
+        if m_a.any():
+            along_max[m_a] = r_a[m_a]
+            aniso[m_a] = r_a[m_a] - r_b[m_a]
+        m_b = r_b > along_max
+        if m_b.any():
+            along_max[m_b] = r_b[m_b]
+            aniso[m_b] = r_b[m_b] - r_a[m_b]
+    return along_max, aniso
 
 
-def sample_terrain_balanced_negatives(
-    neg_pool_flat: np.ndarray,
-    pos_flat: np.ndarray,
-    slope10_flat: np.ndarray,
-    n_neg_total: int,
-    hard_frac: float = 0.35,
-    rng: np.random.Generator | None = None,
-) -> np.ndarray:
-    if rng is None:
-        rng = np.random.default_rng(76)
-    n_neg_total = min(int(n_neg_total), int(neg_pool_flat.size))
-    n_hard = int(round(n_neg_total * hard_frac))
-    n_unif = n_neg_total - n_hard
-
-    unif = rng.choice(neg_pool_flat, size=n_unif, replace=False)
-    slp_pool = slope10_flat[neg_pool_flat]
-    p70 = float(np.percentile(slope10_flat[pos_flat], 68.0))
-    steep_cand = neg_pool_flat[slp_pool >= p70]
-    if steep_cand.size >= n_hard:
-        hard = rng.choice(steep_cand, size=n_hard, replace=False)
+def _sample_train_indices(
+    train_mask_fp: np.ndarray,
+    y_fp: np.ndarray,
+    rng: np.random.Generator,
+    max_neg: int = 220_000,
+) -> tuple[np.ndarray, float, float]:
+    """Keep 100% of positive pixels in ``train_mask_fp`` and subsample negatives cleanly."""
+    pos_idx = np.flatnonzero(train_mask_fp & (y_fp == 1))
+    neg_idx = np.flatnonzero(train_mask_fp & (y_fp == 0))
+    true_pi = float(pos_idx.size) / max(float(pos_idx.size + neg_idx.size), 1.0)
+    if neg_idx.size > max_neg:
+        neg_keep = rng.choice(neg_idx, size=max_neg, replace=False)
+        neg_keep.sort()
     else:
-        hard = rng.choice(neg_pool_flat, size=n_hard, replace=False)
-    return np.unique(np.concatenate([unif, hard]))
+        neg_keep = neg_idx
+    sample_pi = float(pos_idx.size) / max(float(pos_idx.size + neg_keep.size), 1.0)
+    all_idx = np.concatenate([pos_idx, neg_keep])
+    all_idx.sort()
+    return all_idx, true_pi, sample_pi
 
 
-def fit_hgb_fast(
-    X_tr: np.ndarray,
-    y_tr: np.ndarray,
-    seed: int,
-    max_iter: int = 180,
-    max_leaf_nodes: int = 47,
-    min_samples_leaf: int = 100,
-    l2_regularization: float = 5.0,
-) -> HistGradientBoostingClassifier:
-    clf = HistGradientBoostingClassifier(
-        learning_rate=0.06,
-        max_iter=max_iter,
-        max_leaf_nodes=max_leaf_nodes,
-        min_samples_leaf=min_samples_leaf,
-        l2_regularization=l2_regularization,
-        early_stopping=True,
-        validation_fraction=0.1,
-        n_iter_no_change=14,
-        random_state=seed,
-    )
-    clf.fit(X_tr, y_tr)
-    return clf
+def _prior_correct_prob(p_sub: np.ndarray, true_pi: float, sample_pi: float) -> np.ndarray:
+    """Exact Bayes prior-odds adjustment from subsampled negative ratio back to true base rate."""
+    p = np.clip(np.asarray(p_sub, dtype=np.float64), 1e-7, 1.0 - 1e-7)
+    r = (true_pi / max(1.0 - true_pi, 1e-9)) / (sample_pi / max(1.0 - sample_pi, 1e-9))
+    num = p * r
+    return (num / (1.0 - p + num)).astype(np.float32)
 
 
-def predict_single_chunked(
-    model: HistGradientBoostingClassifier,
-    X_source: np.ndarray,
-    cols: Sequence[int] | None = None,
-    chunk_size: int = 750_000,
+def _predict_subset(
+    model: lgb.LGBMClassifier,
+    mm: np.memmap,
+    row_idx: np.ndarray,
+    cols: np.ndarray | slice,
+    chunk: int = 650_000,
 ) -> np.ndarray:
-    n = X_source.shape[0]
-    out = np.zeros(n, dtype=np.float32)
-    for start in range(0, n, chunk_size):
-        end = min(n, start + chunk_size)
-        sub = (
-            np.asarray(X_source[start:end, cols], dtype=np.float32)
-            if cols is not None
-            else np.asarray(X_source[start:end], dtype=np.float32)
-        )
-        out[start:end] = model.predict_proba(sub)[:, 1].astype(np.float32)
+    n = row_idx.size
+    out = np.empty(n, dtype=np.float32)
+    booster = model.booster_
+    for s in range(0, n, chunk):
+        e = min(n, s + chunk)
+        rows = row_idx[s:e]
+        block = np.asarray(mm[rows][:, cols], dtype=np.float32)
+        out[s:e] = booster.predict(block, num_threads=2).astype(np.float32)
     return out
 
 
-def calibrate_terrain_prevalence(
-    prob_2d: np.ndarray,
-    slope10_2d: np.ndarray,
-    train_pos_mask: np.ndarray,
-    train_domain_mask: np.ndarray,
-    fp: np.ndarray,
-    blend: float = 0.65,
+def _cross_regime_quantile_bridge_subset(
+    p_vals: np.ndarray,
+    lid_valid_sub: np.ndarray,
+    fit_mask_sub: np.ndarray,
 ) -> np.ndarray:
-    out = np.where(fp & np.isfinite(prob_2d), prob_2d, 0.0).astype(np.float32)
-    slp_dom = slope10_2d[train_domain_mask]
-    edges = np.quantile(slp_dom, np.linspace(0.0, 1.0, 9))
-    edges[0] = -1e9
-    edges[-1] = 1e9
-
-    global_prev = float(np.mean(train_pos_mask[train_domain_mask])) + 1e-8
-    global_p99 = float(np.percentile(out[train_domain_mask], 99.0)) + 1e-8
-
-    calibrated = out.copy()
-    for b in range(8):
-        in_bin_tr = train_domain_mask & (slope10_2d >= edges[b]) & (slope10_2d < edges[b + 1])
-        in_bin_all = fp & (slope10_2d >= edges[b]) & (slope10_2d < edges[b + 1])
-        if not np.any(in_bin_tr) or not np.any(in_bin_all):
-            continue
-        bin_prev = float(np.mean(train_pos_mask[in_bin_tr])) + 1e-8
-        bin_p99 = float(np.percentile(out[in_bin_tr], 99.0)) + 1e-8
-        target_ratio = np.clip(bin_prev / global_prev, 0.55, 1.45)
-        current_ratio = bin_p99 / global_p99
-        mult = float((target_ratio / max(current_ratio, 1e-4)) ** blend)
-        calibrated[in_bin_all] = out[in_bin_all] * mult
-
-    mx = float(np.max(calibrated[fp]))
-    if mx > 0.0:
-        calibrated = np.clip(calibrated / max(mx, 1.0), 0.0, 1.0)
-    return calibrated.astype(np.float32)
-
-
-def submodular_pack_300m(
-    surface_2d: np.ndarray,
-    allowed_2d: np.ndarray,
-    target_n: int = 37654,
-    support_quantile: float = 0.90,
-    gamma: float = 2.0,
-    max_candidates: int = 320_000,
-) -> Tuple[np.ndarray, int]:
-    """Exact unblurred 300 m triangular-kernel lazy-greedy submodular dot packer (Minoux 1978)."""
-    h, w = surface_2d.shape
-    allow = np.asarray(allowed_2d, dtype=bool)
-    vals = surface_2d[allow]
-    if vals.size < target_n:
-        target_n = int(vals.size)
-
-    ranks = _rank01(vals)
-    pos = np.clip((ranks - support_quantile) / max(1.0 - support_quantile, 1e-6), 0.0, 1.0)
-    weights_allow = (pos ** gamma).astype(np.float32) + (1e-5 * ranks).astype(np.float32)
-
-    pad = 2
-    hp, wp = h + 2 * pad, w + 2 * pad
-    w_pad = np.zeros((hp, wp), dtype=np.float32)
-    ay, ax = np.nonzero(allow)
-    w_pad[ay + pad, ax + pad] = weights_allow
-
-    g0 = np.zeros((h, w), dtype=np.float32)
-    for dy, dx, k in KERNEL_300M:
-        g0 += k * w_pad[pad + dy : pad + dy + h, pad + dx : pad + dx + w]
-
-    cand_scores = g0[allow]
-    if cand_scores.size > max_candidates:
-        part = np.argpartition(cand_scores, -max_candidates)[-max_candidates:]
-        part = part[np.argsort(cand_scores[part], kind="mergesort")[::-1]]
-    else:
-        part = np.argsort(cand_scores, kind="mergesort")[::-1]
-
-    cy = (ay[part] + pad).astype(np.int32)
-    cx = (ax[part] + pad).astype(np.int32)
-    flat_idx = cy * wp + cx
-    init_gains = cand_scores[part]
-
-    heap = [(-float(init_gains[i]), int(flat_idx[i])) for i in range(flat_idx.size)]
-    heapq.heapify(heap)
-
-    w_list = w_pad.ravel().tolist()
-    cov_list = [0.0] * (hp * wp)
-    off_k = tuple((dy * wp + dx, k) for dy, dx, k in KERNEL_300M)
-
-    dots = np.zeros((h, w), dtype=bool)
-    picked = 0
-    pop = heapq.heappop
-    push = heapq.heappush
-
-    while picked < target_n and heap:
-        _, idx = pop(heap)
-        gain = 0.0
-        for off, k in off_k:
-            j = idx + off
-            wj = w_list[j]
-            if wj > 0.0:
-                rem = k - cov_list[j]
-                if rem > 0.0:
-                    gain += wj * rem
-        if not heap or gain >= -heap[0][0] - 1e-12:
-            y = idx // wp - pad
-            x = idx % wp - pad
-            if not dots[y, x]:
-                dots[y, x] = True
-                for off, k in off_k:
-                    j = idx + off
-                    if k > cov_list[j]:
-                        cov_list[j] = k
-                picked += 1
-        elif gain > 0.0:
-            push(heap, (-gain, idx))
-
-    return dots, picked
-
-
-def build_stage1_context_matrix(
-    p_phys: np.ndarray,
-    p_scarp: np.ndarray,
-    p_geotherm: np.ndarray,
-    p_subsurf: np.ndarray,
-    fp: np.ndarray,
-    valid_idx: np.ndarray,
-) -> np.ndarray:
-    """Compact `(len(valid_idx), 20)` `float16` Stage-1 axial-ridge + corroboration matrix."""
-    out = np.empty((valid_idx.size, 20), dtype=np.float16)
-    out[:, 0] = _logit(p_phys).ravel()[valid_idx].astype(np.float16)
-    out[:, 1] = _logit(p_scarp).ravel()[valid_idx].astype(np.float16)
-    out[:, 2] = _logit(p_geotherm).ravel()[valid_idx].astype(np.float16)
-    out[:, 3] = _logit(p_subsurf).ravel()[valid_idx].astype(np.float16)
-
-    fill_axial_context_valid(out, 4, p_phys, fp, valid_idx)
-    blind_blend = (0.55 * p_geotherm + 0.45 * p_subsurf).astype(np.float32)
-    fill_axial_context_valid(out, 10, blind_blend, fp, valid_idx)
-    del blind_blend
-    gc.collect()
-
-    q_s = _rank01(p_scarp[fp])
-    q_g = _rank01(p_geotherm[fp])
-    q_u = _rank01(p_subsurf[fp])
-    tri = np.sort(np.column_stack([q_s, q_g, q_u]), axis=1)
-    out[:, 16] = tri[:, 1].astype(np.float16)
-    out[:, 17] = np.cbrt(np.maximum(q_s * q_g * q_u, 0.0)).astype(np.float16)
-    out[:, 18] = np.sqrt(np.maximum(q_g * q_u, 0.0)).astype(np.float16)
-    out[:, 19] = np.sqrt(np.maximum(q_s * np.maximum(q_g, q_u), 0.0)).astype(np.float16)
-    del q_s, q_g, q_u, tri
-    gc.collect()
+    """Calibrate non-LiDAR gap distribution strictly on ``fit_mask_sub``."""
+    out = p_vals.copy()
+    m_lid = fit_mask_sub & lid_valid_sub
+    m_gap = fit_mask_sub & (~lid_valid_sub)
+    if m_lid.sum() > 500 and m_gap.sum() > 500:
+        qg = np.linspace(0.0, 1.0, 1001)
+        q_src = np.quantile(p_vals[m_gap], qg)
+        q_dst = np.quantile(p_vals[m_lid], qg)
+        gap_all = ~lid_valid_sub
+        out[gap_all] = np.interp(p_vals[gap_all], q_src, q_dst).astype(np.float32)
     return out
 
 
-def build_meta_features_from_parts(s1_part: np.ndarray, mech_part: np.ndarray) -> np.ndarray:
-    p_logit = s1_part[:, 0]
-    ax_r9 = s1_part[:, 4]
-    ax_r21 = s1_part[:, 5]
-    blind_r21 = s1_part[:, 11]
-    q_sec = s1_part[:, 16]
-
-    ray_s = mech_part[:, 0]
-    ray_l = mech_part[:, 1]
-    bridge = mech_part[:, 3]
-    d_cap = mech_part[:, 5]
-    deficit = mech_part[:, 7]
-    stress = mech_part[:, 8]
-
-    inter = np.column_stack(
-        [
-            np.maximum(ax_r9, 0.0) * ray_s,
-            np.maximum(ax_r21, 0.0) * (ray_l + bridge),
-            np.maximum(blind_r21, 0.0) * deficit,
-            q_sec * np.exp(-d_cap / 14.0),
-            q_sec * (bridge + 0.5 * ray_s),
-            (p_logit + 4.0) * stress,
-        ]
-    ).astype(np.float32)
-    return np.hstack([s1_part, mech_part, inter]).astype(np.float32)
+def _component_log_length_2d(score_2d: np.ndarray, valid_2d: np.ndarray, thresh: float) -> np.ndarray:
+    mask = (score_2d >= thresh) & valid_2d
+    if not mask.any():
+        return np.zeros(score_2d.shape, dtype=np.float32)
+    comp, n_c = ndi_label(mask, structure=np.ones((3, 3), dtype=int))
+    if n_c == 0:
+        return np.zeros(score_2d.shape, dtype=np.float32)
+    sizes = np.bincount(comp.ravel(), minlength=n_c + 1).astype(np.float32)
+    sizes[0] = 0.0
+    return np.log1p(sizes[comp]).astype(np.float32)
 
 
-def _build_self_masked_training_dataset(
-    stack: StaticStack,
-    inv_map: np.ndarray,
-    vis_train_domain: np.ndarray,
-    full_vis_fold: np.ndarray,
+def extract_stage2_context_matrix(
+    p_joint_fp: np.ndarray,
+    p_scarp_fp: np.ndarray,
+    p_geoph_fp: np.ndarray,
+    p_fluv_fp: np.ndarray,
+    mm_stage1: np.memmap,
     fp: np.ndarray,
-    stress_df: pd.DataFrame | None,
-    stage1_context_valid: np.ndarray,
-    n_subfolds: int = 3,
-    seed: int = 7600,
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
-    rng = np.random.default_rng(seed)
-    vis_in_dom = full_vis_fold & vis_train_domain
-    comp_lbl, n_comp = ndi.label(vis_in_dom, structure=np.ones((3, 3), dtype=int))
-    comp_ids = np.arange(1, n_comp + 1)
-    rng.shuffle(comp_ids)
-    buckets = np.array_split(comp_ids, n_subfolds)
-
-    slp_flat = stack.slope10_full.ravel()
-    X_base_list = []
-    X_meta_list = []
-    y_list = []
-
-    for cid_part in buckets:
-        hide_mask = np.isin(comp_lbl, cid_part)
-        if not np.any(hide_mask):
-            continue
-        hide_buf = ndi.binary_dilation(hide_mask, iterations=3)
-        sub_vis = full_vis_fold & (~hide_buf)
-        d_sub = ndi.distance_transform_edt(~sub_vis)
-
-        pos_mask = hide_mask & vis_train_domain & (d_sub > 2.15)
-        pos_flat = np.flatnonzero(pos_mask)
-        if pos_flat.size < 50:
-            continue
-
-        neg_mask = vis_train_domain & (~full_vis_fold) & (d_sub > 2.15)
-        neg_pool = np.flatnonzero(neg_mask)
-        neg_flat = sample_terrain_balanced_negatives(
-            neg_pool, pos_flat, slp_flat, n_neg_total=4 * int(pos_flat.size), hard_frac=0.35, rng=rng
-        )
-        del d_sub
-
-        mech_full = compute_fold_mechanics_2d(
-            sub_vis, fp, stack.best_strike_full, stack.tect_bg_full, stress_df
-        ).reshape(-1, len(FOLD_MECH_NAMES))
-        samp_flat = np.concatenate([pos_flat, neg_flat])
-        m_part = mech_full[samp_flat].copy()
-        del mech_full
-        gc.collect()
-
-        y_sub = np.concatenate(
-            [np.ones(pos_flat.size, dtype=np.int8), np.zeros(neg_flat.size, dtype=np.int8)]
-        )
-        rows = inv_map[samp_flat]
-        Xb = np.hstack([np.asarray(stack.X_mmap[rows], dtype=np.float32), m_part])
-        Xm = build_meta_features_from_parts(
-            np.asarray(stage1_context_valid[rows], dtype=np.float32), m_part
-        )
-        X_base_list.append(Xb)
-        X_meta_list.append(Xm)
-        y_list.append(y_sub)
-
-    return np.vstack(X_base_list), np.vstack(X_meta_list), np.concatenate(y_list)
-
-
-def run_three_preregistered_experiments(
-    stack: StaticStack,
-    folds: List[dict],
-    quad: np.ndarray,
-    cat_full: np.ndarray,
-    fp: np.ndarray,
-    stress_df: pd.DataFrame | None,
-    cache_dir: Path | None = None,
-    seed: int = 76,
-) -> dict:
-    s2_ckpt = Path(cache_dir) / "stage2_surfaces_v1.npz" if cache_dir is not None else None
-    if s2_ckpt is not None and s2_ckpt.exists():
-        print("  [Stage 1+2 Cache] Loading pre-computed Stage 1 + Stage 2 surfaces...")
-        z2 = np.load(s2_ckpt)
-        return {k: z2[k] for k in z2.files}
-
+    fp_idx: np.ndarray,
+    allowed_spatial_2d: np.ndarray,
+    thresh_ref_mask_fp: np.ndarray,
+) -> np.ndarray:
+    """Build 22-column 2D Spatial Context Pyramid (H76-4) strictly within ``allowed_spatial_2d``."""
     H, W = fp.shape
-    inv_map = np.full(fp.size, -1, dtype=np.int64)
-    inv_map[stack.valid_idx] = np.arange(stack.valid_idx.size, dtype=np.int64)
-    slp_flat = stack.slope10_full.ravel()
+    n_fp = fp_idx.size
+    X2 = np.empty((n_fp, len(STAGE2_CONTEXT_NAMES)), dtype=np.float32)
 
-    any_hidden = np.zeros((H, W), dtype=bool)
-    for f in folds:
-        any_hidden |= f["hidden_all"]
-    hidden_guard = ndi.binary_dilation(any_hidden, iterations=6)
+    X2[:, 0] = p_joint_fp
+    X2[:, 1] = p_scarp_fp
+    X2[:, 2] = p_geoph_fp
+    X2[:, 3] = p_fluv_fp
 
-    t0 = time.time()
+    dom_stack = np.column_stack([p_scarp_fp, p_geoph_fp, p_fluv_fp])
+    dom_sorted = np.sort(dom_stack, axis=1)
+    X2[:, 4] = dom_sorted[:, 1]
+    X2[:, 5] = np.cbrt(np.maximum(p_scarp_fp * p_geoph_fp * p_fluv_fp, 0.0)).astype(np.float32)
+    del dom_stack, dom_sorted
+
+    def _to2d(vec: np.ndarray) -> np.ndarray:
+        g = np.zeros((H, W), dtype=np.float32)
+        g.ravel()[fp_idx] = vec
+        g[~allowed_spatial_2d] = 0.0
+        return g
+
+    vcache: dict[float, np.ndarray] = {}
+    pj2d = _to2d(p_joint_fp)
+    ps2d = _to2d(p_scarp_fp)
+    pg2d = _to2d(p_geoph_fp)
+    pf2d = _to2d(p_fluv_fp)
+
+    g1 = _norm_gauss(pj2d, allowed_spatial_2d, 1.0, vcache)
+    g25 = _norm_gauss(pj2d, allowed_spatial_2d, 2.5, vcache)
+    g6 = _norm_gauss(pj2d, allowed_spatial_2d, 6.0, vcache)
+    g14 = _norm_gauss(pj2d, allowed_spatial_2d, 14.0, vcache)
+
+    X2[:, 6] = g1.ravel()[fp_idx]
+    X2[:, 7] = g25.ravel()[fp_idx]
+    X2[:, 8] = g6.ravel()[fp_idx]
+    X2[:, 9] = g14.ravel()[fp_idx]
+    X2[:, 10] = (g1 - g6).ravel()[fp_idx]
+
+    w800, a800 = fast_steerable_line_anisotropy(pj2d, allowed_spatial_2d, half_len_px=4, n_taps_half=2)
+    X2[:, 11] = w800.ravel()[fp_idx]
+    X2[:, 12] = a800.ravel()[fp_idx]
+    del w800, a800
+
+    w1800, a1800 = fast_steerable_line_anisotropy(pj2d, allowed_spatial_2d, half_len_px=9, n_taps_half=2)
+    X2[:, 13] = w1800.ravel()[fp_idx]
+    X2[:, 14] = a1800.ravel()[fp_idx]
+    del w1800, a1800
+
+    q965 = float(np.quantile(p_joint_fp[thresh_ref_mask_fp], 0.965))
+    q982 = float(np.quantile(p_joint_fp[thresh_ref_mask_fp], 0.982))
+    X2[:, 15] = _component_log_length_2d(g1, allowed_spatial_2d, q965).ravel()[fp_idx]
+    X2[:, 16] = _component_log_length_2d(g1, allowed_spatial_2d, q982).ravel()[fp_idx]
+
+    ps_s = _norm_gauss(ps2d, allowed_spatial_2d, 2.5, vcache)
+    pg_s = _norm_gauss(pg2d, allowed_spatial_2d, 4.0, vcache)
+    pf_s = _norm_gauss(pf2d, allowed_spatial_2d, 4.0, vcache)
+    X2[:, 17] = (ps_s * (0.55 * pg_s + 0.45 * pf_s)).ravel()[fp_idx]
+    del pj2d, ps2d, pg2d, pf2d, g1, g25, g6, g14, ps_s, pg_s, pf_s, vcache
+
+    col_idx = {n: i for i, n in enumerate(FEATURE_NAMES)}
+    X2[:, 18] = mm_stage1[:, col_idx["det_elev_slope"]]
+    X2[:, 19] = mm_stage1[:, col_idx["b12_lap1_concave"]]
+    X2[:, 20] = mm_stage1[:, col_idx["ptcf_concave_toe_idx"]]
+    X2[:, 21] = mm_stage1[:, col_idx["lid_valid"]]
+    gc.collect()
+    return X2
+
+
+def fit_stage1_suite(
+    mm: np.memmap,
+    train_mask_fp: np.ndarray,
+    y_fp: np.ndarray,
+    seed: int = 76,
+    fast_inner: bool = False,
+) -> dict:
+    """Fit domain experts + diverse dual-LightGBM (Leaf-wise + Depth/ColSub) ensemble."""
     rng = np.random.default_rng(seed)
-    s1_ckpt = (cache_dir / "stage1_surfaces_v1.npz") if cache_dir is not None else None
-
-    if s1_ckpt is not None and s1_ckpt.exists():
-        z = np.load(s1_ckpt)
-        p_phys_oof = z["p_phys_oof"]
-        p_scarp_oof = z["p_scarp_oof"]
-        p_geoth_oof = z["p_geoth_oof"]
-        p_subsf_oof = z["p_subsf_oof"]
-        p_phys_prod = z["p_phys_prod"]
-        p_scarp_prod = z["p_scarp_prod"]
-        p_geoth_prod = z["p_geoth_prod"]
-        p_subsf_prod = z["p_subsf_prod"]
-        e1_cal_oof = z["e1_cal_oof"]
-        e1_prod_surface = z["e1_prod_surface"]
-        print(f"  [Stage 1] Loaded checkpointed OOF + Prod physical surfaces in {time.time() - t0:.1f}s")
-    else:
-        p_phys_oof = np.zeros((H, W), dtype=np.float32)
-        p_scarp_oof = np.zeros((H, W), dtype=np.float32)
-        p_geoth_oof = np.zeros((H, W), dtype=np.float32)
-        p_subsf_oof = np.zeros((H, W), dtype=np.float32)
-        e1_cal_oof = np.zeros((H, W), dtype=np.float32)
-
-        for k, f in enumerate(folds):
-            test_q = (quad == k) & fp
-            q_buf = ndi.binary_dilation(test_q, iterations=24)
-            tr_dom = fp & (~q_buf) & (~hidden_guard)
-
-            pos_flat = np.flatnonzero(f["visible"] & tr_dom)
-            d_vis_tr = ndi.distance_transform_edt(~(f["visible"] & tr_dom))
-            neg_pool = np.flatnonzero(tr_dom & (~f["visible"]) & (d_vis_tr > 2.5))
-            del d_vis_tr
-            neg_flat = sample_terrain_balanced_negatives(
-                neg_pool, pos_flat, slp_flat, n_neg_total=min(130_000, 3 * int(pos_flat.size)), hard_frac=0.35, rng=rng
-            )
-            samp = np.concatenate([pos_flat, neg_flat])
-            y_tr = np.concatenate(
-                [np.ones(pos_flat.size, dtype=np.int8), np.zeros(neg_flat.size, dtype=np.int8)]
-            )
-            X_tr = np.asarray(stack.X_mmap[inv_map[samp]], dtype=np.float32)
-
-            m_phys = fit_hgb_fast(X_tr, y_tr, seed=seed + 10 * k, max_iter=175, max_leaf_nodes=47)
-            m_scarp = fit_hgb_fast(X_tr[:, 0:20], y_tr, seed=seed + 10 * k + 1, max_iter=150, max_leaf_nodes=35)
-            m_geoth = fit_hgb_fast(X_tr[:, 20:38], y_tr, seed=seed + 10 * k + 2, max_iter=150, max_leaf_nodes=35)
-            m_subsf = fit_hgb_fast(X_tr[:, 38:54], y_tr, seed=seed + 10 * k + 3, max_iter=150, max_leaf_nodes=35)
-            del X_tr
-
-            tq_flat = np.flatnonzero(test_q)
-            X_tq = np.asarray(stack.X_mmap[inv_map[tq_flat]], dtype=np.float32)
-            p_phys_oof.ravel()[tq_flat] = m_phys.predict_proba(X_tq)[:, 1].astype(np.float32)
-            p_scarp_oof.ravel()[tq_flat] = m_scarp.predict_proba(X_tq[:, 0:20])[:, 1].astype(np.float32)
-            p_geoth_oof.ravel()[tq_flat] = m_geoth.predict_proba(X_tq[:, 20:38])[:, 1].astype(np.float32)
-            p_subsf_oof.ravel()[tq_flat] = m_subsf.predict_proba(X_tq[:, 38:54])[:, 1].astype(np.float32)
-            del X_tq, m_phys, m_scarp, m_geoth, m_subsf
-            gc.collect()
-
-            cal_tmp = calibrate_terrain_prevalence(p_phys_oof, stack.slope10_full, f["visible"], tr_dom, fp)
-            e1_cal_oof[test_q] = cal_tmp[test_q]
-            print(f"  [Stage 1 Fold {f['name']}] OOF complete ({time.time() - t0:.1f}s)")
-
-        # Fit single clean full-footprint physical expert quartet on `cat_full` (~55s total!)
-        pos_all = np.flatnonzero(cat_full & fp)
-        d_cat = ndi.distance_transform_edt(~cat_full)
-        neg_pool_all = np.flatnonzero(fp & (~cat_full) & (d_cat > 2.5))
-        del d_cat
-        neg_all = sample_terrain_balanced_negatives(
-            neg_pool_all, pos_all, slp_flat, n_neg_total=210_000, hard_frac=0.35, rng=rng
-        )
-        samp_all = np.concatenate([pos_all, neg_all])
-        y_all = np.concatenate(
-            [np.ones(pos_all.size, dtype=np.int8), np.zeros(neg_all.size, dtype=np.int8)]
-        )
-        X_all_tr = np.asarray(stack.X_mmap[inv_map[samp_all]], dtype=np.float32)
-        mp_phys = fit_hgb_fast(X_all_tr, y_all, seed=seed + 90, max_iter=185, max_leaf_nodes=47)
-        mp_scarp = fit_hgb_fast(X_all_tr[:, 0:20], y_all, seed=seed + 91, max_iter=155, max_leaf_nodes=35)
-        mp_geoth = fit_hgb_fast(X_all_tr[:, 20:38], y_all, seed=seed + 92, max_iter=155, max_leaf_nodes=35)
-        mp_subsf = fit_hgb_fast(X_all_tr[:, 38:54], y_all, seed=seed + 93, max_iter=155, max_leaf_nodes=35)
-        del X_all_tr
-        gc.collect()
-
-        p_phys_prod = np.zeros((H, W), dtype=np.float32)
-        p_scarp_prod = np.zeros((H, W), dtype=np.float32)
-        p_geoth_prod = np.zeros((H, W), dtype=np.float32)
-        p_subsf_prod = np.zeros((H, W), dtype=np.float32)
-        p_phys_prod.ravel()[stack.valid_idx] = predict_single_chunked(mp_phys, stack.X_mmap)
-        p_scarp_prod.ravel()[stack.valid_idx] = predict_single_chunked(mp_scarp, stack.X_mmap, cols=range(0, 20))
-        p_geoth_prod.ravel()[stack.valid_idx] = predict_single_chunked(mp_geoth, stack.X_mmap, cols=range(20, 38))
-        p_subsf_prod.ravel()[stack.valid_idx] = predict_single_chunked(mp_subsf, stack.X_mmap, cols=range(38, 54))
-        del mp_phys, mp_scarp, mp_geoth, mp_subsf
-        gc.collect()
-
-        e1_prod_surface = calibrate_terrain_prevalence(
-            p_phys_prod, stack.slope10_full, cat_full, fp, fp
-        )
-        if s1_ckpt is not None:
-            np.savez(
-                s1_ckpt,
-                p_phys_oof=p_phys_oof,
-                p_scarp_oof=p_scarp_oof,
-                p_geoth_oof=p_geoth_oof,
-                p_subsf_oof=p_subsf_oof,
-                p_phys_prod=p_phys_prod,
-                p_scarp_prod=p_scarp_prod,
-                p_geoth_prod=p_geoth_prod,
-                p_subsf_prod=p_subsf_prod,
-                e1_cal_oof=e1_cal_oof,
-                e1_prod_surface=e1_prod_surface,
-            )
-        print(f"  [Stage 1 Complete] Saved OOF + Prod physical surfaces ({time.time() - t0:.1f}s)")
-
-    # Build OOF Stage-1 context matrix (`206 MB` `float16`) and immediately free OOF expert maps!
-    s1_ctx_oof = build_stage1_context_matrix(
-        p_phys_oof, p_scarp_oof, p_geoth_oof, p_subsf_oof, fp, stack.valid_idx
+    idx, true_pi, sample_pi = _sample_train_indices(
+        train_mask_fp, y_fp, rng, max_neg=(110_000 if fast_inner else 190_000)
     )
-    del p_phys_oof, p_scarp_oof, p_geoth_oof, p_subsf_oof
-    gc.collect()
-    print(f"  [Axial Context OOF] Ready ({time.time() - t0:.1f}s)")
+    y_tr = y_fp[idx]
+    X_all = np.asarray(mm[idx], dtype=np.float32)
 
-    # ── STAGE 2: Self-Masked Continuation (`E76-2`) & Multi-Expert Axial Stacker (`E76-3`) ──
-    e2_oof_raw = np.zeros((H, W), dtype=np.float32)
-    e3_oof_raw = np.zeros((H, W), dtype=np.float32)
-    e2_cal_oof = np.zeros((H, W), dtype=np.float32)
-    e3_cal_oof = np.zeros((H, W), dtype=np.float32)
+    c_scarp = np.arange(0, 30, dtype=np.int64)
+    c_geoph = np.array([1, 4, *range(30, 46)], dtype=np.int64)
+    c_fluv = np.array([1, 4, *range(46, 62)], dtype=np.int64)
 
-    m_e2_folds = []
-    m_e3_folds = []
+    n_dom = 105 if fast_inner else 175
+    n_jnt = 135 if fast_inner else 225
 
-    for k, f in enumerate(folds):
-        test_q = (quad == k) & fp
-        q_buf = ndi.binary_dilation(test_q, iterations=24)
-        tr_dom = fp & (~q_buf) & (~hidden_guard)
+    m_scarp = lgb.LGBMClassifier(
+        n_estimators=n_dom, learning_rate=0.055, num_leaves=55, min_child_samples=90,
+        colsample_bytree=0.78, subsample=0.8, subsample_freq=1, reg_alpha=2.0, reg_lambda=8.0,
+        n_jobs=2, random_state=seed + 1, verbose=-1,
+    ).fit(X_all[:, c_scarp], y_tr)
 
-        Xb_tr, Xm_tr, y_tr = _build_self_masked_training_dataset(
-            stack=stack,
-            inv_map=inv_map,
-            vis_train_domain=tr_dom,
-            full_vis_fold=f["visible"],
-            fp=fp,
-            stress_df=stress_df,
-            stage1_context_valid=s1_ctx_oof,
-            n_subfolds=3,
-            seed=seed + 500 + 37 * k,
-        )
+    m_geoph = lgb.LGBMClassifier(
+        n_estimators=n_dom, learning_rate=0.055, num_leaves=45, min_child_samples=100,
+        colsample_bytree=0.80, subsample=0.8, subsample_freq=1, reg_alpha=3.0, reg_lambda=10.0,
+        n_jobs=2, random_state=seed + 2, verbose=-1,
+    ).fit(X_all[:, c_geoph], y_tr)
 
-        m_e2 = fit_hgb_fast(Xb_tr, y_tr, seed=seed + 200 + 10 * k, max_iter=195, max_leaf_nodes=55)
-        del Xb_tr
+    m_fluv = lgb.LGBMClassifier(
+        n_estimators=n_dom, learning_rate=0.055, num_leaves=45, min_child_samples=100,
+        colsample_bytree=0.80, subsample=0.8, subsample_freq=1, reg_alpha=3.0, reg_lambda=10.0,
+        n_jobs=2, random_state=seed + 3, verbose=-1,
+    ).fit(X_all[:, c_fluv], y_tr)
 
-        m_e3_hgb = fit_hgb_fast(
-            Xm_tr, y_tr, seed=seed + 300 + 10 * k, max_iter=195, max_leaf_nodes=39, min_samples_leaf=120, l2_regularization=6.0
-        )
-        Xm_tr_clean = np.nan_to_num(Xm_tr, nan=0.0)
-        mlp = make_pipeline(
-            StandardScaler(),
-            MLPClassifier(
-                hidden_layer_sizes=(48, 24),
-                alpha=0.5,
-                max_iter=35,
-                early_stopping=True,
-                random_state=seed + 400 + k,
-            ),
-        )
-        mlp.fit(Xm_tr_clean, y_tr)
-        lr_cal = make_pipeline(StandardScaler(), LogisticRegression(C=0.5, max_iter=200))
-        lr_cal.fit(Xm_tr_clean, y_tr)
-        del Xm_tr, Xm_tr_clean, y_tr
-        gc.collect()
+    m_joint_leaf = lgb.LGBMClassifier(
+        n_estimators=n_jnt, learning_rate=0.05, num_leaves=63, min_child_samples=90,
+        colsample_bytree=0.75, subsample=0.8, subsample_freq=1, reg_alpha=2.5, reg_lambda=9.0,
+        n_jobs=2, random_state=seed + 4, verbose=-1,
+    ).fit(X_all, y_tr)
 
-        m_e2_folds.append(m_e2)
-        m_e3_folds.append((m_e3_hgb, mlp, lr_cal))
-
-        # Predict strictly on `test_q` (~1.29M rows -> ~3.5s per fold!) using `f["visible"]`
-        tq_flat = np.flatnonzero(test_q)
-        tq_rows = inv_map[tq_flat]
-        mech_fold_q = compute_fold_mechanics_2d(
-            f["visible"], fp, stack.best_strike_full, stack.tect_bg_full, stress_df
-        ).reshape(-1, len(FOLD_MECH_NAMES))[tq_flat]
-
-        xb_q = np.hstack([np.asarray(stack.X_mmap[tq_rows], dtype=np.float32), mech_fold_q])
-        p2_q = m_e2.predict_proba(xb_q)[:, 1].astype(np.float32)
-        del xb_q
-
-        xm_q = build_meta_features_from_parts(
-            np.asarray(s1_ctx_oof[tq_rows], dtype=np.float32), mech_fold_q
-        )
-        del mech_fold_q
-        xm_q0 = np.nan_to_num(xm_q, nan=0.0)
-        p3_q = (
-            0.68 * m_e3_hgb.predict_proba(xm_q)[:, 1]
-            + 0.22 * mlp.predict_proba(xm_q0)[:, 1]
-            + 0.10 * lr_cal.predict_proba(xm_q0)[:, 1]
-        ).astype(np.float32)
-        del xm_q, xm_q0
-        gc.collect()
-
-        e2_oof_raw.ravel()[tq_flat] = p2_q
-        e3_oof_raw.ravel()[tq_flat] = p3_q
-        e2_cal_oof[test_q] = calibrate_terrain_prevalence(
-            e2_oof_raw, stack.slope10_full, f["visible"], tr_dom, fp, blend=0.50
-        )[test_q]
-        e3_cal_oof[test_q] = calibrate_terrain_prevalence(
-            e3_oof_raw, stack.slope10_full, f["visible"], tr_dom, fp, blend=0.50
-        )[test_q]
-        print(f"  [Stage 2 Fold {f['name']}] E76-2 + E76-3 OOF complete ({time.time() - t0:.1f}s)")
-
-    # Free OOF axial matrix BEFORE computing Production axial matrix (`peak RSS stays < 1.1 GB`!)
-    del s1_ctx_oof, e2_oof_raw, e3_oof_raw
+    # Structurally diverse depth-regularized random-subspace partner (12x faster than sklearn HGB!)
+    m_joint_wide = lgb.LGBMClassifier(
+        n_estimators=n_jnt, learning_rate=0.05, max_depth=6, num_leaves=31, min_child_samples=180,
+        colsample_bytree=0.45, subsample=0.75, subsample_freq=1, reg_alpha=5.0, reg_lambda=18.0,
+        n_jobs=2, random_state=seed + 5, verbose=-1,
+    ).fit(X_all, y_tr)
+    del X_all
     gc.collect()
 
-    s1_ctx_prod = build_stage1_context_matrix(
-        p_phys_prod, p_scarp_prod, p_geoth_prod, p_subsf_prod, fp, stack.valid_idx
-    )
-    mech_prod_valid = compute_fold_mechanics_2d(
-        cat_full, fp, stack.best_strike_full, stack.tect_bg_full, stress_df
-    ).reshape(-1, len(FOLD_MECH_NAMES))[stack.valid_idx].astype(np.float16)
-    gc.collect()
-
-    n_val = stack.valid_idx.size
-    e2_prod_val = np.zeros(n_val, dtype=np.float64)
-    e3_prod_val = np.zeros(n_val, dtype=np.float64)
-    chunk = 650_000
-    for st in range(0, n_val, chunk):
-        en = min(n_val, st + chunk)
-        mp_chunk = np.asarray(mech_prod_valid[st:en], dtype=np.float32)
-        xb_p = np.hstack([np.asarray(stack.X_mmap[st:en], dtype=np.float32), mp_chunk])
-        for m_e2 in m_e2_folds:
-            e2_prod_val[st:en] += 0.25 * m_e2.predict_proba(xb_p)[:, 1]
-        del xb_p
-
-        xm_p = build_meta_features_from_parts(
-            np.asarray(s1_ctx_prod[st:en], dtype=np.float32), mp_chunk
-        )
-        xm_p0 = np.nan_to_num(xm_p, nan=0.0)
-        for m_hgb, m_mlp, m_lr in m_e3_folds:
-            e3_prod_val[st:en] += 0.25 * (
-                0.68 * m_hgb.predict_proba(xm_p)[:, 1]
-                + 0.22 * m_mlp.predict_proba(xm_p0)[:, 1]
-                + 0.10 * m_lr.predict_proba(xm_p0)[:, 1]
-            )
-        del xm_p, xm_p0, mp_chunk
-    del s1_ctx_prod, mech_prod_valid
-    gc.collect()
-
-    e2_prod_raw = np.zeros((H, W), dtype=np.float32)
-    e3_prod_raw = np.zeros((H, W), dtype=np.float32)
-    e2_prod_raw.ravel()[stack.valid_idx] = e2_prod_val.astype(np.float32)
-    e3_prod_raw.ravel()[stack.valid_idx] = e3_prod_val.astype(np.float32)
-    del e2_prod_val, e3_prod_val
-
-    e2_prod_surface = calibrate_terrain_prevalence(
-        e2_prod_raw, stack.slope10_full, cat_full, fp, fp, blend=0.50
-    )
-    e3_prod_surface = calibrate_terrain_prevalence(
-        e3_prod_raw, stack.slope10_full, cat_full, fp, fp, blend=0.50
-    )
-    del e2_prod_raw, e3_prod_raw, p_scarp_prod, p_geoth_prod, p_subsf_prod, inv_map
-    gc.collect()
-    out_dict = {
-        "e1_oof_surface": e1_cal_oof,
-        "e1_prod_surface": e1_prod_surface,
-        "e2_oof_surface": e2_cal_oof,
-        "e2_prod_surface": e2_prod_surface,
-        "e3_oof_surface": e3_cal_oof,
-        "e3_prod_surface": e3_prod_surface,
+    return {
+        "m_scarp": (m_scarp, c_scarp),
+        "m_geoph": (m_geoph, c_geoph),
+        "m_fluv": (m_fluv, c_fluv),
+        "m_joint_leaf": m_joint_leaf,
+        "m_joint_wide": m_joint_wide,
+        "true_pi": true_pi,
+        "sample_pi": sample_pi,
     }
-    if s2_ckpt is not None:
-        np.savez(s2_ckpt, **out_dict)
-    print(f"  [Stage 2 Prod] Full-footprint surfaces ready & checkpointed ({time.time() - t0:.1f}s)")
-    return out_dict
+
+
+def predict_stage1_suite(
+    suite: dict,
+    mm: np.memmap,
+    lid_valid_fp: np.ndarray,
+    fit_mask_fp: np.ndarray,
+    target_mask_fp: np.ndarray | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Predict ``(p_joint, p_scarp, p_geoph, p_fluv)`` only on ``fit_mask_fp | target_mask_fp``!"""
+    n_fp = mm.shape[0]
+    if target_mask_fp is None:
+        rows = np.arange(n_fp, dtype=np.int64)
+    else:
+        rows = np.flatnonzero(fit_mask_fp | target_mask_fp)
+
+    tpi, spi = suite["true_pi"], suite["sample_pi"]
+    p_sc = _prior_correct_prob(_predict_subset(suite["m_scarp"][0], mm, rows, suite["m_scarp"][1]), tpi, spi)
+    p_ge = _prior_correct_prob(_predict_subset(suite["m_geoph"][0], mm, rows, suite["m_geoph"][1]), tpi, spi)
+    p_fl = _prior_correct_prob(_predict_subset(suite["m_fluv"][0], mm, rows, suite["m_fluv"][1]), tpi, spi)
+    p_jl = _prior_correct_prob(_predict_subset(suite["m_joint_leaf"], mm, rows, slice(None)), tpi, spi)
+    p_jw = _prior_correct_prob(_predict_subset(suite["m_joint_wide"], mm, rows, slice(None)), tpi, spi)
+
+    lid_sub = lid_valid_fp[rows]
+    fit_sub = fit_mask_fp[rows]
+    p_sc_b = _cross_regime_quantile_bridge_subset(p_sc, lid_sub, fit_sub)
+    p_jl_b = _cross_regime_quantile_bridge_subset(p_jl, lid_sub, fit_sub)
+    p_jw_b = _cross_regime_quantile_bridge_subset(p_jw, lid_sub, fit_sub)
+    p_j_sub = (0.44 * p_jl_b + 0.32 * p_jw_b + 0.14 * p_sc_b + 0.05 * p_ge + 0.05 * p_fl).astype(np.float32)
+
+    if target_mask_fp is None:
+        return p_j_sub, p_sc_b, p_ge, p_fl
+
+    pj_out = np.zeros(n_fp, dtype=np.float32)
+    ps_out = np.zeros(n_fp, dtype=np.float32)
+    pg_out = np.zeros(n_fp, dtype=np.float32)
+    pf_out = np.zeros(n_fp, dtype=np.float32)
+    pj_out[rows] = p_j_sub
+    ps_out[rows] = p_sc_b
+    pg_out[rows] = p_ge
+    pf_out[rows] = p_fl
+    return pj_out, ps_out, pg_out, pf_out
+
+
+def row_major_disk_thin(
+    score_2d: np.ndarray,
+    allowed_2d: np.ndarray,
+    budget: int,
+    min_dist_px: float = 3.0,
+    binary_mask_top_k: int | None = None,
+) -> np.ndarray:
+    """Reproduces H33 / GEMSDOE32 disk thinning."""
+    H, W = score_2d.shape
+    s = np.where(allowed_2d, score_2d, -1.0)
+    if binary_mask_top_k is not None:
+        flat_valid = np.flatnonzero(allowed_2d.ravel())
+        k = min(int(binary_mask_top_k), flat_valid.size)
+        top = flat_valid[np.argpartition(s.ravel()[flat_valid], -k)[-k:]]
+        top.sort()
+        ys, xs = np.unravel_index(top, (H, W))
+    else:
+        flat_valid = np.flatnonzero(allowed_2d.ravel())
+        k_cand = min(max(int(budget) * 14, 100_000), flat_valid.size)
+        cand = flat_valid[np.argpartition(s.ravel()[flat_valid], -k_cand)[-k_cand:]]
+        cand = cand[np.argsort(-s.ravel()[cand], kind="stable")]
+        ys, xs = np.unravel_index(cand, (H, W))
+
+    r = int(np.ceil(min_dist_px))
+    ey, ex = np.mgrid[-r:r + 1, -r:r + 1]
+    m_ex = (ey * ey + ex * ex) < (min_dist_px * min_dist_px)
+    edy, edx = ey[m_ex], ex[m_ex]
+
+    pad = r
+    blocked = np.zeros((H + 2 * pad, W + 2 * pad), dtype=bool)
+    out = np.zeros((H, W), dtype=bool)
+    n = 0
+    for y, x in zip(ys.tolist(), xs.tolist()):
+        if n >= budget:
+            break
+        if blocked[y + pad, x + pad]:
+            continue
+        out[y, x] = True
+        blocked[y + pad + edy, x + pad + edx] = True
+        n += 1
+    return out

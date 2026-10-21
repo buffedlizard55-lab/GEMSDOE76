@@ -1,118 +1,79 @@
 #!/usr/bin/env python3
-"""Zero-manual-input restoration & SHA-256 verification of all official DOE GEMS
-competition rasters (`training_features.tif`, `existing_faults.tif`, `sample_submission.tif`)
-and public federal geoscience layers (`USGS GeoDAWN`, `USGS 3DEP 1m/10m`, `DOE GDR 1391`,
-`USGS ScienceBase`) into `.cache/data` and `.cache/external`."""
+"""Restore the SHA-256-pinned GEMS data stack from public owner mirrors on GitHub.
+
+Why mirrors: the organizer files live behind a DrivenData login
+(https://www.drivendata.org/competitions/306/competition-doe-gems/data/).
+The owner mirrors them in public GitHub repos; every byte restored here is
+verified against the pins in ``registry/data_manifest.json`` (those pins match
+GEMSDOE32's registry and GEMSDOE70's PINS). Mirror integrity is NOT organizer
+authentication — see the manifest's provenance note.
+
+Requires the GitHub CLI (``gh``) authenticated, or network access to
+github.com / codeload.github.com. Large files land in ``.cache/gems_data``
+(git-ignored); the two small bridge files are also copied to ``data/bridge``.
+"""
 from __future__ import annotations
 
-import gzip
 import hashlib
 import json
-import shutil
 import subprocess
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA_DIR = ROOT / ".cache" / "data"
-EXT_DIR = ROOT / ".cache" / "external"
-REFS_DIR = Path("/tmp/refs")
-
-OFFICIAL_PINS = {
-    "training_features.tif": "4371c82e3b8339b807bdffcf4ef59a225520fe2988d521be208ae33743123bc5",
-    "existing_faults.tif": "7ba308ccdc4418b31a178f4f1ef21aaa6e152e4028f2f6f64b01f7eb25ae4093",
-    "sample_submission.tif": "2176d08e485aa2cd2860ce8df539db4faf4d76163b38a4dd8c30a40454d35cbc",
-}
+CACHE = ROOT / ".cache" / "gems_data"
+MANIFEST = ROOT / "registry" / "data_manifest.json"
 
 
-def sha256(path: Path) -> str:
+def sha256(p: Path) -> str:
     h = hashlib.sha256()
-    with path.open("rb") as f:
-        while chunk := f.read(1 << 20):
+    with p.open("rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
             h.update(chunk)
     return h.hexdigest()
 
 
-def ensure_mirror_repo(repo_name: str) -> Path:
-    dest = REFS_DIR / repo_name
-    if not dest.exists():
-        REFS_DIR.mkdir(parents=True, exist_ok=True)
+def gh_raw(repo: str, ref: str, path: str, dest: Path) -> None:
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    tmp = dest.with_suffix(dest.suffix + ".partial")
+    with tmp.open("wb") as out:
         subprocess.run(
-            ["git", "clone", "--depth", "1", f"https://github.com/buffedlizard55-lab/{repo_name}.git", str(dest)],
-            check=True,
-        )
-    return dest
+            ["gh", "api", f"repos/{repo}/contents/{path}?ref={ref}",
+             "-H", "Accept: application/vnd.github.raw"],
+            stdout=out, check=True)
+    tmp.replace(dest)
 
 
-def main() -> None:
-    DATA_DIR.mkdir(parents=True, exist_ok=True)
-    EXT_DIR.mkdir(parents=True, exist_ok=True)
-
-    # Restore official competition rasters if not yet verified in .cache/data
-    for fname, expected in OFFICIAL_PINS.items():
-        target = DATA_DIR / fname
-        if target.exists() and sha256(target) == expected:
-            continue
-        r16 = ensure_mirror_repo("16GEMSDOE")
-        off_dir = r16 / "data" / "official"
-        if fname == "training_features.tif":
-            parts = sorted(off_dir.glob("training_features.tif.gz.part-*"))
-            tmp_gz = DATA_DIR / "training_features.tif.gz"
-            with tmp_gz.open("wb") as out:
-                for p in parts:
-                    shutil.copyfileobj(p.open("rb"), out)
-            with gzip.open(tmp_gz, "rb") as gz, target.open("wb") as out:
-                shutil.copyfileobj(gz, out)
-            tmp_gz.unlink(missing_ok=True)
-        else:
-            gz_path = off_dir / f"{fname}.gz"
-            if gz_path.exists():
-                with gzip.open(gz_path, "rb") as gz, target.open("wb") as out:
-                    shutil.copyfileobj(gz, out)
+def main() -> int:
+    manifest = json.loads(MANIFEST.read_text())
+    CACHE.mkdir(parents=True, exist_ok=True)
+    ok, bad = [], []
+    for entry in manifest["files"]:
+        dest = CACHE / entry["dest"]
+        if not (dest.exists() and sha256(dest) == entry["sha256"]):
+            if "parts" in entry:
+                part_files = []
+                for part in entry["parts"]:
+                    pdest = CACHE.parent / "parts" / Path(part).name
+                    gh_raw(entry["repo"], entry["ref"], part, pdest)
+                    part_files.append(pdest)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                with dest.open("wb") as out:
+                    for pf in part_files:
+                        out.write(pf.read_bytes())
             else:
-                shutil.copyfile(off_dir / fname, target)
-        got = sha256(target)
-        assert got == expected, f"SHA-256 mismatch for {fname}: {got} != {expected}"
-
-    # Ensure required public external layers exist in .cache/external
-    req_ext = [
-        ("60GEMSDOE", "data/external/lidar_scarp_features_u8.tif", "lidar_scarp_features_u8.tif"),
-        ("60GEMSDOE", "data/external/topo_10m_derived_100m_u8.tif", "topo_10m_derived_100m_u8.tif"),
-        ("60GEMSDOE", "data/external/dem10_chi_100m_u8.tif", "dem10_chi_100m_u8.tif"),
-        ("60GEMSDOE", "data/external/dem10_chi_100m_i16.tif", "dem10_chi_100m_i16.tif"),
-        ("60GEMSDOE", "data/external/geodawn_extensions_u8.tif", "geodawn_extensions_u8.tif"),
-        ("60GEMSDOE", "data/external/geodawn_rad_u8.tif", "geodawn_rad_u8.tif"),
-        ("60GEMSDOE", "data/external/gdr_wellspring_in_footprint.csv", "gdr_wellspring_in_footprint.csv"),
-        ("60GEMSDOE", "data/external/gdr_volcanic_vents_in_footprint.csv", "gdr_volcanic_vents_in_footprint.csv"),
-        ("60GEMSDOE", "data/external/2m_temperature_probe_INGENIOUS_regional_data.zip", "2m_temperature_probe_INGENIOUS_regional_data.zip"),
-        ("60GEMSDOE", "data/external/paleo_geothermal_regional.zip", "paleo_geothermal_regional.zip"),
-        ("19GEMSDOE", "evidence/ci/dem1m_high_prior_openness_lrm.npz", "dem1m_high_prior_openness_lrm.npz"),
-        ("GEMSDOE28", "docs/data/sb_heat_flow_in_footprint.csv", "sb_heat_flow_in_footprint.csv"),
-        ("GEMSDOE28", "docs/data/sb_slip_tendency_in_footprint.csv", "sb_slip_tendency_in_footprint.csv"),
-    ]
-    for repo, rel, dst_name in req_ext:
-        dst = EXT_DIR / dst_name
-        if not dst.exists():
-            rdir = ensure_mirror_repo(repo)
-            shutil.copyfile(rdir / rel, dst)
-
-    manifest = {
-        "official_rasters": {
-            fn: {"bytes": (DATA_DIR / fn).stat().st_size, "sha256": sha256(DATA_DIR / fn)}
-            for fn in OFFICIAL_PINS
-        },
-        "external_layers": {
-            p.name: {"bytes": p.stat().st_size, "sha256": sha256(p)}
-            for p in sorted(EXT_DIR.iterdir())
-            if p.is_file()
-        },
-    }
-    out_manifest = ROOT / "evidence" / "data_manifest.json"
-    out_manifest.parent.mkdir(parents=True, exist_ok=True)
-    out_manifest.write_text(json.dumps(manifest, indent=2) + "\n")
-    print("All official & open geoscience datasets verified cleanly.")
-    for fn, info in manifest["official_rasters"].items():
-        print(f"  [OK] {fn:24s} sha256={info['sha256']}")
+                gh_raw(entry["repo"], entry["ref"], entry["path"], dest)
+        digest = sha256(dest)
+        (ok if digest == entry["sha256"] else bad).append(entry["id"])
+        print(("OK   " if digest == entry["sha256"] else "FAIL ") + entry["id"], digest[:16])
+    for name in ("sample_submission.tif", "existing_faults.tif"):
+        src, dst = CACHE / name, ROOT / "data" / "bridge" / name
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if src.exists() and not (dst.exists() and sha256(dst) == sha256(src)):
+            dst.write_bytes(src.read_bytes())
+    print(f"verified {len(ok)} files; failures: {bad}")
+    return 1 if bad else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

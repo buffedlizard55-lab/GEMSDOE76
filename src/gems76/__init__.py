@@ -1,4 +1,5 @@
-"""GEMSDOE76 (`gems76`): Geothermal Vent Upflow, Verduzco Depth-Invariant Tilt &
-Self-Masked Fracture-Mechanics Submodular Fault Discovery."""
+"""GEMSDOE76 lane code: polarity-consistent piedmont scarp-dipole detector.
 
-__version__ = "0.76.0"
+Lane-scoped only. Shared metric / holdout / writer / validator live in
+``vendor/gems57`` (byte-pinned copy of the 60GEMSDOE template; never forked).
+"""

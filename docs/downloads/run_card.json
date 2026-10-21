@@ -76,7 +76,10 @@
     },
     "delta_vs_GEMSDOE70_P8": 0.04907,
     "GEMSDOE70_P9_ref": 0.10997,
-    "delta_vs_GEMSDOE70_P9": 0.04805
+    "delta_vs_GEMSDOE70_P9": 0.04805,
+    "intra_repo_G76C_hide20_dti": 0.10924,
+    "delta_vs_intra_repo_G76C_hide20": 0.04878,
+    "relative_gain_vs_intra_repo_G76C_hide20_pct": 44.65
   },
   "leakage_canary": {
     "n_features_tested": 63,
@@ -86,17 +89,26 @@
     "all_passed": true
   },
   "correlation_and_overlap_vs_registry": {
-    "n_unique_sha256_rasters_scanned": 860,
+    "n_unique_sha256_rasters_scanned": 870,
     "canonical_registry_surface_max_abs_rho": 0.07941,
     "canonical_registry_dots_max_abs_rho": 0.01096,
     "canonical_registry_dots_max_mutual_overlap": 0.2639,
     "archive_857_surface_max_abs_rho": 0.71366,
     "archive_857_dots_max_abs_rho": 0.0907,
-    "archive_857_dots_max_mutual_3px_overlap": 0.43597,
-    "archive_857_nearest_mutual_peer": "GEMSDOE47/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif",
+    "archive_857_dots_max_mutual_3px_overlap": 0.47227,
+    "archive_857_nearest_mutual_peer": "GEMSDOE76/gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif (0.47227); external: GEMSDOE47/gems47-h47maxcov-37654px-20261006T153105Z-fe9598facc-allfinite.tif (0.43597)",
     "archive_857_dots_max_literal_forward_3px_overlap": 0.67855,
     "archive_857_nearest_literal_peer": "GEMSDOE63/gemsdoe63-cvarlw-thin-s3p17-54864-20261011T220606Z-c58f60c4-nan.tif",
-    "all_uniqueness_gates_passed": true
+    "all_uniqueness_gates_passed": true,
+    "vs_intra_repo_G76C": {
+      "name": "GEMSDOE76_gems76-ptcf-tiltworm-submod39k-20261021T034000Z-6316481d-zeros.tif",
+      "sha256": "54c978399d0a875ba89aacc465e7efd8644420e6ba1dfa7c0a1390328be2c514",
+      "dots": 39200,
+      "literal_forward_3px_overlap": 0.53038,
+      "reverse_3px_overlap": 0.47227,
+      "mutual_3px_overlap": 0.47227,
+      "dots_abs_spearman": 0.04407
+    }
   },
   "raster_file": "gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif",
   "raster_sha256": "d706807d42d1b21f6417483cd7aeb04a410d62accd5a66c6b2a6ab0dc16662af",
@@ -183,5 +195,9 @@
     "fig4_canary_and_terrain_balance.png",
     "fig5_uniqueness_audit.png"
   ],
-  "verdict": "promote"
+  "verdict": "promote",
+  "run_id": "GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD",
+  "raster": "docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.tif",
+  "raster_zip": "docs/downloads/gems76_h76_3_geotherm_tilt_axial_submod_20261021_zeros.zip",
+  "note": "H76-3: OOF geothermal vent+MT clay-cap+Verduzco grav/mag tilt+deconfounded 1m/10m DEM+12-az axial+self-masked continuation 300m submod"
 }

@@ -1,0 +1,172 @@
+<!doctype html><html lang=en><head><meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<title>GEMSDOE76 Lane G76 — verdict: Do not submit (negative result)</title><style>
+:root{--ink:#17212b;--mut:#5b6b7a;--line:#d9e0e7;--bg:#f6f8fa;--red:#b00020;--redbg:#fdecec;--ok:#0b6e2f;--card:#fff}
+*{box-sizing:border-box}body{margin:0;font:16px/1.55 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 18px 64px}
+header{padding:28px 0 6px}h1{font-size:30px;margin:0 0 4px}h2{font-size:21px;margin:34px 0 8px;border-bottom:2px solid var(--line);padding-bottom:4px}
+.sub{color:var(--mut)} .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:14px 0}
+.verdict{border:3px solid var(--red);background:var(--redbg);border-radius:12px;padding:18px 20px;margin:18px 0}
+.verdict h2{border:0;margin:0 0 6px;color:var(--red);font-size:24px}
+code{background:#eef2f6;padding:1px 5px;border-radius:4px;font-size:.92em}
+table{border-collapse:collapse;width:100%;font-size:14px}th,td{border-bottom:1px solid var(--line);padding:6px 8px;text-align:left;vertical-align:top}
+th{background:#eef2f6}.num{text-align:right;font-variant-numeric:tabular-nums}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;padding:2px 7px;border-radius:20px;background:#e8eef4;color:#234}
+.tag.no{background:#f8d7da;color:var(--red)} .small{font-size:13px;color:var(--mut)}
+img{max-width:100%;border:1px solid var(--line);border-radius:8px}
+.btn{display:inline-block;padding:9px 14px;border-radius:8px;background:#e8eef4;color:#234;text-decoration:none;font-weight:600;margin:4px 6px 4px 0}
+.btn.disabled{background:#eee;color:#999;pointer-events:none}
+a{color:#0b5cad} footer{color:var(--mut);font-size:13px;margin-top:44px;border-top:1px solid var(--line);padding-top:12px}
+.scroll{overflow-x:auto}
+</style></head><body><div class=wrap>
+<header><h1>GEMSDOE76 — Piedmont Scarp-Dipole Lane</h1>
+<p class=sub>DOE GEMS Prize (DrivenData #306) · pre-registered Lane G76 session · 2026-10-21 ·
+archived official leaderboard observation <strong>0.4413</strong> (read 2026-10-21; not verified as current).
+The project brief later reports a current high of <strong>0.3195</strong> (USER-REPORTED; not independently verified here).
+<a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">Review the official leaderboard</a>.</p></header>
+
+<div class=verdict><h2>⛔ VERDICT: NEGATIVE — Do not submit any file from this lane</h2>
+<p><strong>It is NOT OK to download-and-submit this session's TIFF.</strong> Lane G76 was tested in two
+pre-registered experiments on the shared hide-and-recover holdout and lost decisively — below even
+count-matched random dots. The holdout result does not support promotion or justify a weekly slot.
+The file below is retained only as auditable evidence (its filename says DO-NOT-SUBMIT). A real slot
+requires a separate selector step; this session used
+<strong>0 slots</strong>.</p>
+<p><strong>HOLDOUT-DTI</strong> (gems57-pooled-hide-v2, seed 20, n=11,321 withheld catalogue px):
+candidate <strong>0.0218</strong> 95% CI [0.0145, 0.0303]
+vs fair-H33 control <strong>0.0927</strong> vs random 0.0458.
+No number on this page is an organizer-confirmed score; live values are labelled USER-REPORTED.</p>
+<p><a class=btn href="lane-g76-executive-summary.html">Executive summary — how submission works &amp; what to do instead</a>
+<a class=btn href="lane-g76-run-card.json">Run card (JSON)</a></p></div>
+
+<h2>The one download on this page (evidence only)</h2>
+<div class=card><p><span class="tag no">DO NOT SUBMIT</span>
+<code>gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif</code><br>
+SHA-256 <code>322ca8753a56e71796db6ceb9c7a03f76f890aff1d09f9180304d84e64152178</code> · 90,648 bytes · single-band float32 ·
+EPSG:32611 · 3730×3292 · all 12,279,160 cells finite in [0,1] (0 NaN) · 27,569 dots ·
+0 dots on the mapped catalogue. Format-valid by construction (shared fail-closed writer) —
+<strong>format validity is not score evidence</strong>.</p>
+<p>Per this repository's fail-closed site policy (main PR #2), no raster is served from the
+website. The artifact is preserved in the repository at
+<code>evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif</code>
+(<a href="https://github.com/buffedlizard55-lab/GEMSDOE76/blob/main/evidence/lane-g76/gems76-piedmont-dipole-exp2-27569dots-DO-NOT-SUBMIT.tif">GitHub</a>)
+with its one-TIFF ZIP and writer receipt beside it — review only, <strong>do not submit</strong>.</p>
+<p class=small>Suggested portal note if a future file from this lane were ever promoted (it is not):
+<code>G76 piedmont-dipole logistic Exp2: HOLDOUT-DTI 0.0218 vs fair-H33 0.0927 (negative, below random). DO NOT SUBMIT.</code></p></div>
+
+<h2>Why the incumbent scored 0.2778 — and why this lane could not beat it</h2>
+<div class=card>
+<p><strong>Measured:</strong> the incumbent <code>h33-h33-2-b2…-zeros</code> is a strict subset of the earlier
+44,090-dot "D2.8" raster — the supervised H19-5 surface thinned to isolated dots, with the 6,436 dots
+within 200&nbsp;m of the catalogue deleted (37,654 dots left). The <code>-zeros</code> vs <code>-nan</code>
+twins are bit-identical inside the footprint (verified); "zeros" (0.0 outside instead of NaN) only
+guarantees passing the portal's whole-raster [0,1] check — it adds no score. Three metric facts do the
+work: β/α&nbsp;=&nbsp;4 makes recall cheap (marginal bar k&nbsp;&gt;&nbsp;0.056 at s=0.2778); the
+300&nbsp;m max-kernel makes isolated dots nearly as good as lines at ~⅓ the FP cost; and catalogue pixels
+are masked in scoring, so near-catalogue dots are pure FP against expert "new fault" truth — deleting
+them was free.</p>
+<p><strong>Why G76 failed:</strong> the 1&nbsp;m-LiDAR dipole bands, max-pooled to 100&nbsp;m, are saturated by
+every fan channel and gully (best single-field AUC 0.631; fitted holdout AUC 0.620). Concentrated but
+imprecise dots lose to a uniform spread under this max-cover metric. Per-pixel 100&nbsp;m fields cap at
+AUC&nbsp;≈&nbsp;0.63 across every stack we measured (LiDAR, DEM10, GeoDAWN) — the winning ingredient is
+learned multi-physics + spatial context, which is the incumbent family's recipe, not a new transform.
+Full analysis: <a href="research/why-02778.md">docs/research/why-02778.md</a>.</p>
+<img src="assets/fig_dot_maps.png" alt="Dot maps: G76 Exp2 vs incumbent vs catalogue"></div>
+
+<h2>Experiments (pre-registered; 2 of 3 used)</h2>
+<div class=card><div class=scroll><table>
+<tr><th>Arm</th><th class=num>HOLDOUT-DTI (A, seed20, n=11,321)</th><th class=num>95% CI</th><th class=num>PROXY-DTI B′</th><th class=num>PROXY-DTI C76-pied</th></tr>
+<tr><td>Exp1 dipole-product dots (26,414)</td><td class=num>0.0217</td><td class=num>[0.0137, 0.0303]</td><td class=num>0.0106</td><td class=num>0.0140</td></tr>
+<tr><td><strong>Exp2 logistic-combiner dots (27,799 holdout / 27,569 final)</strong></td><td class=num><strong>0.0218</strong></td><td class=num>[0.0145, 0.0303]</td><td class=num>0.0172</td><td class=num>0.0208</td></tr>
+<tr><td>fair-H33 control (fold-honest B=2)</td><td class=num>0.0927</td><td class=num>[0.0802, 0.1058]</td><td class=num>0.0961*</td><td class=num>0.0945*</td></tr>
+<tr><td>random dots (37,654)</td><td class=num>0.0458</td><td class=num>[0.0401, 0.0512]</td><td class=num>0.0708</td><td class=num>0.0426</td></tr>
+</table></div>
+<p class=small>*H33-as-is on proxies. Leakage canaries: max feature-alone AUC Exp1 0.592,
+Exp2 0.620 (alarm &gt;0.90 — none fired).
+Lattice inversion prior: implied hidden-truth size ≈ 12,348 px
+(mean kernel cover 0.3718, bijection approximation — prior only, not a score).
+Preregistration: <a href="preregistration-g76.md">lane</a> + <a href="preregistration-g76-amendment-exp2.md">Exp-2 amendment</a> (both written before their scores).</p></div>
+
+<h2>Instrument audit — do local scores predict the live board?</h2>
+<div class=card><p>77 registry rasters with USER-REPORTED live scores were fetched, hash-verified against the
+GEMSDOE70 registry index, and re-scored identically. Correlations with live: Instrument-A-as-is
+Spearman ρ=0.158 (p=1.7e-01) — construction-biased, see IR-76-08;
+SGMC B′ ρ=0.334; piedmont-conditioned C76 ρ=0.523
+(p=1.0e-06; LOO range [0.504, 0.561]).
+C76 is the least-bad selector instrument but still leaves the whole top family statistically
+undifferentiated, and B′/C76 are gameable by SGMC-derived files (IR-76-09).
+Full table: <a href="score-ledger.csv">score-ledger.csv</a>.</p>
+<img src="assets/fig_instrument_correlation.png" alt="Instrument vs live correlation">
+<div class=scroll><table><tr><th>Top-15 by USER-REPORTED live</th><th class=num>live*</th><th class=num>dots</th><th class=num>A20</th><th class=num>B′</th><th class=num>C76</th></tr>
+<tr><td><code>gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code></td><td class=num>0.2778</td><td class=num>37,654</td><td class=num>0.0037</td><td class=num>0.0961</td><td class=num>0.0945</td></tr>
+<tr><td><code>gemsdoe36-anderson-geothermal-pinn-38854-20261004T230000Z-9b9ea4e6-nan.t</code></td><td class=num>0.2750</td><td class=num>38,854</td><td class=num>0.0038</td><td class=num>0.0975</td><td class=num>0.0960</td></tr>
+<tr><td><code>gems28-h36-1-rung30-blind-r1-20261003-b531dae0a36f-allfinite.tif</code></td><td class=num>0.2710</td><td class=num>37,660</td><td class=num>0.0271</td><td class=num>0.0946</td><td class=num>0.0936</td></tr>
+<tr><td><code>gemsdoe31-h27-4-solo-d28-20261004-8acb75e1-allfinite.tif</code></td><td class=num>0.2708</td><td class=num>40,199</td><td class=num>0.0291</td><td class=num>0.0966</td><td class=num>0.0928</td></tr>
+<tr><td><code>gems28-h38-1-hf-euler-r30-r1-20261003-56a9f473edc7-allfinite.tif</code></td><td class=num>0.2707</td><td class=num>37,860</td><td class=num>0.0270</td><td class=num>0.0949</td><td class=num>0.0938</td></tr>
+<tr><td><code>gems28-h32-1-prethin-tip-euler-d2-8-20261003-31e35eee884e-allfinite.tif</code></td><td class=num>0.2649</td><td class=num>42,294</td><td class=num>0.0613</td><td class=num>0.0963</td><td class=num>0.0909</td></tr>
+<tr><td><code>GEMSDOE33-h33d-analog-tip-stepover-r30-20261004-cb490425926e-nanoutside.</code></td><td class=num>0.2632</td><td class=num>41,865</td><td class=num>0.0531</td><td class=num>0.0971</td><td class=num>0.0922</td></tr>
+<tr><td><code>gems24-h25-1-dotted-h19-5-d2-8-20261002-e56ea318af89-allfinite.tif</code></td><td class=num>0.2600</td><td class=num>44,090</td><td class=num>0.0919</td><td class=num>0.0958</td><td class=num>0.0891</td></tr>
+<tr><td><code>gemsdoe30-d28-poisson300m-offcat-44090-20261003T233156Z-91eae1ca-nanouts</code></td><td class=num>0.2600</td><td class=num>44,090</td><td class=num>0.0919</td><td class=num>0.0958</td><td class=num>0.0891</td></tr>
+<tr><td><code>gems29-refd28-repro-20261003-1cc7dc534d51-nan.tif</code></td><td class=num>0.2600</td><td class=num>44,090</td><td class=num>0.0919</td><td class=num>0.0958</td><td class=num>0.0891</td></tr>
+<tr><td><code>gems29-wormrank-d28-20261003-59dcaf6dd11d-nan.tif</code></td><td class=num>0.2560</td><td class=num>41,338</td><td class=num>0.0914</td><td class=num>0.0929</td><td class=num>0.0854</td></tr>
+<tr><td><code>gems70-p5-dual-submod300-oof38k-20261020.tif</code></td><td class=num>0.2478</td><td class=num>37,654</td><td class=num>0.0026</td><td class=num>0.1289</td><td class=num>0.0889</td></tr>
+<tr><td><code>gems24-h25-1-dotted-h19-5-d1-5-20261002-989f59505db1-allfinite.tif</code></td><td class=num>0.2477</td><td class=num>60,069</td><td class=num>0.0888</td><td class=num>0.1018</td><td class=num>0.0846</td></tr>
+<tr><td><code>gems27-topo-gap-closure-t-v2-on-d1-5-20261002-5512495c6bd1-allfinite.tif</code></td><td class=num>0.2449</td><td class=num>61,328</td><td class=num>0.0884</td><td class=num>0.1031</td><td class=num>0.0862</td></tr>
+<tr><td><code>gems49-gate_ortho_w0.25-40k-20261006T213721Z-nan.tif</code></td><td class=num>0.2376</td><td class=num>40,000</td><td class=num>0.0000</td><td class=num>0.1346</td><td class=num>0.0757</td></tr></table></div>
+<h3>Unscored headline files (selector reference — measurements, not picks)</h3>
+<div class=scroll><table><tr><th>File</th><th class=num>live*</th><th class=num>dots</th><th class=num>A20</th><th class=num>B′</th><th class=num>C76</th></tr>
+<tr><td><code>gems70-p5-multiphysics-submodular-37654-20261020.tif</code></td><td class=num>—</td><td class=num>37,654</td><td class=num>0.0125</td><td class=num>0.1153</td><td class=num>0.1079</td></tr>
+<tr><td><code>gems70-e2-alluvialstep-38000-20261020T221218Z-zeros.tif</code></td><td class=num>—</td><td class=num>38,000</td><td class=num>0.0081</td><td class=num>0.1023</td><td class=num>0.1143</td></tr></table></div>
+<p class=small>*USER-REPORTED from the project prompt's per-site list; no organizer receipt exists in any
+cloned repository (IR-76-03). A20 for registry files is not fold-honest.</p></div>
+
+<h2>Uniqueness (protocol rule 1)</h2>
+<div class=card><p>Compared against <strong>122 registry rasters</strong> (surface + final dots):
+worst mutual 3&nbsp;px dot overlap <strong>0.106</strong>
+(vs <code>gemsdoe32-h33-h33-2-b2-20261004T220000Z-e5eb6e7e-zeros.tif</code>; gate ≤0.70) and worst |Spearman ρ|
+<strong>0.203</strong> (gate ≤0.90) — uniquely in its lane,
+which is necessary but (here) not sufficient. One-way forward overlap vs the dense 206,895-dot calibration
+lattice is ~1.0 for any dot raster; disclosed in <code>evidence/uniqueness_audit.json</code>.</p></div>
+
+<h2>Data &amp; provenance</h2>
+<div class=card><p>Competition rasters were restored from the owner's public GitHub mirrors and verified
+byte-for-byte against SHA-256 pins (all 13 files match):
+<code>training_features.tif</code> 4371c82e…, <code>labels/existing_faults</code> 7ba308cc…,
+<code>sample_submission</code> 2176d08e…. Mirror integrity is <em>not</em> organizer authentication; the
+authoritative source is the DrivenData data page (login required). The prompt's "single remaining blocker"
+(data placement) does not exist from an environment with GitHub access: <code>scripts/restore_data.py</code>
+reproduces the full stack. External layers: USGS 3DEP-derived LiDAR scarp stack &amp; GeoDAWN products via
+the same pins (<code>registry/data_manifest.json</code>).</p></div>
+
+<h2>Irregularities flagged (9)</h2>
+<div class=card><p>Includes: the incumbent site's <strong>empty download ZIP</strong> (216 bytes, no TIFF inside);
+no organizer receipt for "0.2778"; internally inconsistent holdout fields in the incumbent's audit JSON;
+the non-independent "Anderson" 0.2750 dot set; a shared-allocator early-stop defect (reported for upstream
+fix, vendor code untouched here). Full list: <a href="irregularities.md">docs/irregularities.md</a>.</p></div>
+
+<h2>Official sources (manual review)</h2>
+<div class=card><ul>
+<li>Problem description &amp; metric &amp; submission format — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/">DrivenData p.967</a></li>
+<li>About / additional resources — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/968/">DrivenData p.968</a></li>
+<li>Leaderboard — <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">official board</a>; this page's archived 2026-10-21 snapshot was 0.4413, while the prompt later reports 0.3195 as current. Current value is not verified in this environment.</li>
+<li>Rules PDF (NLR FY26OSTI 96647) — <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">docs.nlr.gov</a></li>
+<li>Masking of known faults (staff clarification) — <a href="https://community.drivendata.org/t/scoring-clarification-are-known-usgs-ingenious-faults-masked-when-scoring-and-are-they-in-the-final-round-label-set/11516">forum thread 11516</a></li>
+<li>Reference solution — <a href="https://github.com/drivendataorg/gems-prize-reference-solution">github.com/drivendataorg/gems-prize-reference-solution</a></li>
+<li>USGS GeoDAWN surveys — <a href="https://www.usgs.gov/data/geodawn-airborne-magnetic-and-radiometric-surveys-northwestern-great-basin-nevada-and">usgs.gov</a> · DOI 10.5066/P93LGLVQ</li>
+<li>GBCGE INGENIOUS — <a href="https://gbcge.org/current-projects/ingenious/">gbcge.org</a> · DOE GDR #1391 — <a href="https://gdr.openei.org/submissions/1391">gdr.openei.org</a> (CC BY 4.0)</li>
+<li>EPSG:32611 — <a href="https://epsg.io/32611">epsg.io/32611</a> · Tversky index — <a href="https://en.wikipedia.org/wiki/Tversky_index">Wikipedia</a></li>
+</ul></div>
+
+<h2>Limitations</h2>
+<div class=card><ul>
+<li>No DrivenData authentication in this environment: cannot submit, cannot read the private board or weekly slot balance, cannot authenticate mirror data with the organizer.</li>
+<li>No GPU; 2 CPU / 3 GB RAM sandbox. The 2-D patch-context route identified as most promising was out of reach here.</li>
+<li>Local instruments are proxies: hidden expert labels are unavailable by design; Instrument A measures catalogue recovery, B′/C76 measure SGMC-like geography. Both are shown to mis-track live at the top of the range.</li>
+<li>Score attributions in the family ledger are USER-REPORTED; file↔score links cannot be organizer-verified from here.</li>
+<li>GitHub Pages serving depends on repo settings (Settings → Pages → main /docs); this session could not confirm it is enabled.</li>
+</ul></div>
+
+<footer>GEMSDOE76 · Lane G76 negative result · evidence in <code>evidence/</code> ·
+run card <a href="lane-g76-run-card.json">lane-g76-run-card.json</a> · built by <code>scripts/build_lane_g76_pages.py</code> · canonical blocked-status site: <a href="index.html">index.html</a> ·
+Core decision rule applied throughout: maximize P(Win) — which here meant not spending a slot.</footer>
+</div></body></html>

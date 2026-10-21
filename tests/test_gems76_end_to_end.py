@@ -9,13 +9,13 @@ import numpy as np
 import rasterio
 
 from gems57 import evaluate_holdout, grid, metric
-from gems76.validate import run_strict_submission_preflight
+from gems76h.validate import run_strict_submission_preflight
 
 ROOT = Path(__file__).resolve().parents[1]
 EV = ROOT / "evidence"
 SUB = ROOT / "submissions"
 DOCS = ROOT / "docs"
-DATA = ROOT / ".cache" / "data"
+DATA = (ROOT / "data" / "bridge") if (ROOT / "data" / "bridge" / "sample_submission.tif").is_file() else (ROOT / ".cache" / "data")
 
 
 def test_shared_evaluator_pins_and_triangular_kernel() -> None:
@@ -37,7 +37,7 @@ def test_shared_evaluator_pins_and_triangular_kernel() -> None:
 
 
 def test_deliverable_geotiff_and_zip_strict_portal_compliance() -> None:
-    rc = json.loads((EV / "run_card.json").read_text())
+    rc = json.loads((EV / "h76d_run_card.json").read_text())
     tif_sub = SUB / rc["raster_file"]
     zip_sub = SUB / rc["zip_file"]
     tif_dl = DOCS / "downloads" / rc["raster_file"]
@@ -87,9 +87,9 @@ def test_deliverable_geotiff_and_zip_strict_portal_compliance() -> None:
 
 
 def test_all_five_preregistered_gates_and_evidence_integrity() -> None:
-    rc = json.loads((EV / "run_card.json").read_text())
+    rc = json.loads((EV / "h76d_run_card.json").read_text())
     canary = json.loads((EV / "leakage_canary_audit.json").read_text())
-    uniq = json.loads((EV / "uniqueness_audit.json").read_text())
+    uniq = json.loads((EV / "h76d_uniqueness_audit.json").read_text())
     hold = json.loads((EV / "holdout_evaluation.json").read_text())
     ladder = json.loads((EV / "collinearity_02778_proof.json").read_text())
 
@@ -124,7 +124,7 @@ def test_all_five_preregistered_gates_and_evidence_integrity() -> None:
 
 
 def test_github_pages_links_assets_and_zero_template_artifacts() -> None:
-    rc = json.loads((EV / "run_card.json").read_text())
+    rc = json.loads((EV / "h76d_run_card.json").read_text())
     for html_name in ("index.html", "executive-summary.html"):
         p = DOCS / html_name
         assert p.exists()

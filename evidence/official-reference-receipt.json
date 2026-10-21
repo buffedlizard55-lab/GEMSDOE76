@@ -1,0 +1,8 @@
+{
+  "source": "https://github.com/drivendataorg/gems-prize-reference-solution/blob/aebe92f7c8a990f0e3443451b7a825d9afd6336b/unet-mc-cv-reference-solution.ipynb",
+  "notebook_sha256": "1a7622732ba00f67237058bc0efe79b45ba4e87c449fc9c1e5d6ea659de92ca0",
+  "excerpt_file": "evidence/upstream/official-metric-excerpts.txt",
+  "excerpt_sha256": "3012ca999cb0c1eef7867897efbdfc3cdc4d794d089e4702e644216461e781b9",
+  "extraction": "Notebook cells containing tversky, triangular, def dti, def distance, alpha, or 300 (case insensitive).",
+  "scope": "Baseline task and training loss, not independent confirmation of full organizer DTI scoring."
+}
