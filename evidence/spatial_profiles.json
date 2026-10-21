@@ -1,0 +1,97 @@
+{
+  "GEMSDOE70 P8\n(Live 0.2478)": {
+    "n_pos": 37654,
+    "tw_kernel_mass": 267510.8,
+    "tw_per_dot": 7.104,
+    "steep_mountain_fraction": 0.6951,
+    "existing_faults_steep_reference": 0.3175,
+    "lidar_coverage_fraction": 0.7432,
+    "collar_le_2px_waste_fraction": 0.0,
+    "continuation_2_to_8px_fraction": 0.278,
+    "stepover_8_to_25px_fraction": 0.348,
+    "blind_basin_gt_25px_fraction": 0.374,
+    "median_d_cat_px": 17.49,
+    "quadrant_dot_shares_NW_NE_SW_SE": [
+      0.5348,
+      0.2714,
+      0.0789,
+      0.1148
+    ]
+  },
+  "19GEMSDOE D2.8\n(Live 0.2600)": {
+    "n_pos": 44090,
+    "tw_kernel_mass": 350759.8,
+    "tw_per_dot": 7.956,
+    "steep_mountain_fraction": 0.3111,
+    "existing_faults_steep_reference": 0.3175,
+    "lidar_coverage_fraction": 0.772,
+    "collar_le_2px_waste_fraction": 0.14597,
+    "continuation_2_to_8px_fraction": 0.2078,
+    "stepover_8_to_25px_fraction": 0.2897,
+    "blind_basin_gt_25px_fraction": 0.3565,
+    "median_d_cat_px": 15.0,
+    "quadrant_dot_shares_NW_NE_SW_SE": [
+      0.4705,
+      0.2584,
+      0.1308,
+      0.1403
+    ]
+  },
+  "GEMSDOE32 H33\n(Live 0.2778)": {
+    "n_pos": 37654,
+    "tw_kernel_mass": 302888.1,
+    "tw_per_dot": 8.044,
+    "steep_mountain_fraction": 0.3158,
+    "existing_faults_steep_reference": 0.3175,
+    "lidar_coverage_fraction": 0.7642,
+    "collar_le_2px_waste_fraction": 0.0,
+    "continuation_2_to_8px_fraction": 0.2434,
+    "stepover_8_to_25px_fraction": 0.3392,
+    "blind_basin_gt_25px_fraction": 0.4174,
+    "median_d_cat_px": 19.65,
+    "quadrant_dot_shares_NW_NE_SW_SE": [
+      0.4788,
+      0.2546,
+      0.1273,
+      0.1392
+    ]
+  },
+  "GEMSDOE76 E76-1\n(Pure Physics)": {
+    "n_pos": 37654,
+    "tw_kernel_mass": 233968.0,
+    "tw_per_dot": 6.214,
+    "steep_mountain_fraction": 0.1027,
+    "existing_faults_steep_reference": 0.3175,
+    "lidar_coverage_fraction": 0.8404,
+    "collar_le_2px_waste_fraction": 0.0,
+    "continuation_2_to_8px_fraction": 0.6063,
+    "stepover_8_to_25px_fraction": 0.2987,
+    "blind_basin_gt_25px_fraction": 0.095,
+    "median_d_cat_px": 6.32,
+    "quadrant_dot_shares_NW_NE_SW_SE": [
+      0.4647,
+      0.1707,
+      0.18,
+      0.1847
+    ]
+  },
+  "GEMSDOE76 E76-3\n(Hero Deliverable)": {
+    "n_pos": 37654,
+    "tw_kernel_mass": 255043.2,
+    "tw_per_dot": 6.773,
+    "steep_mountain_fraction": 0.4187,
+    "existing_faults_steep_reference": 0.3175,
+    "lidar_coverage_fraction": 0.8366,
+    "collar_le_2px_waste_fraction": 0.0,
+    "continuation_2_to_8px_fraction": 0.2917,
+    "stepover_8_to_25px_fraction": 0.3662,
+    "blind_basin_gt_25px_fraction": 0.3421,
+    "median_d_cat_px": 13.34,
+    "quadrant_dot_shares_NW_NE_SW_SE": [
+      0.4836,
+      0.1929,
+      0.1487,
+      0.1747
+    ]
+  }
+}

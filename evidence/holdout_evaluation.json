@@ -1,0 +1,397 @@
+{
+  "evidence_class": "HOLDOUT-DTI",
+  "evaluator_version": "gems57-pooled-hide-v2",
+  "alpha": 0.2,
+  "beta": 0.8,
+  "triangular_radius_m": 300.0,
+  "pooled": true,
+  "scores": {
+    "H33_gemsdoe32_static": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.003698680598708719,
+      "ci95": [
+        0.0029814064317770176,
+        0.004403022690182607
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 59.65441084410811,
+      "fpw": 35299.171121231586,
+      "fnw": 11261.345589155892
+    },
+    "D28_h19_4_static": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.09188832467218272,
+      "ci95": [
+        0.07947124690616172,
+        0.10461979863498713
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1605.884660575932,
+      "fpw": 40492.525798262286,
+      "fnw": 9715.115339424063
+    },
+    "random_control_37654": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.030661632539678397,
+      "ci95": [
+        0.026066780113638457,
+        0.0349378392635838
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 497.9244288466624,
+      "fpw": 35414.735305809,
+      "fnw": 10823.07557115333
+    },
+    "H33_fold_fair": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.09608619416803546,
+      "ci95": [
+        0.0831170443009186,
+        0.10952753004223065
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1588.9204532602826,
+      "fpw": 35809.116597847176,
+      "fnw": 9732.079546739715
+    },
+    "E76_1_pure_physics": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.08665719704187864,
+      "ci95": [
+        0.0635760982408047,
+        0.11432209994497529
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1389.9144399457261,
+      "fpw": 33522.2197180761,
+      "fnw": 9931.085560054267
+    },
+    "E76_2_selfmask_hgb": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.20124397318437204,
+      "ci95": [
+        0.17909919720359896,
+        0.22226454272704194
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 3284.8524690687277,
+      "fpw": 33044.833076169205,
+      "fnw": 8036.147530931274
+    },
+    "E76_3_hero_37654": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.15802064813585506,
+      "ci95": [
+        0.13855997617047822,
+        0.18024150417501286
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 2556.6513145631525,
+      "fpw": 33055.463994529964,
+      "fnw": 8764.348685436846
+    },
+    "E76_3_hero_prodbudget": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.1587094515199882,
+      "ci95": [
+        0.13865823066615213,
+        0.1804832852900619
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 2688.860360267966,
+      "fpw": 36737.291887007785,
+      "fnw": 8632.13963973203
+    },
+    "GEMSDOE70_P8_ref": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.10895068677365592,
+      "ci95": [
+        0.09292048694782538,
+        0.12490901910582883
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 2159.667893356803,
+      "fpw": 51668.506490798034,
+      "fnw": 9161.332106643189
+    },
+    "GEMSDOE70_P9_ref": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "dti": 0.1099675770922385,
+      "ci95": [
+        0.09195739566641377,
+        0.12817449181563792
+      ],
+      "withheld_positive_pixels": 11321,
+      "tpw": 1845.420118753549,
+      "fpw": 36778.04458812315,
+      "fnw": 9475.579881246455
+    }
+  },
+  "best_comparable_control": "E76_2_selfmask_hgb",
+  "paired_differences": {
+    "H33_gemsdoe32_static": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.15432196753714633,
+      "ci95": [
+        0.1353100039973297,
+        0.17572675893806747
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "D28_h19_4_static": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.06613232346367234,
+      "ci95": [
+        0.053052672205479386,
+        0.08059682914764867
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "random_control_37654": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.12735901559617666,
+      "ci95": [
+        0.10826380850186519,
+        0.1482827000378642
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "H33_fold_fair": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.0619344539678196,
+      "ci95": [
+        0.04876338698357779,
+        0.0763248787140737
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "E76_1_pure_physics": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": 0.07136345109397642,
+      "ci95": [
+        0.054073605327434014,
+        0.0891531850781069
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "E76_2_selfmask_hgb": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": -0.043223325048516975,
+      "ci95": [
+        -0.05982271800821169,
+        -0.026823351103970824
+      ],
+      "withheld_positive_pixels": 11321
+    },
+    "E76_3_hero_prodbudget": {
+      "evidence_class": "HOLDOUT-DTI",
+      "evaluator_version": "gems57-pooled-hide-v2",
+      "delta": -0.0006888033841331298,
+      "ci95": [
+        -0.0026419361469387655,
+        0.0010461613011135472
+      ],
+      "withheld_positive_pixels": 11321
+    }
+  },
+  "bootstrap": {
+    "method": "paired physical spatial-cluster percentile",
+    "clusters": 158,
+    "draws": 1000,
+    "seed": 520810,
+    "confidence": 0.95,
+    "caveat": "Conditional on fitted folds, catalogue labels and fixed budgets; not a leaderboard interval."
+  },
+  "implementation_sha256": {
+    "evaluate_holdout.py": "ad86640b46f3c5fc6b1aceec4c4bfc82d03e35008b37ab2a8ad6076e6810ff3a",
+    "holdout.py": "7a0a84176986190b527aa9c6a84216c2dab4b599f25b1143db5f420e85020ab1",
+    "metric.py": "4afe10cbaa229948520c75194b1ebc32676e72544f05582f0725092b097b4d7f",
+    "spatial.py": "fad7b09db9efc512247b9a176a7e7ce8631e287592b4e07902d0b9c38bed00f8"
+  },
+  "per_fold_breakdown": {
+    "E76_1_pure_physics": [
+      {
+        "fold": "NW",
+        "dti": 0.0816,
+        "tpw": 281.53,
+        "fpw": 9277.61,
+        "fnw": 1641.47,
+        "n_truth": 1923,
+        "n_emitted_in_region": 9464,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "NE",
+        "dti": 0.03485,
+        "tpw": 72.67,
+        "fpw": 884.4,
+        "fnw": 2294.33,
+        "n_truth": 2367,
+        "n_emitted_in_region": 924,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SW",
+        "dti": 0.08452,
+        "tpw": 494.94,
+        "fpw": 13659.49,
+        "fnw": 3286.06,
+        "n_truth": 3781,
+        "n_emitted_in_region": 13994,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SE",
+        "dti": 0.11634,
+        "tpw": 540.77,
+        "fpw": 9700.72,
+        "fnw": 2709.23,
+        "n_truth": 3250,
+        "n_emitted_in_region": 10028,
+        "n_dots_full_map": 37654
+      }
+    ],
+    "E76_2_selfmask_hgb": [
+      {
+        "fold": "NW",
+        "dti": 0.18739,
+        "tpw": 576.92,
+        "fpw": 7124.75,
+        "fnw": 1346.08,
+        "n_truth": 1923,
+        "n_emitted_in_region": 7510,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "NE",
+        "dti": 0.20616,
+        "tpw": 564.03,
+        "fpw": 3647.26,
+        "fnw": 1802.97,
+        "n_truth": 2367,
+        "n_emitted_in_region": 3999,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SW",
+        "dti": 0.20196,
+        "tpw": 1287.7,
+        "fpw": 15468.01,
+        "fnw": 2493.3,
+        "n_truth": 3781,
+        "n_emitted_in_region": 16293,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SE",
+        "dti": 0.2072,
+        "tpw": 856.2,
+        "fpw": 6804.81,
+        "fnw": 2393.8,
+        "n_truth": 3250,
+        "n_emitted_in_region": 7312,
+        "n_dots_full_map": 37654
+      }
+    ],
+    "E76_3_hero_37654": [
+      {
+        "fold": "NW",
+        "dti": 0.15533,
+        "tpw": 492.23,
+        "fpw": 7660.55,
+        "fnw": 1430.77,
+        "n_truth": 1923,
+        "n_emitted_in_region": 7989,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "NE",
+        "dti": 0.17577,
+        "tpw": 448.65,
+        "fpw": 2846.14,
+        "fnw": 1918.35,
+        "n_truth": 2367,
+        "n_emitted_in_region": 3110,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SW",
+        "dti": 0.13732,
+        "tpw": 854.53,
+        "fpw": 15136.88,
+        "fnw": 2926.47,
+        "n_truth": 3781,
+        "n_emitted_in_region": 15668,
+        "n_dots_full_map": 37654
+      },
+      {
+        "fold": "SE",
+        "dti": 0.17976,
+        "tpw": 761.24,
+        "fpw": 7411.9,
+        "fnw": 2488.76,
+        "n_truth": 3250,
+        "n_emitted_in_region": 7824,
+        "n_dots_full_map": 37654
+      }
+    ],
+    "E76_3_hero_prodbudget": [
+      {
+        "fold": "NW",
+        "dti": 0.15201,
+        "tpw": 509.18,
+        "fpw": 8546.8,
+        "fnw": 1413.82,
+        "n_truth": 1923,
+        "n_emitted_in_region": 8903,
+        "n_dots_full_map": 41800
+      },
+      {
+        "fold": "NE",
+        "dti": 0.18228,
+        "tpw": 478.52,
+        "fpw": 3179.68,
+        "fnw": 1888.48,
+        "n_truth": 2367,
+        "n_emitted_in_region": 3475,
+        "n_dots_full_map": 41800
+      },
+      {
+        "fold": "SW",
+        "dti": 0.13797,
+        "tpw": 904.22,
+        "fpw": 16740.49,
+        "fnw": 2876.78,
+        "n_truth": 3781,
+        "n_emitted_in_region": 17326,
+        "n_dots_full_map": 41800
+      },
+      {
+        "fold": "SE",
+        "dti": 0.18057,
+        "tpw": 796.93,
+        "fpw": 8270.31,
+        "fnw": 2453.07,
+        "n_truth": 3250,
+        "n_emitted_in_region": 8720,
+        "n_dots_full_map": 41800
+      }
+    ]
+  }
+}

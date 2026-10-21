@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gems76"
+version = "0.2.0"
+description = "DOE American-Made GEMS Fault Detection — Unified Multi-Physics, Verduzco Tilt & Self-Masked Continuation Pipeline"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src", "vendor", "scripts"]
+testpaths = ["tests"]

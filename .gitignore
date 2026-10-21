@@ -6,3 +6,13 @@ __pycache__/
 .mypy_cache/
 .ruff_cache/
 Unselected files/
+.cache/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/

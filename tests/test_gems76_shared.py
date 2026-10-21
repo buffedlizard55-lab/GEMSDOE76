@@ -202,8 +202,10 @@ def test_shipped_deliverable_end_to_end_drivendata_contract():
         assert int((arr[~fp] != 0.0).sum()) == 0
         assert int((arr[cat] != 0.0).sum()) == 0
 
-    rc = json.loads((ROOT / "run_card.json").read_text())
+    rc = json.loads((ROOT / "evidence" / "g76c_run_card.json").read_text())
     assert rc["raster_sha256"] == receipt["sha256"]
+    rc_root = json.loads((ROOT / "run_card.json").read_text())
+    assert rc_root["verdict"] == "promote"
     assert rc["zip_sha256"] == receipt["zip_sha256"]
     assert rc["submission_name"] == receipt["submission_name"]
     assert rc["submission_note"] == receipt["note"]

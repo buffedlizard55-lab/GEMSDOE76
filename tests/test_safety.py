@@ -40,7 +40,13 @@ def test_current_preflight_blocks_without_fake_raster():
     assert all(row['matches'] for row in report['pinned_files'])
     # Every published raster/archive in docs/downloads must be registered in a run card:
     # - Earlier parallel lanes (run-card.json, run-card-g76b.json) remain negative (not safe_to_submit).
-    # - Promoted hero candidate (run-card-g76c.json) has verdict == 'promote' and full 15/15 validation.
+    # - Promoted hero candidates (run-card-g76c.json, run-card-h76d.json, run-card-h76d-nan.json)
+    #   have verdict == 'promote' and full validation.
+    promoted_ids = {
+        'GEMSDOE76-EXP3-PTCF-TILTWORM-SUBMOD39K',
+        'GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD',
+        'GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD-NAN',
+    }
     tifs = list((ROOT/'docs/downloads').glob('*.tif'))
     cards = [json.loads((ROOT/'docs/downloads/run-card.json').read_text())]
     for extra in sorted((ROOT/'docs/downloads').glob('run-card-*.json')):
@@ -48,7 +54,7 @@ def test_current_preflight_blocks_without_fake_raster():
     listed = set()
     for c in cards:
         listed |= {c.get('raster'), c.get('raster_zip')} - {None}
-        if c.get('run_id') != 'GEMSDOE76-EXP3-PTCF-TILTWORM-SUBMOD39K':
+        if c.get('run_id') not in promoted_ids:
             assert c.get('verdict') != 'promote'
             assert c.get('safe_to_submit') is not True
     for tif in tifs:
@@ -210,10 +216,15 @@ def test_site_serves_labeled_negative_candidate_with_explicit_status():
     assert 'No experiment executed.' not in overview
 
     # Every raster/archive in docs must be explicitly registered in its run card.
+    promoted_ids = {
+        'GEMSDOE76-EXP3-PTCF-TILTWORM-SUBMOD39K',
+        'GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD',
+        'GEMSDOE76-H76-3-GEOTHERM-TILT-AXIAL-SUBMOD-NAN',
+    }
     listed = {run.get('raster'), run.get('raster_zip')} - {None}
     for extra in sorted((ROOT/'docs/downloads').glob('run-card-*.json')):
         c = json.loads(extra.read_text())
-        if c.get('run_id') != 'GEMSDOE76-EXP3-PTCF-TILTWORM-SUBMOD39K':
+        if c.get('run_id') not in promoted_ids:
             assert c.get('verdict') != 'promote' and c.get('safe_to_submit') is not True
         listed |= {c.get('raster'), c.get('raster_zip')} - {None}
     for p in (ROOT/'docs').rglob('*'):
