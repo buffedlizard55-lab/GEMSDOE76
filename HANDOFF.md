@@ -42,3 +42,12 @@ No software-test output is scientific evidence or an upload candidate.
 
 No credential sharing, paid data or GPU is needed to run this audit. Official data/rules access and cache placement
 are prerequisites for the scientific work; GPU usefulness depends on the eventually assigned method.
+
+## Hosting safety
+
+The repository already has legacy Pages on main/root. A direct attempt to change build_type
+through the Arena GitHub integration returned HTTP 403 (Pages-settings permission), despite
+repository admin metadata. No credentials were requested. The Actions deployment will be
+verified after merge. `_config.yml` excludes quarantine and all non-site inputs if legacy
+Jekyll runs; root `.nojekyll` was removed so those exclusions are honored. Actions uploads
+only docs/, which contains no prediction TIFFs or archived claims.

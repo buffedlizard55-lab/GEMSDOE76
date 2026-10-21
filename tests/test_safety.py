@@ -213,3 +213,11 @@ def test_inherited_candidates_are_withdrawn_against_bridge():
         assert report['catalogue_overlap_pixels']>0
     assert not (ROOT/'evidence/footprint.npy').exists()
     assert not (ROOT/'evidence/catalogue.npy').exists()
+
+
+def test_legacy_pages_does_not_publish_quarantine():
+    assert not (ROOT/'.nojekyll').exists()
+    config=(ROOT/'_config.yml').read_text()
+    assert '  - quarantine' in config and '  - data' in config
+    workflow=(ROOT/'.github/workflows/audit-and-pages.yml').read_text()
+    assert 'path: docs' in workflow
