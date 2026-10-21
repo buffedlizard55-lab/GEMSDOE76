@@ -1,20 +1,19 @@
-# Shared template — unmodified
+# Shared template, not a private fork
 
-All Python files under `gems57/` were recovered byte-for-byte from
-`buffedlizard55-lab/60GEMSDOE`, commit
-`b99591eede63c6d45c8a896255b8cd34824fa00b`.
+`gems57/` is byte-identical to `src/gems57/` in
+[buffedlizard55-lab/60GEMSDOE at 32024716f218d06a94e01464157392119c03cb15](https://github.com/buffedlizard55-lab/60GEMSDOE/tree/32024716f218d06a94e01464157392119c03cb15/src/gems57).
 
-See `evidence/upstream/recovery.json` for immutable per-file source URLs, SHA256 and sizes.
-`test_recovered_bytes_match_pins` checks every recovered file, including upstream evidence and bridge data.
+Restored through GEMSDOE69's byte-pinned vendor cache. Every file SHA-256 is
+checked by `scripts/audit.py`; the upstream Git tree/blob identity was checked
+independently and recorded in `evidence/template-upstream.json`.
 
-Do not edit these modules locally. If a shared tool is wrong, fix it in the template,
-report the upstream issue/PR, then update the pin and all checks together.
+Reuse `evaluate_holdout.py`, `submission_writer.py`, `holdout.py`, and the metric
+without modification. We did not discover or apply a shared-code fix in this
+session. A future shared defect must be fixed upstream once, not edited here.
+Passing `data_dir` explicitly avoids the historical vendored-root ambiguity.
 
-Import with `sys.path` pointing to `vendor/`, then `from gems57 import ...`.
-`gems57.__init__` contains inherited lane wording. That wording is NOT GEMSDOE76's lane assignment.
-No top-level module is substituted for the evaluator, metric or writer.
-
-The source repository exposes these files publicly; public visibility alone is not a redistribution
-license or confirmation of competition external-data eligibility. No explicit template license was
-found in the inspected root tree. Resolve licensing with the owner before reuse beyond this
-owner-requested repository. The organizer reference repository has its own license.
+Inherited module docstrings contain historical reports; these are not newly
+verified performance results. The metric docstring's aside that marginal truth
+credit cannot exceed self-credit is not generally valid for a dot covering
+multiple truth pixels. The algebra below that aside uses both terms; this audit
+does not rely on that simplifying assumption or change the shared implementation.

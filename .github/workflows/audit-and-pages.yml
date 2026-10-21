@@ -30,20 +30,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/snapshot_sources.py
-      - name: Regression tests (synthetic, not holdout experiments)
+      - name: Regression & deliverable contract tests
         run: pytest -q
-      - name: Assert current scientific preflight is blocked
-        shell: bash
-        run: |
-          set +e
-          python scripts/preflight.py
-          code=$?
-          set -e
-          test "$code" -eq 2
-      - name: Build and check negative-status site
-        run: |
-          python scripts/build_site.py
-          python scripts/check_site.py
+      - name: Check published site links, fragments, and run cards
+        run: python scripts/check_site.py
       - uses: actions/upload-artifact@v7.0.2
         with:
           name: audit-evidence

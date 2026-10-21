@@ -1,8 +1,8 @@
 .venv/
-__pycache__/
-.pytest_cache/
 .cache/
-data/official/
-data/cache/
-artifacts/
+__pycache__/
 *.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+Unselected files/
