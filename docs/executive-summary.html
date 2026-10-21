@@ -1,73 +1,24 @@
 <!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>How to submit — GEMSDOE76</title>
-<link rel="stylesheet" href="assets/site.css">
-</head>
-<body>
-<header class="top"><div class="wrap">
-<h1>How to submit — GEMSDOE76 <span class="pill">3 steps</span></h1>
-<nav><a href="index.html">Submission</a><a class="active" href="executive-summary.html">How to submit</a><a href="index.html#sources">Sources</a></nav>
-</div></header>
-<main class="wrap">
-
-<div class="dl">
-<h2>⬇ ONE-CLICK SUBMISSION FILE</h2>
-<p><a class="btn" href="downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif">Download gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif</a>
-<a class="btn alt" href="downloads/gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.zip">.zip (single GeoTIFF inside)</a></p>
-<p><b>Filename:</b> <code>gemsdoe76-h76a-radiometric-halo-mtbreach-38412-20261021T000000Z-zeros.tif</code><br>
-<b>Unique submission name:</b> <code>GEMSDOE76-H76A-RADON-MTBREACH-38412</code><br>
-<b>Note (175/200 chars):</b><br>
-<code>GEMSDOE76 H76-A radiometric U/K halo x MT breach | 38412 dots, 0 on catalogue, Laplacian edge consensus, Poisson 2.8 thin, verified in [0,1] all-finite zeros variant; UNSCORED</code></p>
-<p class="mut">single band · float32 · EPSG:32611 · 100 m · 3292×3730 · 38412 predicted pixels · every cell finite · every value in [0,1] · 0 NaN inside · no nodata tag · sha256 e7ac56f686b772fe…</p>
-</div>
-
-<div class="card">
-<h2>Step-by-step — from download to leaderboard</h2>
-<ol>
-<li><strong>Download file above</strong> — choose <code>.tif</code> directly or <code>.zip</code> (contains one GeoTIFF). SHA256 <code>e7ac56f686b772fe4c85f14368cea07d50082e0598e76af3474a8f7e9f746a39</code>, 132,631 bytes. Do not re-save in GIS software (may change nodata).</li>
-<li><strong>Open DrivenData submission page:</strong> <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/data/">Competition data page</a> → sidebar “Submit” → “Make new submission”. You must be enrolled (“Compete!” button) and logged in.</li>
-<li><strong>Upload:</strong>
-<ul>
-<li>“File to submit” → <strong>No file chosen</strong> → select the downloaded <code>.tif</code> or <code>.zip</code>.</li>
-<li>“Note (optional)” → paste the note string above (helps you tell submissions apart later, e.g. clustering with k=25 equivalent).</li>
-<li>“Create” → wait for format validation. If you see <em>“Predicted values must be in range [0, 1]”</em> see fix below — this file is already fixed, use the <code>-zeros.tif</code> variant (all-finite, no nodata).</li>
-</ul></li>
-<li><strong>Verify:</strong> DrivenData should show your file name and DTI not yet computed (scoring runs after deadline for Initial Prize Round; Final Round rescoring after expert review). Check <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/leaderboard/">public leaderboard</a> for public-test scores during competition (private test is hidden).</li>
-<li><strong>Rules:</strong> You may submit 3 times per week; <strong>one</strong> submission counts for both Prize Rounds (choose before deadline Dec 3 2026 11:59pm UTC). See <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/rules/">official rules</a> and <a href="https://docs.nlr.gov/docs/fy26osti/96647.pdf">GEMS rules PDF 96647</a>.</li>
-</ol>
-</div>
-
-<div class="card">
-<h2>What the file contains</h2>
-<ul>
-<li><strong>38,412 fault pixels</strong> (value 1.0) placed where radiometric U/K halo edge + MT conductive breach straight boundary coincide, Poisson-disk thinned 2.8 px (280 m) to avoid clumping that wastes α=0.2 mass, 0 dots on known USGS/INGENIOUS faults.</li>
-<li><strong>Every other pixel 0.0</strong> inside 5,167,373 footprint (geothermal-permissive area), outside footprint also 0.0 (zeros variant) so portal’s [0,1] check passes for every one of 12,279,160 cells.</li>
-<li><strong>CRS/shape/transform match:</strong> EPSG:32611, 100 m, 3292×3730, origin (243350,4508550), float32, single band — identical to <code>sample_submission.tif</code> and <code>training_features.tif</code>.</li>
-<li><strong>Unique:</strong> Not a copy of any prior GEMSDOE submission; SHA256 unique, rank-correlation &lt;0.60 vs registry, &lt;18% dots within 3 px of any registry raster.</li>
-</ul>
-</div>
-
-<div class="card">
-<h2>Portal error fix — why this file passes</h2>
-<p>See <a href="index.html#portal">main page portal fix section</a>. Short version: use <code>-zeros.tif</code> (nodata None, all finite) not <code>-nan.tif</code> if portal rejects. Both have identical values inside footprint.</p>
-</div>
-
-<div class="card">
-<h2>Submission format requirements (from problem description)</h2>
-<ul>
-<li>Same projected CRS as training data: <strong>EPSG:32611 UTM 11N</strong> (<a href="https://epsg.io/32611">epsg.io/32611</a>)</li>
-<li>Same resolution: <strong>100 m</strong></li>
-<li>Same bounds as training data, data outside bounds null or NaN</li>
-<li>Single layer, <strong>float32, values 0–1</strong> probability of fault — higher = higher confidence</li>
-<li>Sample submission provided on data download page — use as template</li>
-</ul>
-<p>Full spec: <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/page/967/#submission-format">Problem description § Submission format</a></p>
-</div>
-
-<footer><p><a href="index.html">← Back to main submission page</a> · <a href="https://github.com/buffedlizard55-lab/GEMSDOE76">Repository</a></p></footer>
-</main>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="GEMSDOE76: audited fault-detection research, scientific prerequisites and explicit submission readiness.">
+<title>Submission instructions · GEMSDOE76</title><link rel="stylesheet" href="style.css"></head>
+<body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="index.html">GEMS<span>DOE76</span></a><nav aria-label="Main"><a href="index.html" >Overview</a><a href="executive-summary.html" aria-current="page" >How to submit</a><a href="research.html" >Research & review</a><a href="inherited-main-audit.html" >Critical audit</a><a href="sources.html" >Sources</a></nav></header>
+<main id="main"><p class="eyebrow">EXECUTIVE SUMMARY</p><h1>How to make a competition submission</h1>
+<section class="notice"><h2>STOP: there is currently no file to upload.</h2><p>Do not submit the reference TIFFs, the JSON run card, or this webpage. No generated prediction has passed the required gates. This page is a future procedure, not approval.</p><a class="button secondary" href="downloads/run-card.json" download>Download the current negative decision</a></section>
+<h2>Before a file can be released</h2><ol class="steps">
+<li><strong>Establish inputs and lane.</strong> Resolve the parallel-run method assignment, place hash-pinned shared feature caches, authenticate sample/catalogue and data eligibility, and refresh the complete scoped raster registry.</li>
+<li><strong>Validate science.</strong> Run feature-alone leakage canaries, buffered whole-segment spatial hide-and-recover, and a frozen current-best comparator. Every catalogue feature must use visible faults only. Pool DTI components and report version, withheld positives and 95% confidence intervals.</li>
+<li><strong>Prove distinctness in the accessible scope.</strong> Check the surface before placement and the final dots. Stop if rank correlation exceeds 0.90 or forward dot overlap within 3 pixels exceeds 70% against any prior. Missing priors are not a clearance.</li>
+<li><strong>Package once, without silent repairs.</strong> Use the shared writer for single-band float32 GeoTIFF and, optionally, a ZIP containing only that TIFF. Predictions must already be finite and in [0,1]. Zero the exterior explicitly; mask visible catalogue pixels exactly. Verify CRS, shape and transform against the authenticated format.</li>
+<li><strong>Separate selection from generation.</strong> Require a documented holdout improvement against the current best and selector approval. Check current contest rules and the remaining weekly cap on the organizer’s submission page. No slot is authorized here.</li></ol>
+<h2>Only after a genuinely approved file is published</h2><ol class="steps">
+<li>Download the file explicitly marked as the approved prediction, not a reference or diagnostic. Compare its SHA256 against its adjacent receipt.</li>
+<li>Sign in to the <a href="https://www.drivendata.org/competitions/306/competition-doe-gems/">official competition</a>, review eligibility/rules, then open its New submission form. Follow the current organizer instructions if they differ from this retained brief.</li>
+<li>Choose the approved single-band <code>.tif</code>, or its one-TIFF <code>.zip</code>, as “File to submit”. Do not upload a document.</li>
+<li>Copy the artifact’s unique submission name and its note of at most 140 characters from its receipt. There is no candidate name or note intended for upload in this negative run.</li>
+<li>Submit only after the selector approves the slot. Save the submission-page receipt and organizer result. Only then label a score ORGANIZER-CONFIRMED.</li></ol>
+<h2>Prevent the reported range error</h2><p>The offending file was not available, so its exact cause is unknown. We reject NaN, infinity, negative values, values above one and incompatible nodata rather than silently clipping them. We validate the serialized file—not just the array in memory.</p>
+<pre><code>.venv/bin/python scripts/validate_candidate.py /path/to/candidate.tif</code></pre>
+<p>A successful local validator is not organizer acceptance. The current bridged reference grid is EPSG:32611, 3730 × 3292, affine (100, 0, 243350, 0, −100, 4508550); these are technical measurements, not score evidence, and still need official-origin authentication.</p>
+<h2>Review the receipts</h2><p><a href="downloads/preflight.json">Preflight</a> · <a href="downloads/recovered-byte-manifest.json">Pinned sources and hashes</a> · <a href="research.html">Full review and limitations</a></p></main><footer><strong>Evidence before confidence.</strong> No organizer-confirmed result or weekly-slot approval.
+<a href="https://github.com/buffedlizard55-lab/GEMSDOE76">Repository</a> · <a href="downloads/run-card.json">JSON run card</a></footer></body></html>

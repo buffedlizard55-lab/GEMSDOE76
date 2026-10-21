@@ -1,0 +1,13 @@
+{
+  "project": "GEMSDOE76",
+  "method_lane": null,
+  "lane_status": "Prompt refers to a single method paragraph but does not supply an unambiguous assignment.",
+  "template_repository": "buffedlizard55-lab/60GEMSDOE",
+  "template_commit": "b99591eede63c6d45c8a896255b8cd34824fa00b",
+  "maximum_experiments": 3,
+  "maximum_wall_hours": 2,
+  "surface_rank_correlation_stop_above": 0.90,
+  "forward_dot_overlap_within_3px_stop_above": 0.70,
+  "feature_auc_leakage_alert_above": 0.90,
+  "weekly_slot_approval": false
+}
